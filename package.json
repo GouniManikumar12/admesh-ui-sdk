@@ -1,6 +1,6 @@
 {
   "name": "admesh-ui-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Beautiful, modern React components for displaying AI-powered product recommendations with Tailwind CSS styling and built-in tracking",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,8 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/admesh-ui-sdk.css",
+    "./dist/admesh-ui-sdk.css": "./dist/admesh-ui-sdk.css"
   },
   "files": [
     "dist",
