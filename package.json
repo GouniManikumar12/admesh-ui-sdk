@@ -15,7 +15,11 @@
     "./styles": "./dist/style.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "INTEGRATION_GUIDE.md",
+    "USAGE.md",
+    "examples"
   ],
   "scripts": {
     "dev": "vite",
