@@ -1,0 +1,72 @@
+/* AdMesh UI SDK - Tailwind CSS Integration */
+
+@import "tailwindcss";
+
+/* Custom AdMesh Components */
+@layer components {
+  /* Base component styles */
+  .admesh-component {
+    font-family: theme(fontFamily.sans);
+  }
+
+  /* Premium Card Styles */
+  .admesh-card {
+    @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
+  }
+
+  /* Premium Button Styles */
+  .admesh-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .admesh-button--primary {
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 relative overflow-hidden;
+  }
+
+  .admesh-button--secondary {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700;
+  }
+
+  .admesh-button--outline {
+    @apply border border-gray-300 dark:border-gray-600 bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800;
+  }
+
+  /* Premium Badge Styles */
+  .admesh-badge {
+    @apply inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition-all duration-300 relative overflow-hidden;
+  }
+
+  .admesh-badge--primary {
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg;
+  }
+
+  .admesh-badge--secondary {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300;
+  }
+
+  .admesh-badge--success {
+    @apply bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg;
+  }
+
+  .admesh-badge--warning {
+    @apply bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg;
+  }
+
+  .admesh-badge--outline {
+    @apply border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-900/50 text-gray-700 dark:text-gray-300;
+  }
+
+  /* Badge sizes */
+  .admesh-badge--sm {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .admesh-badge--lg {
+    @apply px-4 py-2 text-base;
+  }
+
+  /* Utility classes */
+  .admesh-sr-only {
+    @apply sr-only;
+  }
+}
