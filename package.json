@@ -1,5 +1,5 @@
 {
-  "name": "@admesh/ui-sdk",
+  "name": "admesh-ui-sdk",
   "version": "0.1.0",
   "description": "Beautiful, modern React components for displaying AI-powered product recommendations with Tailwind CSS styling and built-in tracking",
   "type": "module",

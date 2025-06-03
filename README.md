@@ -16,15 +16,15 @@ A React + TypeScript component library for displaying AdMesh product recommendat
 ## 📦 Installation
 
 ```bash
-npm install @admesh/ui-sdk
+npm install admesh-ui-sdk
 ```
 
 ## 🎯 Quick Start
 
 ```tsx
 import React from 'react';
-import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/styles';
+import { AdMeshLayout } from 'admesh-ui-sdk';
+import 'admesh-ui-sdk/dist/style.css';
 
 const recommendations = [
   {

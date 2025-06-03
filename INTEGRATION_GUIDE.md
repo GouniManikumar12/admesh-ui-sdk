@@ -7,11 +7,11 @@ Complete guide for integrating AdMesh UI components into your application.
 ### Step 1: Install the Package
 
 ```bash
-npm install @admesh/ui-sdk
+npm install admesh-ui-sdk
 # or
-yarn add @admesh/ui-sdk
+yarn add admesh-ui-sdk
 # or
-pnpm add @admesh/ui-sdk
+pnpm add admesh-ui-sdk
 ```
 
 ### Step 2: Import Styles
@@ -19,14 +19,14 @@ pnpm add @admesh/ui-sdk
 **Important**: Always import the CSS file for proper styling:
 
 ```jsx
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+import 'admesh-ui-sdk/dist/style.css';
 ```
 
 ### Step 3: Use Components
 
 ```jsx
-import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+import { AdMeshLayout } from 'admesh-ui-sdk';
+import 'admesh-ui-sdk/dist/style.css';
 
 function App() {
   const recommendations = [
