@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import type { AdMeshLayoutProps, IntentType } from '../types/index';
 import { AdMeshProductCard } from './AdMeshProductCard';
 import { AdMeshCompareTable } from './AdMeshCompareTable';
-import styles from './AdMeshLayout.module.css';
+import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
 
 // Layout selection logic based on intent type and data characteristics
 const selectOptimalLayout = (
@@ -54,6 +54,9 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
   onTrackView,
   className
 }) => {
+  // Auto-inject styles
+  useAdMeshStyles();
+
   // Limit recommendations to display
   const displayRecommendations = useMemo(() => {
     return recommendations.slice(0, maxDisplayed);

@@ -24,7 +24,7 @@ npm install admesh-ui-sdk
 ```tsx
 import React from 'react';
 import { AdMeshLayout } from 'admesh-ui-sdk';
-import 'admesh-ui-sdk/dist/style.css';
+// No CSS import needed! Styles are auto-injected ✨
 
 const recommendations = [
   {

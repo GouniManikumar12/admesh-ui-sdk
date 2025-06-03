@@ -14,19 +14,12 @@ yarn add admesh-ui-sdk
 pnpm add admesh-ui-sdk
 ```
 
-### Step 2: Import Styles
+### Step 2: Use Components (Zero Configuration!)
 
-**Important**: Always import the CSS file for proper styling:
-
-```jsx
-import 'admesh-ui-sdk/dist/style.css';
-```
-
-### Step 3: Use Components
+**✨ No CSS imports needed!** Styles are automatically injected when you use any AdMesh component.
 
 ```jsx
 import { AdMeshLayout } from 'admesh-ui-sdk';
-import 'admesh-ui-sdk/dist/style.css';
 
 function App() {
   const recommendations = [

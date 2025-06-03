@@ -17,6 +17,10 @@ export {
   extractTrackingData
 } from './hooks/useAdMeshTracker';
 
+export {
+  useAdMeshStyles
+} from './hooks/useAdMeshStyles';
+
 // Export types
 export type {
   AdMeshRecommendation,
@@ -36,11 +40,8 @@ export type {
   AdMeshConfig
 } from './types/index';
 
-// Export styles (consumers can import this separately)
-import './styles/index.css';
-
 // Version info
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 // Default configuration
 export const DEFAULT_CONFIG = {
