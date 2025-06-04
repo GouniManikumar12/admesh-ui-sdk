@@ -2,21 +2,26 @@ import { useEffect } from 'react';
 
 // CSS content as a string - this will be injected automatically
 const ADMESH_STYLES = `
-/* AdMesh UI SDK Scoped Styles */
+/* AdMesh UI SDK Scoped Styles - Smart Recommendations Design */
 .admesh-component {
-  --admesh-primary: #4f46e5;
-  --admesh-primary-hover: #4338ca;
-  --admesh-secondary: #6b7280;
+  --admesh-primary: #6366f1;
+  --admesh-primary-hover: #4f46e5;
+  --admesh-secondary: #8b5cf6;
+  --admesh-accent: #06b6d4;
   --admesh-background: #ffffff;
-  --admesh-surface: #f9fafb;
-  --admesh-border: #e5e7eb;
-  --admesh-text: #111827;
-  --admesh-text-muted: #6b7280;
+  --admesh-surface: #ffffff;
+  --admesh-border: #e2e8f0;
+  --admesh-text: #0f172a;
+  --admesh-text-muted: #64748b;
+  --admesh-text-light: #94a3b8;
   --admesh-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --admesh-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --admesh-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --admesh-radius: 0.5rem;
-  --admesh-radius-sm: 0.25rem;
-  --admesh-radius-lg: 0.75rem;
+  --admesh-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --admesh-radius: 0.75rem;
+  --admesh-radius-sm: 0.375rem;
+  --admesh-radius-lg: 1rem;
+  --admesh-radius-xl: 1.5rem;
 }
 
 .admesh-component[data-admesh-theme="dark"] {

@@ -41,7 +41,7 @@ export type {
 } from './types/index';
 
 // Version info
-export const VERSION = '0.2.0';
+export const VERSION = '0.2.1';
 
 // Default configuration
 export const DEFAULT_CONFIG = {

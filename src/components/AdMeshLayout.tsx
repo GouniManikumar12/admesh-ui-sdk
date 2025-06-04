@@ -86,23 +86,17 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
       <div className={containerClasses}>
         <div className="admesh-layout__empty">
           <div className="admesh-layout__empty-content">
+            <div className="flex items-center justify-center mb-3">
+              <svg className="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+              </svg>
+            </div>
             <h3 className="admesh-text-lg admesh-font-semibold admesh-text-muted">
-              No recommendations available
+              No smart recommendations found
             </h3>
             <p className="admesh-text-sm admesh-text-muted">
-              Try adjusting your search criteria or check back later.
+              Try refining your search or check back later for new matches.
             </p>
-
-            {/* Powered by AdMesh branding */}
-            <div className="flex items-center justify-center mt-6 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-              <span className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-                <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                </svg>
-                <span className="font-medium">Powered by</span>
-                <span className="font-semibold text-indigo-600 dark:text-indigo-400">AdMesh</span>
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -128,11 +122,16 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
         <div className="admesh-layout__cards-container">
           {/* Header for cards layout */}
           <div className="admesh-layout__header">
-            <h3 className="admesh-layout__title admesh-text-xl admesh-font-semibold">
-              Recommended Products
-            </h3>
+            <div className="flex items-center gap-2 mb-1">
+              <svg className="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+              </svg>
+              <h3 className="admesh-layout__title admesh-text-xl admesh-font-semibold">
+                Smart Recommendations
+              </h3>
+            </div>
             <p className="admesh-layout__subtitle admesh-text-sm admesh-text-muted">
-              {displayRecommendations.length} product{displayRecommendations.length !== 1 ? 's' : ''} found
+              {displayRecommendations.length} intelligent match{displayRecommendations.length !== 1 ? 'es' : ''} found
             </p>
           </div>
 
@@ -156,21 +155,10 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
           {recommendations.length > maxDisplayed && (
             <div className="admesh-layout__more-indicator">
               <p className="admesh-text-sm admesh-text-muted">
-                Showing {maxDisplayed} of {recommendations.length} recommendations
+                Showing {maxDisplayed} of {recommendations.length} smart recommendations
               </p>
             </div>
           )}
-
-          {/* Powered by AdMesh branding */}
-          <div className="flex items-center justify-center mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
-            <span className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-              <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-              </svg>
-              <span className="font-medium">Powered by</span>
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">AdMesh</span>
-            </span>
-          </div>
         </div>
       )}
     </div>
