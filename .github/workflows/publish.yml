@@ -58,12 +58,14 @@ jobs:
           
       - name: Publish to NPM
         if: steps.version-check.outputs.changed == 'true'
+        continue-on-error: true
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.ADMESH_NPM_TOKEN || secrets.NPM_TOKEN }}
           
       - name: Create GitHub Release
         if: steps.version-check.outputs.changed == 'true'
+        continue-on-error: true
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,19 +74,20 @@ jobs:
           release_name: Release v${{ steps.version-check.outputs.current }}
           body: |
             ## Changes in v${{ steps.version-check.outputs.current }}
-            
+
             - Updated AdMesh UI SDK components
             - See [CHANGELOG.md](./CHANGELOG.md) for detailed changes
-            
+
             ## Installation
-            
+
             ```bash
             npm install @admesh/ui-sdk@${{ steps.version-check.outputs.current }}
             ```
           draft: false
           prerelease: false
-          
+
       - name: Deploy Storybook to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
