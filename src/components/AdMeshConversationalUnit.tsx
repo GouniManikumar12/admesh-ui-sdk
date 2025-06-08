@@ -11,7 +11,6 @@ export const AdMeshConversationalUnit: React.FC<AdMeshConversationalUnitProps> =
   config,
   theme,
   conversationSummary,
-  userQuery,
   sessionId,
   onRecommendationClick,
   onDismiss,
