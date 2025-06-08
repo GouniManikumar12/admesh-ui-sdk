@@ -15,6 +15,19 @@ const config: StorybookConfig = {
   "framework": {
     "name": "@storybook/react-vite",
     "options": {}
-  }
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+  managerHead: (head) => `
+    ${head}
+    <style>
+      .sidebar-header {
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  `,
 };
 export default config;

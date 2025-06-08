@@ -2,6 +2,12 @@
 
 A React + TypeScript component library for displaying AdMesh product recommendations with **citation-based conversation ads**, built-in tracking, and theming support.
 
+## 🌐 Live Sites
+
+- **🎭 Interactive Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/) - Explore all components and ad formats
+- **📚 Complete Documentation**: [https://gounimanikumar12.github.io/admesh-docs/](https://gounimanikumar12.github.io/admesh-docs/) - Full SDK documentation and guides
+- **🚀 AdMesh Dashboard**: [https://useadmesh.com](https://useadmesh.com) - Get your API keys and manage campaigns
+
 ## 🚀 Features
 
 - **Citation-Based Conversation Ads** - Display recommendations as numbered references within text, like academic papers or AI assistants
