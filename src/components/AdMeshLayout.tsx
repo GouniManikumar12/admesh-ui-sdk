@@ -69,11 +69,6 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
 
   const containerClasses = classNames(
     'admesh-component',
-    'admesh-layout',
-    `admesh-layout--${layout}`,
-    {
-      [`admesh-layout--${theme?.mode}`]: theme?.mode,
-    },
     className
   );
 
@@ -119,46 +114,19 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
           onProductClick={onProductClick}
         />
       ) : (
-        <div className="admesh-layout__cards-container">
-          {/* Header for cards layout */}
-          <div className="admesh-layout__header">
-            <div className="flex items-center gap-2 mb-1">
-              <svg className="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-              </svg>
-              <h3 className="admesh-layout__title admesh-text-xl admesh-font-semibold">
-                Smart Recommendations
-              </h3>
-            </div>
-            <p className="admesh-layout__subtitle admesh-text-sm admesh-text-muted">
-              {displayRecommendations.length} intelligent match{displayRecommendations.length !== 1 ? 'es' : ''} found
-            </p>
-          </div>
-
-          {/* Cards grid */}
-          <div className="admesh-layout__cards-grid">
-            {displayRecommendations.map((recommendation, index) => (
-              <AdMeshProductCard
-                key={recommendation.product_id || recommendation.ad_id || index}
-                recommendation={recommendation}
-                theme={theme}
-                showMatchScore={showMatchScores}
-                showBadges={true}
-                maxKeywords={3}
-                onClick={onProductClick}
-                onTrackView={onTrackView}
-              />
-            ))}
-          </div>
-
-          {/* Show more indicator if there are more recommendations */}
-          {recommendations.length > maxDisplayed && (
-            <div className="admesh-layout__more-indicator">
-              <p className="admesh-text-sm admesh-text-muted">
-                Showing {maxDisplayed} of {recommendations.length} smart recommendations
-              </p>
-            </div>
-          )}
+        <div className="space-y-4">
+          {displayRecommendations.map((recommendation, index) => (
+            <AdMeshProductCard
+              key={recommendation.product_id || recommendation.ad_id || index}
+              recommendation={recommendation}
+              theme={theme}
+              showMatchScore={showMatchScores}
+              showBadges={true}
+              maxKeywords={3}
+              onClick={onProductClick}
+              onTrackView={onTrackView}
+            />
+          ))}
         </div>
       )}
     </div>

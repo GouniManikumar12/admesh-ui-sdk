@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import type { AdMeshLinkTrackerProps } from '../types/index';
-import { useAdMeshTracker, extractTrackingData } from '../hooks/useAdMeshTracker';
+import { useAdMeshTracker } from '../hooks/useAdMeshTracker';
 
 export const AdMeshLinkTracker: React.FC<AdMeshLinkTrackerProps> = ({
   adId,

@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import type { AdMeshCompareTableProps } from '../types/index';
-import { AdMeshBadge } from './AdMeshBadge';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
 
 export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
@@ -18,181 +17,167 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
     return recommendations.slice(0, maxProducts);
   }, [recommendations, maxProducts]);
 
-  // Extract all unique features across products
-  const allFeatures = useMemo(() => {
-    const featuresSet = new Set<string>();
-    productsToCompare.forEach(product => {
-      product.features?.forEach(feature => featuresSet.add(feature));
-    });
-    return Array.from(featuresSet).slice(0, 8); // Limit to 8 features for readability
-  }, [productsToCompare]);
 
-  const tableClasses = classNames(
+
+  const containerClasses = classNames(
     'admesh-component',
-    'admesh-compare-table',
-    {
-      [`admesh-compare-table--${theme?.mode}`]: theme?.mode,
-    },
+    'admesh-compare-layout',
     className
   );
 
-  const tableStyle = theme?.accentColor ? {
+  const containerStyle = theme?.accentColor ? {
     '--admesh-primary': theme.accentColor,
   } as React.CSSProperties : undefined;
 
   if (productsToCompare.length === 0) {
     return (
-      <div className={tableClasses}>
-        <div className="admesh-compare-table__empty">
-          <p className="admesh-text-muted">No products to compare</p>
+      <div className={containerClasses}>
+        <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+          <p>No products to compare</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div 
-      className={tableClasses}
-      style={tableStyle}
+    <div
+      className={containerClasses}
+      style={containerStyle}
       data-admesh-theme={theme?.mode}
     >
-      <div className="admesh-compare-table__container">
-        <div className="admesh-compare-table__header">
-          <h3 className="admesh-compare-table__title admesh-text-xl admesh-font-semibold">
-            Product Comparison
-          </h3>
-          <p className="admesh-compare-table__subtitle admesh-text-sm admesh-text-muted">
-            Compare {productsToCompare.length} products side by side
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              Smart Comparison
+            </h3>
+          </div>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            {productsToCompare.length} intelligent matches found
           </p>
         </div>
 
-        <div className="admesh-compare-table__scroll-container">
-          <table className="admesh-compare-table__table">
-            <thead>
-              <tr>
-                <th className="admesh-compare-table__row-header">
-                  <span className="admesh-sr-only">Feature</span>
-                </th>
-                {productsToCompare.map((product, index) => (
-                  <th key={product.product_id || index} className="admesh-compare-table__product-header">
-                    <AdMeshLinkTracker
-                      adId={product.ad_id}
-                      admeshLink={product.admesh_link}
-                      productId={product.product_id}
-                      onClick={() => onProductClick?.(product.ad_id, product.admesh_link)}
-                      className="admesh-compare-table__product-header-content"
-                    >
-                      <div className="admesh-compare-table__product-title">
-                        <h4 className="admesh-text-base admesh-font-semibold admesh-truncate">
-                          {product.title}
-                        </h4>
-                        {showMatchScores && (
-                          <div className="admesh-compare-table__match-score">
-                            <span className="admesh-text-xs admesh-text-muted">
-                              {Math.round(product.intent_match_score * 100)}% match
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Badges */}
-                      <div className="admesh-compare-table__badges">
-                        {product.has_free_tier && (
-                          <AdMeshBadge type="Free Tier" size="sm" />
-                        )}
-                        {product.trial_days && product.trial_days > 0 && (
-                          <AdMeshBadge type="Trial Available" size="sm" />
-                        )}
-                        {product.intent_match_score >= 0.8 && (
-                          <AdMeshBadge type="Top Match" size="sm" />
-                        )}
-                      </div>
-
-                      <button className="admesh-button admesh-button--primary admesh-button--sm admesh-compare-table__cta">
-                        Visit Offer
-                      </button>
-                    </AdMeshLinkTracker>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            
-            <tbody>
-              {/* Pricing row */}
-              <tr>
-                <td className="admesh-compare-table__row-header admesh-font-medium">
-                  Pricing
-                </td>
-                {productsToCompare.map((product, index) => (
-                  <td key={product.product_id || index} className="admesh-compare-table__cell">
-                    <span className="admesh-text-sm">
-                      {product.pricing || 'Contact for pricing'}
+        {/* Product Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {productsToCompare.map((product, index) => (
+            <AdMeshLinkTracker
+              key={product.product_id || index}
+              adId={product.ad_id}
+              admeshLink={product.admesh_link}
+              productId={product.product_id}
+              onClick={() => onProductClick?.(product.ad_id, product.admesh_link)}
+              className="relative p-4 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow transition-shadow"
+            >
+              {/* Product Header */}
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-2">
+                  {index === 0 && (
+                    <span className="text-xs font-semibold text-white bg-black px-2 py-0.5 rounded-full">
+                      Top Match
                     </span>
-                  </td>
-                ))}
-              </tr>
+                  )}
+                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                    #{index + 1}
+                  </span>
+                </div>
+                {showMatchScores && (
+                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                    {Math.round(product.intent_match_score * 100)}% match
+                  </div>
+                )}
+              </div>
 
-              {/* Trial period row */}
-              <tr>
-                <td className="admesh-compare-table__row-header admesh-font-medium">
-                  Free Trial
-                </td>
-                {productsToCompare.map((product, index) => (
-                  <td key={product.product_id || index} className="admesh-compare-table__cell">
-                    <span className="admesh-text-sm">
-                      {product.trial_days ? `${product.trial_days} days` : 'No trial'}
-                    </span>
-                  </td>
-                ))}
-              </tr>
+              {/* Product Title */}
+              <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                {product.title}
+              </h4>
 
-              {/* Features rows */}
-              {showFeatures && allFeatures.map((feature, featureIndex) => (
-                <tr key={featureIndex}>
-                  <td className="admesh-compare-table__row-header admesh-font-medium">
-                    {feature}
-                  </td>
-                  {productsToCompare.map((product, productIndex) => (
-                    <td key={product.product_id || productIndex} className="admesh-compare-table__cell">
-                      <span className="admesh-text-sm">
-                        {product.features?.includes(feature) ? (
-                          <span className="admesh-compare-table__check">✓</span>
-                        ) : (
-                          <span className="admesh-compare-table__cross">—</span>
-                        )}
+              {/* Confidence Score */}
+              {showMatchScores && (
+                <div className="mb-3">
+                  <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <span>Confidence</span>
+                    <span>{Math.round(product.intent_match_score * 100)}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-slate-600 rounded h-1.5 overflow-hidden">
+                    <div
+                      className="bg-black h-1.5"
+                      style={{ width: `${Math.round(product.intent_match_score * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Pricing and Trial Info */}
+              <div className="flex flex-wrap gap-2 text-xs mb-3">
+                {product.pricing && (
+                  <span className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                    {product.pricing}
+                  </span>
+                )}
+
+                {product.has_free_tier && (
+                  <span className="flex items-center px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400 rounded-full">
+                    <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                    </svg>
+                    Free Tier
+                  </span>
+                )}
+
+                {product.trial_days && product.trial_days > 0 && (
+                  <span className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10m6-10v10m-6 0h6" />
+                    </svg>
+                    {product.trial_days}-day trial
+                  </span>
+                )}
+              </div>
+
+              {/* Features */}
+              {showFeatures && product.features && product.features.length > 0 && (
+                <div className="mb-3">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    Key Features:
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {product.features.slice(0, 4).map((feature, j) => (
+                      <span
+                        key={j}
+                        className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300"
+                      >
+                        <svg className="h-3 w-3 mr-0.5 inline text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {feature}
                       </span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
+                    ))}
+                    {(product.features.length || 0) > 4 && (
+                      <span className="text-xs text-gray-500 dark:text-gray-400 italic">
+                        +{product.features.length - 4} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
 
-              {/* Keywords row */}
-              <tr>
-                <td className="admesh-compare-table__row-header admesh-font-medium">
-                  Keywords
-                </td>
-                {productsToCompare.map((product, index) => (
-                  <td key={product.product_id || index} className="admesh-compare-table__cell">
-                    <div className="admesh-compare-table__keywords">
-                      {product.keywords?.slice(0, 3).map((keyword, keywordIndex) => (
-                        <span 
-                          key={keywordIndex}
-                          className="admesh-badge admesh-badge--secondary admesh-badge--sm"
-                        >
-                          {keyword}
-                        </span>
-                      ))}
-                      {(product.keywords?.length || 0) > 3 && (
-                        <span className="admesh-text-xs admesh-text-muted">
-                          +{(product.keywords?.length || 0) - 3}
-                        </span>
-                      )}
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
+              {/* Visit Button */}
+              <button className="w-full text-xs px-3 py-2 rounded-lg bg-black text-white hover:bg-gray-800 flex items-center justify-center gap-1 mt-auto">
+                Visit Offer
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </button>
+            </AdMeshLinkTracker>
+          ))}
         </div>
 
         {/* Powered by AdMesh branding */}

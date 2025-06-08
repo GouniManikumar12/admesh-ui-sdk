@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import type { AdMeshProductCardProps, BadgeType } from '../types/index';
-import { AdMeshBadge } from './AdMeshBadge';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
 
 export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
@@ -9,9 +8,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   theme,
   showMatchScore = true,
   showBadges = true,
-  maxKeywords = 3,
   onClick,
-  onTrackView,
   className
 }) => {
   // Generate badges based on recommendation data
@@ -49,16 +46,10 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   // Format match score as percentage
   const matchScorePercentage = Math.round(recommendation.intent_match_score * 100);
 
-  // Limit keywords display
-  const displayKeywords = recommendation.keywords?.slice(0, maxKeywords) || [];
-  const hasMoreKeywords = (recommendation.keywords?.length || 0) > maxKeywords;
-
   const cardClasses = classNames(
     'admesh-component',
     'admesh-card',
-    'group relative cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
-    'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm',
-    'overflow-hidden',
+    'relative p-3 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow transition-shadow cursor-pointer',
     className
   );
 
@@ -73,105 +64,145 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
       admeshLink={recommendation.admesh_link}
       productId={recommendation.product_id}
       onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
-      trackingData={{ 
+      trackingData={{
         title: recommendation.title,
-        matchScore: recommendation.intent_match_score 
+        matchScore: recommendation.intent_match_score
       }}
       className={cardClasses}
     >
-      {/* Glass overlay effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
       <div
-        className="relative p-8 h-full flex flex-col gap-6 z-10"
+        className="h-full flex flex-col"
         style={cardStyle}
         data-admesh-theme={theme?.mode}
       >
-        {/* Header with badges and match score */}
-        <div className="flex justify-between items-start gap-4 mb-2">
-          {showBadges && badges.length > 0 && (
-            <div className="flex flex-wrap gap-3 flex-1">
-              {badges.map((badge, index) => (
-                <AdMeshBadge key={`${badge}-${index}`} type={badge} size="sm" />
-              ))}
-            </div>
-          )}
-
-          {showMatchScore && (
-            <div className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg text-sm font-semibold shadow-lg relative overflow-hidden">
-              <div className="w-2 h-2 bg-white rounded-full shadow-sm animate-pulse" />
-              <span>{matchScorePercentage}% match</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            </div>
-          )}
-        </div>
-
-        {/* Main content */}
-        <div className="flex-1 flex flex-col gap-5">
-          <h3 className="text-2xl font-bold leading-tight text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-indigo-600 dark:from-white dark:to-indigo-400 bg-clip-text text-transparent group-hover:translate-x-1 transition-transform duration-300">
-            {recommendation.title}
-          </h3>
-
-          <p className="text-base leading-relaxed text-gray-600 dark:text-gray-300 font-normal">
-            {recommendation.reason}
-          </p>
-
-          {/* Keywords */}
-          {displayKeywords.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {displayKeywords.map((keyword, index) => (
-                <span
-                  key={index}
-                  className="admesh-badge admesh-badge--secondary admesh-badge--sm"
-                >
-                  {keyword}
-                </span>
-              ))}
-              {hasMoreKeywords && (
-                <span className="text-xs text-gray-500 dark:text-gray-400 italic">
-                  +{(recommendation.keywords?.length || 0) - maxKeywords} more
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Additional info */}
-          <div className="space-y-2">
-            {recommendation.pricing && (
-              <div className="text-sm">
-                <span className="text-gray-500 dark:text-gray-400">Pricing: </span>
-                <span className="font-medium text-gray-900 dark:text-white">{recommendation.pricing}</span>
-              </div>
+        {/* Header with badges and title */}
+        <div className="flex justify-between items-start mb-2">
+          <div className="flex items-center gap-2">
+            {showBadges && badges.includes('Top Match') && (
+              <span className="text-xs font-semibold text-white bg-black px-2 py-0.5 rounded-full">
+                Top Match
+              </span>
             )}
+            <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+              {recommendation.title}
+            </h4>
 
-            {recommendation.trial_days && recommendation.trial_days > 0 && (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {recommendation.trial_days}-day free trial
-              </div>
-            )}
+            <div className="flex gap-2">
+              <button className="text-xs px-2 py-1 rounded-full bg-black text-white hover:bg-gray-800 flex items-center">
+                Visit
+                <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Footer with CTA */}
-        <div className="mt-auto pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
-          <button className="admesh-button admesh-button--primary w-full relative overflow-hidden bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <span className="relative z-10">Visit Offer</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            <span className="sr-only">
-              for {recommendation.title}
-            </span>
-          </button>
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+          {recommendation.reason}
+        </p>
 
-          {/* Powered by AdMesh branding */}
-          <div className="flex items-center justify-center mt-4 text-xs text-gray-400 dark:text-gray-500">
-            <span className="flex items-center gap-1.5">
-              <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+        {/* Confidence Score */}
+        {showMatchScore && typeof recommendation.intent_match_score === "number" && (
+          <div className="mb-3">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+              <span>Confidence</span>
+              <span>{matchScorePercentage}%</span>
+            </div>
+            <div className="w-full bg-gray-200 dark:bg-slate-600 rounded h-1.5 overflow-hidden">
+              <div
+                className="bg-black h-1.5"
+                style={{ width: `${matchScorePercentage}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 text-xs mb-2">
+          {recommendation.pricing && (
+            <span className="flex items-center text-gray-600 dark:text-gray-400">
+              <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
               </svg>
-              <span className="font-medium">Powered by</span>
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">AdMesh</span>
+              {recommendation.pricing}
             </span>
+          )}
+
+          {recommendation.has_free_tier && (
+            <span className="flex items-center px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400 rounded-full">
+              <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+              </svg>
+              Free Tier
+            </span>
+          )}
+
+          {recommendation.trial_days && recommendation.trial_days > 0 && (
+            <span className="flex items-center text-gray-600 dark:text-gray-400">
+              <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10m6-10v10m-6 0h6" />
+              </svg>
+              {recommendation.trial_days}-day trial
+            </span>
+          )}
+        </div>
+
+        {/* Features */}
+        {recommendation.features && recommendation.features.length > 0 && (
+          <div className="mb-2">
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              Features:
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {recommendation.features.map((feature, j) => (
+                <span
+                  key={j}
+                  className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300"
+                >
+                  <svg className="h-3 w-3 mr-0.5 inline text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {feature}
+                </span>
+              ))}
+            </div>
           </div>
+        )}
+
+        {/* Integrations */}
+        {recommendation.integrations && recommendation.integrations.length > 0 && (
+          <div className="mb-2">
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              Integrates with:
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {recommendation.integrations.map((integration, j) => (
+                <span
+                  key={j}
+                  className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300"
+                >
+                  <svg className="h-3 w-3 mr-0.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                  {integration}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Reviews summary */}
+        {recommendation.reviews_summary && (
+          <div className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+            {recommendation.reviews_summary}
+          </div>
+        )}
+
+        {/* Powered by AdMesh branding */}
+        <div className="flex justify-end mt-auto pt-2">
+          <span className="text-xs text-gray-400 dark:text-gray-500">
+            Powered by AdMesh
+          </span>
         </div>
       </div>
     </AdMeshLinkTracker>

@@ -6,7 +6,20 @@ export {
   AdMeshCompareTable,
   AdMeshBadge,
   AdMeshLayout,
-  AdMeshLinkTracker
+  AdMeshLinkTracker,
+  AdMeshConversationalUnit,
+  AdMeshConversationSummary,
+  AdMeshInlineRecommendation,
+  AdMeshCitationUnit,
+  AdMeshCitationReference,
+  AdMeshSidebar,
+  AdMeshSidebarHeader,
+  AdMeshSidebarContent,
+  AdMeshFloatingChat,
+  AdMeshChatInterface,
+  AdMeshChatMessage,
+  AdMeshChatInput,
+  AdMeshAutoRecommendationWidget
 } from './components';
 
 // Export hooks
@@ -37,7 +50,33 @@ export type {
   AdMeshLinkTrackerProps,
   UseAdMeshTrackerReturn,
   AgentRecommendationResponse,
-  AdMeshConfig
+  AdMeshConfig,
+  ConversationalDisplayMode,
+  ConversationContext,
+  ConversationalAdConfig,
+  AdMeshConversationalUnitProps,
+  AdMeshConversationSummaryProps,
+  AdMeshInlineRecommendationProps,
+  AdMeshCitationUnitProps,
+  AdMeshCitationReferenceProps,
+  SidebarPosition,
+  SidebarSize,
+  SidebarDisplayMode,
+  AdMeshSidebarConfig,
+  AdMeshSidebarProps,
+  SidebarFilters,
+  AdMeshSidebarHeaderProps,
+  AdMeshSidebarContentProps,
+  ChatMessageRole,
+  ChatPosition,
+  ChatSize,
+  ChatDisplayMode,
+  ChatMessage,
+  AdMeshChatConfig,
+  AdMeshFloatingChatProps,
+  AdMeshChatInterfaceProps,
+  AdMeshChatMessageProps,
+  AdMeshChatInputProps
 } from './types/index';
 
 // Version info

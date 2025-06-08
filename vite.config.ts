@@ -13,7 +13,7 @@ export default defineConfig({
       exclude: ['src/**/*.stories.*', 'src/**/*.test.*'],
       outDir: 'dist',
       tsconfigPath: './tsconfig.build.json',
-      rollupTypes: true
+      rollupTypes: false
     })
   ],
   build: {
