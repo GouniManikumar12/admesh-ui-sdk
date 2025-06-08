@@ -41,6 +41,7 @@ jobs:
         run: npm run build
         
       - name: Build Storybook
+        id: build-storybook
         run: npm run build-storybook
         
       - name: Check if version changed
@@ -58,14 +59,12 @@ jobs:
           
       - name: Publish to NPM
         if: steps.version-check.outputs.changed == 'true'
-        continue-on-error: true
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.ADMESH_NPM_TOKEN || secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
       - name: Create GitHub Release
         if: steps.version-check.outputs.changed == 'true'
-        continue-on-error: true
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +86,7 @@ jobs:
           prerelease: false
 
       - name: Deploy Storybook to GitHub Pages
-        if: always()
+        if: always() && steps.build-storybook.conclusion == 'success'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
