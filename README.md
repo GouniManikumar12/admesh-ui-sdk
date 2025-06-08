@@ -879,14 +879,32 @@ interface AdMeshTheme {
 }
 ```
 
+## 🎭 Live Storybook Examples
+
+**🌐 Hosted Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/)
+
+Explore interactive examples and component variations:
+
+- **📚 Storybook Ad Formats** - Complete narrative examples with embedded citations
+- **📝 Citation Components** - Different citation styles (numbered, bracketed, superscript)
+- **💬 Conversational Ads** - Chat interface integration examples
+- **📊 Format Comparisons** - Traditional vs AdMesh side-by-side demonstrations
+- **🎨 Theme Variations** - Light/dark mode examples
+- **📱 Responsive Design** - Mobile and desktop layout adaptations
+
+**No installation required** - view all ad formats directly in your browser!
+
 ## 🛠 Development
 
 ```bash
 # Install dependencies
 npm install
 
-# Start Storybook
+# Start Storybook (local development)
 npm run storybook
+
+# Or visit the hosted version:
+# https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/
 
 # Build library
 npm run build

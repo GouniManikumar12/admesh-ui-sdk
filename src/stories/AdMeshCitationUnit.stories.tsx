@@ -242,3 +242,70 @@ export const InteractiveDemo: Story = {
     };
   },
 };
+
+// Storybook Ad Format Examples
+const startupStoryText = `Sarah was a brilliant engineer who decided to start her own SaaS company. As her customer base grew from 10 to 1,000 users, she realized she needed better tools to manage customer relationships¹ and track her sales pipeline².
+
+She also struggled with project management³ as her team expanded from 2 to 15 people. The spreadsheets and email chains that worked in the early days were no longer sufficient for coordinating complex projects and maintaining clear communication across the growing team.
+
+After researching various solutions and talking to other founders, Sarah found the perfect combination of tools that helped her scale efficiently while maintaining the personal touch that made her customers love the product.`;
+
+export const StorybookBusinessNarrative: Story = {
+  args: {
+    recommendations: [
+      {
+        title: "HubSpot CRM",
+        reason: "Perfect for growing businesses with excellent free tier and automation features",
+        intent_match_score: 0.94,
+        admesh_link: "https://useadmesh.com/track?ad_id=hubspot-crm&story=startup-journey",
+        ad_id: "hubspot-crm",
+        product_id: "hubspot",
+        has_free_tier: true,
+        trial_days: 14,
+        keywords: ["CRM", "Sales", "Free"],
+        categories: ["Sales Tools"],
+        features: ["Contact Management", "Deal Pipeline", "Email Integration"],
+        pricing: "Free tier available"
+      },
+      {
+        title: "Pipedrive",
+        reason: "Visual sales pipeline management that's perfect for tracking deals and opportunities",
+        intent_match_score: 0.89,
+        admesh_link: "https://useadmesh.com/track?ad_id=pipedrive&story=startup-journey",
+        ad_id: "pipedrive",
+        product_id: "pipedrive",
+        has_free_tier: false,
+        trial_days: 14,
+        keywords: ["CRM", "Sales Pipeline", "Visual"],
+        categories: ["Sales Tools"],
+        features: ["Visual Pipeline", "Deal Tracking", "Sales Reporting"],
+        pricing: "Starting at $14.90/user/month"
+      },
+      {
+        title: "Notion",
+        reason: "All-in-one workspace perfect for project management and team collaboration",
+        intent_match_score: 0.91,
+        admesh_link: "https://useadmesh.com/track?ad_id=notion&story=startup-journey",
+        ad_id: "notion",
+        product_id: "notion",
+        has_free_tier: true,
+        trial_days: 0,
+        keywords: ["Productivity", "Project Management", "Collaboration"],
+        categories: ["Productivity Tools"],
+        features: ["Database", "Wiki", "Project Management", "AI Assistant"],
+        pricing: "Free for personal use"
+      }
+    ],
+    conversationText: startupStoryText,
+    citationStyle: 'numbered',
+    showCitationList: true,
+    theme: { mode: 'light' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '📚 **Storybook Ad Format**: A business growth story showing how AdMesh recommendations appear as academic-style citations within narratives. This demonstrates the revolutionary "storybook advertising" approach that enhances content rather than interrupting it.',
+      },
+    },
+  },
+};
