@@ -175,7 +175,7 @@ function App() {
 
             <select
               value={layoutType}
-              onChange={(e) => setLayoutType(e.target.value as any)}
+              onChange={(e) => setLayoutType(e.target.value as 'auto' | 'cards' | 'compare')}
               style={{
                 padding: '0.75rem 1rem',
                 borderRadius: '0.75rem',

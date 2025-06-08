@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AdMeshProductCard } from '../components/AdMeshProductCard';
 import type { AdMeshRecommendation } from '../types/index';
 

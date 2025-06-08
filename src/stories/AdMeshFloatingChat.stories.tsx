@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { AdMeshFloatingChat } from '../components/AdMeshFloatingChat';
 import type { AdMeshRecommendation, ChatMessage } from '../types';
@@ -34,7 +34,7 @@ const sampleRecommendations: AdMeshRecommendation[] = [
   }
 ];
 
-const FloatingChatDemo = ({ args }: { args: any }) => {
+const FloatingChatDemo = ({ args }: { args: Record<string, unknown> }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSendMessage = async (message: string): Promise<ChatMessage> => {

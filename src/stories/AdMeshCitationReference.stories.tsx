@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AdMeshCitationReference } from '../components/AdMeshCitationReference';
 import type { AdMeshRecommendation } from '../types';
 
@@ -209,7 +209,7 @@ export const InteractiveDemo: Story = {
       console.log(`Citation clicked - Ad ID: ${adId}, Opening: ${admeshLink}`);
       // Let the AdMeshLinkTracker handle opening the link
     };
-    args.onHover = (recommendation: any) => {
+    args.onHover = (recommendation: AdMeshRecommendation) => {
       console.log('Citation hovered:', recommendation.title);
     };
   },

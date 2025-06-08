@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite-vite';
 import React, { useState } from 'react';
-import { AdMeshCitationUnit, AdMeshConversationalUnit } from '../components';
+import { AdMeshCitationUnit } from '../components';
 import type { AdMeshRecommendation } from '../types';
 
 // Sample recommendations for storybook examples
@@ -219,8 +219,8 @@ const AdFormatComparison: React.FC = () => {
               conversationText="Sarah was a brilliant engineer who decided to start her own SaaS company. As her customer base grew, she realized she needed better tools to manage customer relationships¹ and track her sales pipeline²."
               citationStyle="numbered"
               showCitationList={true}
-              onRecommendationClick={(adId, link) => {
-                console.log('Citation clicked:', adId);
+              onRecommendationClick={(adId, admeshLink) => {
+                console.log('Citation clicked:', adId, 'Link:', admeshLink);
               }}
               theme={{ mode: 'light' }}
             />

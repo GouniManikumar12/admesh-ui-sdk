@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { AdMeshSidebar } from '../components/AdMeshSidebar';
 import type { AdMeshRecommendation } from '../types';
@@ -90,7 +90,7 @@ const sampleRecommendations: AdMeshRecommendation[] = [
   }
 ];
 
-const SidebarDemo = ({ args }: { args: any }) => {
+const SidebarDemo = ({ args }: { args: Record<string, unknown> }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (

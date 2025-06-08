@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { AdMeshChatInterface } from '../components/AdMeshChatInterface';
 import type { ChatMessage, AdMeshRecommendation } from '../types';
@@ -68,7 +68,7 @@ const sampleMessages: ChatMessage[] = [
   }
 ];
 
-const ChatInterfaceDemo = ({ args }: { args: any }) => {
+const ChatInterfaceDemo = ({ args }: { args: Record<string, unknown> }) => {
   const [messages, setMessages] = useState<ChatMessage[]>(args.messages || []);
   const [isLoading, setIsLoading] = useState(false);
 

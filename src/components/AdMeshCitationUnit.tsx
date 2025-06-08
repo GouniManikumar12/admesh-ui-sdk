@@ -14,7 +14,7 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
   onCitationHover,
   className
 }) => {
-  const [hoveredRecommendation, setHoveredRecommendation] = useState<any>(null);
+  const [hoveredRecommendation, setHoveredRecommendation] = useState<AdMeshRecommendation | null>(null);
 
   // Process conversation text to insert citations
   const processedContent = useMemo(() => {

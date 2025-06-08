@@ -69,7 +69,7 @@ export interface TrackingData {
   productId?: string;
   revenue?: number;
   conversionType?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // Component prop interfaces
@@ -323,7 +323,7 @@ export interface AdMeshLinkTrackerProps {
   productId?: string;
   children: React.ReactNode;
   onClick?: () => void;
-  trackingData?: Record<string, any>;
+  trackingData?: Record<string, unknown>;
   className?: string;
 }
 

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { TrackingData, UseAdMeshTrackerReturn } from '../types/index';
 
 // Default tracking endpoint - can be overridden via config
@@ -29,9 +29,9 @@ export const useAdMeshTracker = (config?: Partial<TrackingConfig>): UseAdMeshTra
   const [isTracking, setIsTracking] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const mergedConfig = { ...globalConfig, ...config };
+  const mergedConfig = useMemo(() => ({ ...globalConfig, ...config }), [config]);
 
-  const log = useCallback((message: string, data?: any) => {
+  const log = useCallback((message: string, data?: unknown) => {
     if (mergedConfig.debug) {
       console.log(`[AdMesh Tracker] ${message}`, data);
     }
@@ -127,7 +127,7 @@ export const useAdMeshTracker = (config?: Partial<TrackingConfig>): UseAdMeshTra
       log('Warning: Conversion tracking without revenue or conversion type', data);
     }
     return sendTrackingEvent('conversion', data);
-  }, [sendTrackingEvent]);
+  }, [sendTrackingEvent, log]);
 
   return {
     trackClick,
@@ -157,8 +157,8 @@ export const buildAdMeshLink = (
     }
     
     return url.toString();
-  } catch (error) {
-    console.warn('[AdMesh] Invalid URL provided to buildAdMeshLink:', baseLink);
+  } catch (err) {
+    console.warn('[AdMesh] Invalid URL provided to buildAdMeshLink:', baseLink, err);
     return baseLink;
   }
 };

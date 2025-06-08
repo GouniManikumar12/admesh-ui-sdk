@@ -7,7 +7,7 @@ import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
 
 // Layout selection logic based on intent type and data characteristics
 const selectOptimalLayout = (
-  recommendations: any[],
+  recommendations: AdMeshRecommendation[],
   intentType?: IntentType,
   autoLayout?: boolean
 ): 'cards' | 'compare' | 'list' => {

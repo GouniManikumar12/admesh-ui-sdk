@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AdMeshConversationalUnit } from '../components/AdMeshConversationalUnit';
 import type { AdMeshRecommendation } from '../types';
 
@@ -289,7 +289,7 @@ export const InteractiveDemo: Story = {
       },
     },
   },
-  play: async ({ args, canvasElement }) => {
+  play: async ({ args }) => {
     // Add click handlers for demo
     args.onRecommendationClick = (adId: string, admeshLink: string) => {
       alert(`Clicked recommendation: ${adId}\nLink: ${admeshLink}`);

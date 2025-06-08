@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { AdMeshAutoRecommendationWidget } from '../components/AdMeshAutoRecommendationWidget';
 import type { AdMeshRecommendation } from '../types';
@@ -34,7 +34,7 @@ const sampleRecommendations: AdMeshRecommendation[] = [
   }
 ];
 
-const AutoWidgetDemo = ({ args }: { args: any }) => {
+const AutoWidgetDemo = ({ args }: { args: Record<string, unknown> }) => {
   const [showWidget, setShowWidget] = useState(false);
   const [currentTrigger, setCurrentTrigger] = useState('');
 
