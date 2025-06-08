@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
-import type { AdMeshCitationUnitProps } from '../types/index';
+import type { AdMeshCitationUnitProps, AdMeshRecommendation } from '../types/index';
 import { AdMeshCitationReference } from './AdMeshCitationReference';
 import { AdMeshInlineRecommendation } from './AdMeshInlineRecommendation';
 

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import type { AdMeshLayoutProps, IntentType } from '../types/index';
+import type { AdMeshLayoutProps, IntentType, AdMeshRecommendation } from '../types/index';
 import { AdMeshProductCard } from './AdMeshProductCard';
 import { AdMeshCompareTable } from './AdMeshCompareTable';
 import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
