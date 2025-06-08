@@ -77,7 +77,6 @@ jobs:
           prerelease: false
           
       - name: Deploy Storybook to GitHub Pages
-        if: steps.version-check.outputs.changed == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
