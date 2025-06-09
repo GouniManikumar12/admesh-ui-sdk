@@ -4,9 +4,11 @@ A React + TypeScript component library for displaying AdMesh product recommendat
 
 ## 🌐 Live Sites
 
-- **🎭 Interactive Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/) - Explore all components and ad formats
-- **📚 Complete Documentation**: [https://docs.useadmesh.com/](https://docs.useadmesh.com/) - Full SDK documentation and guides
+- **📚 Complete Documentation**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/) - Full SDK documentation and guides
+- **🎭 Interactive Storybook**: [https://admesh-ui-sdk.vercel.app/storybook/](https://admesh-ui-sdk.vercel.app/storybook/) - Explore all components and ad formats
 - **🚀 AdMesh Dashboard**: [https://useadmesh.com](https://useadmesh.com) - Get your API keys and manage campaigns
+
+> **📖 Unified Documentation**: This repository now contains both the UI SDK components and comprehensive documentation, all hosted together on Vercel for a seamless developer experience.
 
 ## 🚀 Features
 
@@ -906,18 +908,46 @@ Explore interactive examples and component variations:
 # Install dependencies
 npm install
 
-# Start Storybook (local development)
-npm run storybook
+# Start both docs and Storybook (recommended)
+npm run dev:all
 
-# Or visit the hosted version:
-# https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/
+# Or start individually:
+npm run docs:dev          # Documentation at :3000
+npm run storybook         # Storybook at :6006
 
-# Build library
+# Build everything for production
+npm run build:all
+
+# Test production build locally
+npm run serve:combined
+
+# Build library only
 npm run build
 
 # Run linting
 npm run lint
 ```
+
+## 🚀 Deployment
+
+### Automatic Vercel Deployment
+1. Go to [vercel.com](https://vercel.com) and import your GitHub repository
+2. Configure build settings:
+   - **Build Command**: `npm run build:all`
+   - **Output Directory**: `build`
+3. Deploy automatically on every push to main
+
+**No environment variables needed** - Vercel's GitHub integration handles everything automatically!
+
+### Manual Deployment
+```bash
+npm run build:all
+npx serve build
+```
+
+The unified build creates:
+- Documentation at `/`
+- Storybook at `/storybook`
 
 ## 📄 License
 

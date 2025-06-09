@@ -1,4 +1,4 @@
-name: Publish AdMesh UI SDK
+name: Publish AdMesh UI SDK & Deploy to Vercel
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
     paths:
       - 'package.json'
       - 'src/**'
+      - 'docs/**'
+      - '.storybook/**'
       - '.github/workflows/publish.yml'
   workflow_dispatch:
 
@@ -38,16 +40,19 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        
+
+      - name: Install docs dependencies
+        run: cd docs && npm ci
+
       - name: Run linting
         run: npm run lint
-        
+
       - name: Build library
         run: npm run build
-        
-      - name: Build Storybook
-        id: build-storybook
-        run: npm run build-storybook
+
+      - name: Build documentation and Storybook
+        id: build-all
+        run: npm run build:all
         
       - name: Check if version changed
         id: version-check
@@ -88,16 +93,21 @@ jobs:
             npm install admesh-ui-sdk@${{ steps.version-check.outputs.current }}
             ```
 
-            ## Hosted Storybook
+            ## Hosted Documentation & Storybook
 
-            View interactive examples: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/)
+            - **Documentation**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/)
+            - **Storybook**: [https://admesh-ui-sdk.vercel.app/storybook/](https://admesh-ui-sdk.vercel.app/storybook/)
           draft: false
           prerelease: false
 
-      - name: Deploy Storybook to GitHub Pages
-        if: always() && steps.build-storybook.conclusion == 'success'
-        uses: peaceiris/actions-gh-pages@v4
+      # Vercel deployment is handled automatically via GitHub integration
+      # No manual deployment step needed - Vercel deploys on push to main
+
+      - name: Deploy to Chromatic (Optional)
+        if: always() && steps.build-all.conclusion == 'success'
+        uses: chromaui/action@latest
+        continue-on-error: true
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./storybook-static
-          destination_dir: storybook
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          storybookBuildDir: storybook-static
