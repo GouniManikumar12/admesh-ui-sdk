@@ -4,7 +4,7 @@ A React + TypeScript component library for displaying AdMesh product recommendat
 
 ## 🌐 Live Sites
 
-- **🎭 Interactive Storybook**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/) - Explore all components and ad formats
+- **🎭 Interactive Storybook**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/) - Explore all components and ad formats
 - **📚 Complete Documentation**: [https://docs.useadmesh.com/](https://docs.useadmesh.com/) - Full SDK documentation and guides
 - **🚀 AdMesh Dashboard**: [https://useadmesh.com](https://useadmesh.com) - Get your API keys and manage campaigns
 
@@ -889,7 +889,7 @@ interface AdMeshTheme {
 
 ## 🎭 Live Storybook Examples
 
-**🌐 Hosted Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/)
+**🌐 Hosted Storybook**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/)
 
 Explore interactive examples and component variations:
 

@@ -3,7 +3,7 @@
 ## 🚀 Quick Access Options
 
 ### Option 1: GitHub Pages (Automatic)
-**URL**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/)
+**URL**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/)
 
 - ✅ **Automatic deployment** on every push to main
 - ✅ **Always up-to-date** with latest changes
@@ -76,7 +76,7 @@ The repository includes automatic deployment:
 - **Triggers**: Every push to main branch
 - **Builds**: Storybook static files
 - **Deploys**: To GitHub Pages
-- **URL**: `https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/`
+- **URL**: `https://storybook.useadmesh.com/`
 
 ## 🎯 Why Hosted Storybook?
 
@@ -100,7 +100,7 @@ The repository includes automatic deployment:
 
 ## 🔗 Quick Links
 
-- **🌐 Hosted Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/)
+- **🌐 Hosted Storybook**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/)
 - **📦 Repository**: [https://github.com/GouniManikumar12/admesh-ui-sdk](https://github.com/GouniManikumar12/admesh-ui-sdk)
 - **📚 Documentation**: [https://docs.useadmesh.com](https://docs.useadmesh.com)
 - **🚀 Netlify Drop**: [https://app.netlify.com/drop](https://app.netlify.com/drop)
