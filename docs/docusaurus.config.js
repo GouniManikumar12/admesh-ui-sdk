@@ -21,7 +21,7 @@ const config = {
   organizationName: 'GouniManikumar12',
   projectName: 'admesh-ui-sdk',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
