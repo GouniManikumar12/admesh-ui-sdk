@@ -5,7 +5,7 @@ A React + TypeScript component library for displaying AdMesh product recommendat
 ## 🌐 Live Sites
 
 - **🎭 Interactive Storybook**: [https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/](https://gounimanikumar12.github.io/admesh-ui-sdk/storybook/) - Explore all components and ad formats
-- **📚 Complete Documentation**: [https://gounimanikumar12.github.io/admesh-docs/](https://gounimanikumar12.github.io/admesh-docs/) - Full SDK documentation and guides
+- **📚 Complete Documentation**: [https://docs.useadmesh.com/](https://docs.useadmesh.com/) - Full SDK documentation and guides
 - **🚀 AdMesh Dashboard**: [https://useadmesh.com](https://useadmesh.com) - Get your API keys and manage campaigns
 
 ## 🚀 Features
