@@ -16,6 +16,13 @@ const config: StorybookConfig = {
     "name": "@storybook/react-vite",
     "options": {}
   },
+  viteFinal: async (config) => {
+    // Configure base path for production builds
+    if (process.env.NODE_ENV === 'production') {
+      config.base = '/storybook/';
+    }
+    return config;
+  },
   docs: {
     autodocs: 'tag',
   },
