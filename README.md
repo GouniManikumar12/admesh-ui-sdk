@@ -4,11 +4,11 @@ A React + TypeScript component library for displaying AdMesh product recommendat
 
 ## 🌐 Live Sites
 
-- **📚 Complete Documentation**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/) - Full SDK documentation and guides
-- **🎭 Interactive Storybook**: [https://admesh-ui-sdk.vercel.app/storybook/](https://admesh-ui-sdk.vercel.app/storybook/) - Explore all components and ad formats
+- **🎭 Interactive Storybook**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/) - Explore all components and ad formats
+- **📚 Complete Documentation**: [https://docs.useadmesh.com/](https://docs.useadmesh.com/) - Full SDK documentation and guides
 - **🚀 AdMesh Dashboard**: [https://useadmesh.com](https://useadmesh.com) - Get your API keys and manage campaigns
 
-> **📖 Unified Documentation**: This repository now contains both the UI SDK components and comprehensive documentation, all hosted together on Vercel for a seamless developer experience.
+> **🎨 Component Showcase**: This repository contains the UI SDK components with an interactive Storybook for exploring all ad formats and components.
 
 ## 🚀 Features
 
@@ -908,21 +908,14 @@ Explore interactive examples and component variations:
 # Install dependencies
 npm install
 
-# Start both docs and Storybook (recommended)
-npm run dev:all
-
-# Or start individually:
-npm run docs:dev          # Documentation at :3000
+# Start Storybook for development
 npm run storybook         # Storybook at :6006
 
-# Build everything for production
-npm run build:all
-
-# Test production build locally
-npm run serve:combined
-
-# Build library only
+# Build library for NPM
 npm run build
+
+# Build Storybook for deployment
+npm run build-storybook
 
 # Run linting
 npm run lint
@@ -933,21 +926,17 @@ npm run lint
 ### Automatic Vercel Deployment
 1. Go to [vercel.com](https://vercel.com) and import your GitHub repository
 2. Configure build settings:
-   - **Build Command**: `npm run build:all`
-   - **Output Directory**: `build`
+   - **Build Command**: `npm run build-storybook`
+   - **Output Directory**: `storybook-static`
 3. Deploy automatically on every push to main
 
 **No environment variables needed** - Vercel's GitHub integration handles everything automatically!
 
 ### Manual Deployment
 ```bash
-npm run build:all
-npx serve build
+npm run build-storybook
+npx serve storybook-static
 ```
-
-The unified build creates:
-- Documentation at `/`
-- Storybook at `/storybook`
 
 ## 📄 License
 
