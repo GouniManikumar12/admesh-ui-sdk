@@ -98,17 +98,7 @@ export interface ConversationalAdConfig {
   position?: 'top' | 'bottom' | 'inline';
 }
 
-export interface AdMeshConversationalUnitProps {
-  recommendations: AdMeshRecommendation[];
-  config: ConversationalAdConfig;
-  theme?: AdMeshTheme;
-  conversationSummary?: string;
-  userQuery?: string;
-  sessionId?: string;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
-  onDismiss?: () => void;
-  className?: string;
-}
+
 
 export interface AdMeshConversationSummaryProps {
   recommendations: AdMeshRecommendation[];
@@ -120,14 +110,7 @@ export interface AdMeshConversationSummaryProps {
   className?: string;
 }
 
-export interface AdMeshInlineRecommendationProps {
-  recommendation: AdMeshRecommendation;
-  theme?: AdMeshTheme;
-  compact?: boolean;
-  showReason?: boolean;
-  onClick?: (adId: string, admeshLink: string) => void;
-  className?: string;
-}
+
 
 // Citation-based conversation ad types
 export interface AdMeshCitationUnitProps {
@@ -141,16 +124,7 @@ export interface AdMeshCitationUnitProps {
   className?: string;
 }
 
-export interface AdMeshCitationReferenceProps {
-  recommendation: AdMeshRecommendation;
-  citationNumber: number;
-  citationStyle?: 'numbered' | 'bracketed' | 'superscript';
-  theme?: AdMeshTheme;
-  showTooltip?: boolean;
-  onClick?: (adId: string, admeshLink: string) => void;
-  onHover?: (recommendation: AdMeshRecommendation) => void;
-  className?: string;
-}
+
 
 // Sidebar types
 export type SidebarPosition = 'left' | 'right';
@@ -241,51 +215,9 @@ export interface AdMeshChatConfig {
   suggestions?: string[];
 }
 
-export interface AdMeshFloatingChatProps {
-  config: AdMeshChatConfig;
-  theme?: AdMeshTheme;
-  title?: string;
-  subtitle?: string;
-  isOpen?: boolean;
-  onToggle?: () => void;
-  onSendMessage?: (message: string) => Promise<ChatMessage>;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
-  // Auto-recommendation props
-  autoRecommendations?: AdMeshRecommendation[];
-  autoRecommendationTrigger?: string; // The query/context that triggered recommendations
-  showInputField?: boolean; // Whether to show input field (default: true)
-  autoShowRecommendations?: boolean; // Auto-show recommendations without user input
-  onAutoRecommendationDismiss?: () => void;
-  className?: string;
-}
 
-export interface AdMeshChatInterfaceProps {
-  messages: ChatMessage[];
-  config: Partial<AdMeshChatConfig> & {
-    showInputField?: boolean;
-  };
-  theme?: AdMeshTheme;
-  isLoading?: boolean;
-  onSendMessage?: (message: string) => void;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
-  className?: string;
-}
 
-export interface AdMeshChatMessageProps {
-  message: ChatMessage;
-  theme?: AdMeshTheme;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
-  className?: string;
-}
 
-export interface AdMeshChatInputProps {
-  placeholder?: string;
-  disabled?: boolean;
-  suggestions?: string[];
-  theme?: AdMeshTheme;
-  onSendMessage?: (message: string) => void;
-  className?: string;
-}
 
 export interface AdMeshCompareTableProps {
   recommendations: AdMeshRecommendation[];
@@ -325,6 +257,15 @@ export interface AdMeshLinkTrackerProps {
   onClick?: () => void;
   trackingData?: Record<string, unknown>;
   className?: string;
+}
+
+export interface AdMeshSimpleAdProps {
+  recommendation: AdMeshRecommendation;
+  theme?: AdMeshTheme;
+  className?: string;
+  onClick?: (adId: string, admeshLink: string) => void;
+  showPoweredBy?: boolean;
+  variation?: 'question' | 'statement';
 }
 
 // Hook return types

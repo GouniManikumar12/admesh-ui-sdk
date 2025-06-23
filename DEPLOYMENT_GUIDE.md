@@ -12,8 +12,8 @@ The repository now contains:
 
 ## 🌐 Live URLs
 
-- **Documentation**: [https://admesh-ui-sdk.vercel.app/](https://admesh-ui-sdk.vercel.app/)
-- **Storybook**: [https://admesh-ui-sdk.vercel.app/storybook/](https://admesh-ui-sdk.vercel.app/storybook/)
+- **Documentation**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/)
+- **Storybook**: [https://storybook.useadmesh.com/](https://storybook.useadmesh.com/)
 
 ## 🚀 Vercel Deployment
 

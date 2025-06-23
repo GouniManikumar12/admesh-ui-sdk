@@ -5,6 +5,7 @@ const config: StorybookConfig = {
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
+
   "addons": [
     "@storybook/addon-onboarding",
     "@chromatic-com/storybook",
@@ -12,13 +13,12 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-vitest"
   ],
+
   "framework": {
     "name": "@storybook/react-vite",
     "options": {}
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
   managerHead: (head) => `
     ${head}
     <style>
@@ -28,6 +28,6 @@ const config: StorybookConfig = {
         margin-bottom: 10px;
       }
     </style>
-  `,
+  `
 };
 export default config;

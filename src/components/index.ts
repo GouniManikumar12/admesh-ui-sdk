@@ -4,22 +4,16 @@ export { AdMeshCompareTable } from './AdMeshCompareTable';
 export { AdMeshBadge } from './AdMeshBadge';
 export { AdMeshLayout } from './AdMeshLayout';
 export { AdMeshLinkTracker } from './AdMeshLinkTracker';
+export { AdMeshSimpleAd } from './AdMeshSimpleAd';
 
 // Conversational Ad Units
-export { AdMeshConversationalUnit } from './AdMeshConversationalUnit';
 export { AdMeshConversationSummary } from './AdMeshConversationSummary';
-export { AdMeshInlineRecommendation } from './AdMeshInlineRecommendation';
 export { AdMeshCitationUnit } from './AdMeshCitationUnit';
-export { AdMeshCitationReference } from './AdMeshCitationReference';
 
 // Sidebar Components
 export { AdMeshSidebar } from './AdMeshSidebar';
 export { AdMeshSidebarHeader } from './AdMeshSidebarHeader';
 export { AdMeshSidebarContent } from './AdMeshSidebarContent';
 
-// Chat Components
-export { AdMeshFloatingChat } from './AdMeshFloatingChat';
-export { AdMeshChatInterface } from './AdMeshChatInterface';
-export { AdMeshChatMessage } from './AdMeshChatMessage';
-export { AdMeshChatInput } from './AdMeshChatInput';
+// Auto-Recommendation Widget
 export { AdMeshAutoRecommendationWidget } from './AdMeshAutoRecommendationWidget';

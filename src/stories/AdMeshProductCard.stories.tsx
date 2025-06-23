@@ -40,7 +40,7 @@ const sampleRecommendationAI: AdMeshRecommendation = {
 };
 
 const meta: Meta<typeof AdMeshProductCard> = {
-  title: 'AdMesh/ProductCard',
+  title: 'Product Card/AdMeshProductCard',
   component: AdMeshProductCard,
   parameters: {
     layout: 'centered',

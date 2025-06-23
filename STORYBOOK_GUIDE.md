@@ -13,21 +13,21 @@ npm run storybook
 
 The Storybook interface will open at `http://localhost:6006`
 
-### 2. **Navigate to Storybook Ad Formats**
+### 2. **Navigate to AdMesh Components**
 
 In the Storybook sidebar, look for:
 
 ```
-📚 AdMesh/Storybook Ad Formats
-├── 📖 Startup Journey Story
-├── 💻 Developer Workflow Story  
-├── 📊 Ad Format Comparison
-└── 🎭 Interactive Demo
+📚 AdMesh/Showcase
+├── 🎨 Premium Showcase
+├── 🌙 Dark Theme Showcase
+├── 📊 Comparison View
+└── 📱 Responsive Showcase
 ```
 
 ## 🎭 What You'll See
 
-### **Storybook Ad Format Examples**
+### **AdMesh Component Examples**
 
 #### 1. **Business Growth Story**
 ```
@@ -83,10 +83,10 @@ Side-by-side view showing:
 
 ### **Main Categories**
 
-1. **AdMesh/Storybook Ad Formats** 📚
-   - Complete storybook advertising examples
-   - Interactive demos and comparisons
-   - Real business narratives with citations
+1. **AdMesh/Showcase** 📚
+   - Complete component showcase examples
+   - Interactive demos and theme variations
+   - Premium component designs
 
 2. **Citation/AdMeshCitationUnit** 📝
    - Citation component variations
@@ -115,7 +115,7 @@ npm install admesh-ui-sdk
 import { AdMeshCitationUnit } from 'admesh-ui-sdk';
 ```
 
-### **3. Implement Storybook Ads**
+### **3. Implement Citation Components**
 ```tsx
 <AdMeshCitationUnit
   recommendations={recommendations}
@@ -227,7 +227,7 @@ Storybook ads show dramatically better performance:
 ## 🚀 Getting Started Checklist
 
 - [ ] Run `npm run storybook` to start the showcase
-- [ ] Explore the "Storybook Ad Formats" section
+- [ ] Explore the "AdMesh/Showcase" section
 - [ ] Try the interactive demos and comparisons
 - [ ] Test different citation styles and themes
 - [ ] Click on citations to see tracking in action

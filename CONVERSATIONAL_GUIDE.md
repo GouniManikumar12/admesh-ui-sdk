@@ -407,4 +407,4 @@ const handleMessage = async (message) => {
 
 ## 🎉 Complete Example
 
-See `examples/conversational-usage.jsx` for a complete working example with all display modes and configurations.
+Check out the [AdMesh Storybook](https://storybook.useadmesh.com/) for complete working examples with all display modes and configurations.

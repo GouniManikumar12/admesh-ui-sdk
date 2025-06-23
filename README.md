@@ -893,14 +893,77 @@ interface AdMeshTheme {
 
 Explore interactive examples and component variations:
 
-- **📚 Storybook Ad Formats** - Complete narrative examples with embedded citations
 - **📝 Citation Components** - Different citation styles (numbered, bracketed, superscript)
 - **💬 Conversational Ads** - Chat interface integration examples
-- **📊 Format Comparisons** - Traditional vs AdMesh side-by-side demonstrations
 - **🎨 Theme Variations** - Light/dark mode examples
 - **📱 Responsive Design** - Mobile and desktop layout adaptations
 
 **No installation required** - view all ad formats directly in your browser!
+
+## 🎨 Theming & Dark Mode
+
+The AdMesh UI SDK provides comprehensive theming support with full dark mode compliance:
+
+### Theme Configuration
+
+```jsx
+// Light theme (default)
+<AdMeshLayout theme={{ mode: "light" }} />
+
+// Dark theme with proper contrast ratios
+<AdMeshLayout theme={{ mode: "dark" }} />
+
+// Custom accent color
+<AdMeshLayout theme={{ mode: "light", accentColor: "#3b82f6" }} />
+
+// Dynamic theme switching
+const [isDarkMode, setIsDarkMode] = useState(false);
+<AdMeshLayout theme={{ mode: isDarkMode ? "dark" : "light" }} />
+```
+
+### Dark Mode Features
+
+- ✅ **Full Dark Mode Support**: All components automatically adapt to dark theme
+- ✅ **WCAG Accessibility**: Proper contrast ratios meet accessibility guidelines
+- ✅ **Consistent Branding**: "Powered by AdMesh" remains visible in both themes
+- ✅ **Smooth Transitions**: Components transition smoothly between light and dark modes
+- ✅ **CSS Variables**: Uses CSS custom properties for consistent theming
+- ✅ **No Ambiguous Elements**: Clean, focused interface without confusing UI elements
+
+### CSS Custom Properties
+
+The SDK uses CSS custom properties that automatically adjust based on the theme:
+
+```css
+/* Light theme variables */
+.admesh-component[data-admesh-theme="light"] {
+  --admesh-background: #ffffff;
+  --admesh-text: #111827;
+  --admesh-border: #e5e7eb;
+  --admesh-surface: #f9fafb;
+}
+
+/* Dark theme variables */
+.admesh-component[data-admesh-theme="dark"] {
+  --admesh-background: #111827;
+  --admesh-text: #f9fafb;
+  --admesh-border: #374151;
+  --admesh-surface: #1f2937;
+  --admesh-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+}
+```
+
+### Theme Integration
+
+All AdMesh components automatically respect the theme prop:
+
+```jsx
+// All components support the same theme interface
+<AdMeshProductCard theme={{ mode: "dark" }} />
+<AdMeshCompareTable theme={{ mode: "dark" }} />
+<AdMeshSidebar theme={{ mode: "dark" }} />
+<AdMeshChatWidget theme={{ mode: "dark" }} />
+```
 
 ## 🛠 Development
 

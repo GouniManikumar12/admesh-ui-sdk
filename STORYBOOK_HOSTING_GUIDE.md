@@ -37,7 +37,7 @@ npm run storybook
 ## 🎭 What You'll See
 
 ### **Interactive Ad Format Gallery**
-- **📚 Storybook Ad Formats** - Complete narrative examples
+- **📚 AdMesh Showcase** - Complete component examples
 - **📝 Citation Components** - Different citation styles
 - **💬 Conversational Ads** - Chat interface integration
 - **📊 Format Comparisons** - Traditional vs AdMesh demos

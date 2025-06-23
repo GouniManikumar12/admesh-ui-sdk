@@ -128,7 +128,7 @@ const AutoWidgetDemo = ({ args }: { args: Record<string, unknown> }) => {
 };
 
 const meta: Meta<typeof AdMeshAutoRecommendationWidget> = {
-  title: 'Chat/AdMeshAutoRecommendationWidget',
+  title: 'Floating Recommendations/AdMeshAutoRecommendationWidget',
   component: AdMeshAutoRecommendationWidget,
   parameters: {
     layout: 'fullscreen',

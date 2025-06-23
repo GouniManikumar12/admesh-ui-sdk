@@ -82,7 +82,7 @@ Based on your specific requirements for remote team management and your preferen
 Each of these solutions offers unique strengths that align with different aspects of your needs, from budget considerations to advanced functionality.`;
 
 const meta: Meta<typeof AdMeshConversationSummary> = {
-  title: 'Conversational/AdMeshConversationSummary',
+  title: 'Conversation Summary/AdMeshConversationSummary',
   component: AdMeshConversationSummary,
   parameters: {
     layout: 'padded',

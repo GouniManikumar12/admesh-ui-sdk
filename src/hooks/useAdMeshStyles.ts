@@ -30,6 +30,11 @@ const ADMESH_STYLES = `
   --admesh-border: #374151;
   --admesh-text: #f9fafb;
   --admesh-text-muted: #9ca3af;
+  --admesh-text-light: #6b7280;
+  --admesh-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --admesh-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --admesh-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --admesh-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
 }
 
 /* Layout Styles */
@@ -196,6 +201,21 @@ const ADMESH_STYLES = `
   border-radius: var(--admesh-radius-sm);
 }
 
+/* Dark mode specific enhancements */
+.admesh-component[data-admesh-theme="dark"] .admesh-product-card__keyword {
+  background-color: #4b5563;
+  color: #d1d5db;
+}
+
+.admesh-component[data-admesh-theme="dark"] .admesh-product-card:hover {
+  border-color: var(--admesh-primary);
+  background-color: #374151;
+}
+
+.admesh-component[data-admesh-theme="dark"] .admesh-product-card__button:hover {
+  background: linear-gradient(90deg, var(--admesh-primary-hover), var(--admesh-primary));
+}
+
 .admesh-product-card__footer {
   display: flex;
   justify-content: flex-end;
@@ -236,19 +256,70 @@ const ADMESH_STYLES = `
 
 .admesh-text-muted { color: var(--admesh-text-muted); }
 
+/* Comparison Table Styles */
+.admesh-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--admesh-surface);
+  border: 1px solid var(--admesh-border);
+  border-radius: var(--admesh-radius);
+  overflow: hidden;
+}
+
+.admesh-compare-table th,
+.admesh-compare-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--admesh-border);
+}
+
+.admesh-compare-table th {
+  background-color: var(--admesh-background);
+  font-weight: 600;
+  color: var(--admesh-text);
+  font-size: 0.875rem;
+}
+
+.admesh-compare-table td {
+  color: var(--admesh-text);
+  font-size: 0.875rem;
+}
+
+.admesh-compare-table tr:hover {
+  background-color: var(--admesh-border);
+}
+
+/* Dark mode table enhancements */
+.admesh-component[data-admesh-theme="dark"] .admesh-compare-table th {
+  background-color: #374151;
+}
+
+.admesh-component[data-admesh-theme="dark"] .admesh-compare-table tr:hover {
+  background-color: #4b5563;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .admesh-layout {
     padding: 1rem;
   }
-  
+
   .admesh-layout__cards-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
-  
+
   .admesh-product-card {
     padding: 1rem;
+  }
+
+  .admesh-compare-table {
+    font-size: 0.75rem;
+  }
+
+  .admesh-compare-table th,
+  .admesh-compare-table td {
+    padding: 0.5rem;
   }
 }
 `;

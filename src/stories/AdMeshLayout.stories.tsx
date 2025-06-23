@@ -49,7 +49,7 @@ const sampleRecommendations: AdMeshRecommendation[] = [
 ];
 
 const meta: Meta<typeof AdMeshLayout> = {
-  title: 'AdMesh/Layout',
+  title: 'Layout/AdMeshLayout',
   component: AdMeshLayout,
   parameters: {
     layout: 'fullscreen',
