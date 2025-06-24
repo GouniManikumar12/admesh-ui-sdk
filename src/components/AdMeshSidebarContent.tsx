@@ -226,7 +226,10 @@ export const AdMeshSidebarContent: React.FC<AdMeshSidebarContentProps> = ({
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4 min-h-0" style={{
+        WebkitOverflowScrolling: 'touch', // Smooth scrolling on iOS
+        overscrollBehavior: 'contain' // Prevent scroll chaining on mobile
+      }}>
         {renderRecommendations()}
       </div>
 

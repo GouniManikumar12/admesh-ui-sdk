@@ -20,6 +20,34 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
   const [isCollapsed, setIsCollapsed] = useState(config.defaultCollapsed || false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters] = useState<SidebarFilters>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Prevent body scroll on mobile when sidebar is open
+  useEffect(() => {
+    if (isMobile && isOpen && !isCollapsed && !containerMode) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+
+      return () => {
+        document.body.style.overflow = originalStyle;
+        document.body.style.position = '';
+        document.body.style.width = '';
+      };
+    }
+  }, [isMobile, isOpen, isCollapsed, containerMode]);
 
   // Handle auto-refresh if enabled
   useEffect(() => {
@@ -101,12 +129,13 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
   const getSidebarWidth = () => {
     if (isCollapsed) return 'w-12';
 
+    // On mobile, always use full width with proper constraints
     switch (config.size) {
-      case 'sm': return 'w-full sm:w-64 max-w-sm';
-      case 'md': return 'w-full sm:w-80 max-w-md';
-      case 'lg': return 'w-full sm:w-96 max-w-lg';
-      case 'xl': return 'w-full sm:w-[28rem] max-w-xl';
-      default: return 'w-full sm:w-80 max-w-md';
+      case 'sm': return 'w-full sm:w-64 max-w-[90vw] sm:max-w-sm';
+      case 'md': return 'w-full sm:w-80 max-w-[90vw] sm:max-w-md';
+      case 'lg': return 'w-full sm:w-96 max-w-[90vw] sm:max-w-lg';
+      case 'xl': return 'w-full sm:w-[28rem] max-w-[90vw] sm:max-w-xl';
+      default: return 'w-full sm:w-80 max-w-[90vw] sm:max-w-md';
     }
   };
 
@@ -118,12 +147,17 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
       'border-r': config.position === 'left',
       'border-l': config.position === 'right',
       // Use fixed positioning for full-screen mode, relative for container mode
-      'fixed top-0 bottom-0 z-50': !containerMode,
+      // Improved mobile positioning with proper viewport handling
+      'fixed top-0 bottom-0 z-[9999]': !containerMode,
       'relative h-full': containerMode,
       'left-0': config.position === 'left' && !containerMode,
       'right-0': config.position === 'right' && !containerMode,
+      // Better mobile transform handling
       'transform -translate-x-full': config.position === 'left' && !isOpen && !containerMode,
       'transform translate-x-full': config.position === 'right' && !isOpen && !containerMode,
+      // Mobile-specific improvements
+      'min-h-0': true, // Prevent height issues on mobile
+      'overflow-hidden': !containerMode, // Prevent scroll issues
     },
     className
   );
@@ -142,10 +176,19 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
       {isOpen && !isCollapsed && (
         <div
           className={classNames(
-            "bg-black bg-opacity-50 z-40 sm:hidden",
+            "bg-black bg-opacity-50 z-[9998] sm:hidden transition-opacity duration-300",
             containerMode ? "absolute inset-0" : "fixed inset-0"
           )}
           onClick={() => onToggle?.()}
+          style={{
+            // Ensure overlay covers the entire viewport on mobile
+            position: containerMode ? 'absolute' : 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            touchAction: 'none', // Prevent scrolling behind overlay
+          }}
         />
       )}
 
@@ -156,6 +199,8 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
         data-admesh-theme={theme?.mode}
         data-sidebar-position={config.position}
         data-sidebar-size={config.size}
+        data-mobile-open={isMobile && isOpen && !isCollapsed ? 'true' : 'false'}
+        data-container-mode={containerMode ? 'true' : 'false'}
       >
         {/* Header */}
         {config.showHeader !== false && (
@@ -178,7 +223,7 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
             theme={theme}
             maxRecommendations={config.maxRecommendations}
             onRecommendationClick={onRecommendationClick}
-            className="flex-1 overflow-hidden"
+            className="flex-1 overflow-hidden min-h-0"
           />
         )}
 

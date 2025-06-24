@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import type { AdMeshSidebarHeaderProps } from '../types/index';
 
@@ -14,6 +14,18 @@ export const AdMeshSidebarHeader: React.FC<AdMeshSidebarHeaderProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -47,26 +59,47 @@ export const AdMeshSidebarHeader: React.FC<AdMeshSidebarHeaderProps> = ({
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
           {title}
         </h3>
-        
-        {collapsible && (
-          <button
-            onClick={onToggle}
-            className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors flex-shrink-0"
-            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            <svg 
-              className={classNames(
-                'w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform duration-200',
-                { 'rotate-180': isCollapsed }
-              )} 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+
+        <div className="flex items-center gap-2">
+          {/* Mobile close button */}
+          {isMobile && onToggle && (
+            <button
+              onClick={onToggle}
+              className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors flex-shrink-0 sm:hidden"
+              title="Close sidebar"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-        )}
+              <svg
+                className="w-4 h-4 text-gray-600 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+
+          {/* Desktop collapse button */}
+          {collapsible && (
+            <button
+              onClick={onToggle}
+              className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors flex-shrink-0 hidden sm:block"
+              title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              <svg
+                className={classNames(
+                  'w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform duration-200',
+                  { 'rotate-180': isCollapsed }
+                )}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Search Bar */}

@@ -222,6 +222,47 @@ const ADMESH_STYLES = `
   margin-top: 1.5rem;
 }
 
+/* Mobile-specific sidebar improvements */
+@media (max-width: 640px) {
+  .admesh-sidebar {
+    /* Ensure proper mobile viewport handling */
+    height: 100vh !important;
+    height: 100dvh !important; /* Dynamic viewport height for mobile browsers */
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    width: 100vw !important;
+    max-width: 90vw !important;
+    overflow: hidden !important;
+  }
+
+  .admesh-sidebar.relative {
+    height: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Improve touch scrolling */
+  .admesh-sidebar .overflow-y-auto {
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    scroll-behavior: smooth !important;
+  }
+
+  /* Prevent body scroll when sidebar is open */
+  body:has(.admesh-sidebar[data-mobile-open="true"]) {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .admesh-sidebar {
+    max-width: 400px !important;
+  }
+}
+
 .admesh-product-card__button {
   display: inline-flex;
   align-items: center;
