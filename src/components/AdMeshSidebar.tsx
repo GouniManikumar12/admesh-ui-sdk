@@ -97,14 +97,16 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
   //   onFilter?.(newFilters);
   // };
 
-  // Get sidebar width based on size
+  // Get sidebar width based on size with mobile responsiveness
   const getSidebarWidth = () => {
+    if (isCollapsed) return 'w-12';
+
     switch (config.size) {
-      case 'sm': return isCollapsed ? 'w-12' : 'w-64';
-      case 'md': return isCollapsed ? 'w-12' : 'w-80';
-      case 'lg': return isCollapsed ? 'w-12' : 'w-96';
-      case 'xl': return isCollapsed ? 'w-12' : 'w-[28rem]';
-      default: return isCollapsed ? 'w-12' : 'w-80';
+      case 'sm': return 'w-full sm:w-64 max-w-sm';
+      case 'md': return 'w-full sm:w-80 max-w-md';
+      case 'lg': return 'w-full sm:w-96 max-w-lg';
+      case 'xl': return 'w-full sm:w-[28rem] max-w-xl';
+      default: return 'w-full sm:w-80 max-w-md';
     }
   };
 
@@ -136,10 +138,13 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
 
   return (
     <>
-      {/* Overlay for mobile - only show in full-screen mode */}
-      {!containerMode && isOpen && !isCollapsed && (
+      {/* Overlay for mobile - show in both modes on small screens */}
+      {isOpen && !isCollapsed && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className={classNames(
+            "bg-black bg-opacity-50 z-40 sm:hidden",
+            containerMode ? "absolute inset-0" : "fixed inset-0"
+          )}
           onClick={() => onToggle?.()}
         />
       )}
