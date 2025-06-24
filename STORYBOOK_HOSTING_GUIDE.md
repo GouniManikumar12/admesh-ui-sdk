@@ -92,7 +92,7 @@ The repository includes automatic deployment:
 - **Testing Platform** - Verify responsive behavior
 - **Integration Examples** - See real implementation patterns
 
-### **For AI Agents**
+### **For AI Platforms**
 - **Visual Understanding** - See how ad formats integrate
 - **Implementation Patterns** - Learn from interactive examples
 - **Performance Data** - Understand engagement improvements
