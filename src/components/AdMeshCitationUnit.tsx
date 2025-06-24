@@ -87,7 +87,7 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
         if (recommendation) {
           return (
             <AdMeshCitationReference
-              key={`citation-${citationNumber}`}
+              key={`citation-${citationNumber}-${index}`}
               recommendation={recommendation}
               citationNumber={citationNumber}
               citationStyle={citationStyle}
