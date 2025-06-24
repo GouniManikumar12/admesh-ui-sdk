@@ -9,6 +9,15 @@ export { AdMeshSimpleAd } from './AdMeshSimpleAd';
 // Conversational Ad Units
 export { AdMeshConversationSummary } from './AdMeshConversationSummary';
 export { AdMeshCitationUnit } from './AdMeshCitationUnit';
+export { AdMeshInlineRecommendation } from './AdMeshInlineRecommendation';
+export { AdMeshConversationalUnit } from './AdMeshConversationalUnit';
+export { AdMeshCitationReference } from './AdMeshCitationReference';
+
+// Chat Components
+export { AdMeshFloatingChat } from './AdMeshFloatingChat';
+export { AdMeshChatInterface } from './AdMeshChatInterface';
+export { AdMeshChatMessage } from './AdMeshChatMessage';
+export { AdMeshChatInput } from './AdMeshChatInput';
 
 // Sidebar Components
 export { AdMeshSidebar } from './AdMeshSidebar';

@@ -313,3 +313,67 @@ export interface AdMeshConfig {
   defaultTheme?: AdMeshTheme;
   debug?: boolean;
 }
+
+// Missing interface definitions
+export interface AdMeshInlineRecommendationProps {
+  recommendation: AdMeshRecommendation;
+  theme?: AdMeshTheme;
+  compact?: boolean;
+  showReason?: boolean;
+  onClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
+
+export interface AdMeshChatInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  onSubmit: (message: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  suggestions?: string[];
+  className?: string;
+}
+
+export interface AdMeshChatMessageProps {
+  message: ChatMessage;
+  theme?: AdMeshTheme;
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
+
+export interface AdMeshChatInterfaceProps {
+  messages: ChatMessage[];
+  config: AdMeshChatConfig;
+  theme?: AdMeshTheme;
+  onSendMessage: (message: string) => void;
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
+
+export interface AdMeshFloatingChatProps {
+  messages: ChatMessage[];
+  config: AdMeshChatConfig;
+  theme?: AdMeshTheme;
+  isOpen?: boolean;
+  onToggle?: () => void;
+  onSendMessage: (message: string) => void;
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
+
+export interface AdMeshCitationReferenceProps {
+  recommendations: AdMeshRecommendation[];
+  theme?: AdMeshTheme;
+  citationStyle?: 'numbered' | 'bracketed' | 'superscript';
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
+
+export interface AdMeshConversationalUnitProps {
+  recommendations: AdMeshRecommendation[];
+  config: ConversationalAdConfig;
+  theme?: AdMeshTheme;
+  trigger?: string;
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  className?: string;
+}
