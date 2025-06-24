@@ -102,12 +102,12 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
           {recommendation.reason}
         </p>
 
-        {/* Confidence Score */}
+        {/* Match Score */}
         {showMatchScore && typeof recommendation.intent_match_score === "number" && (
           <div className="mb-3">
             <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1">
-              <span className="font-medium">Confidence</span>
-              <span className="font-semibold text-gray-700 dark:text-gray-300">{matchScorePercentage}%</span>
+              <span className="font-medium">Match Score</span>
+              <span className="font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{matchScorePercentage}% match</span>
             </div>
             <div className="w-full bg-gray-200 dark:bg-slate-600 rounded h-1.5 overflow-hidden">
               <div

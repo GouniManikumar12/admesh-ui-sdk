@@ -85,7 +85,7 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
                   </span>
                 </div>
                 {showMatchScores && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
                     {Math.round(product.intent_match_score * 100)}% match
                   </div>
                 )}
@@ -96,12 +96,12 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
                 {product.title}
               </h4>
 
-              {/* Confidence Score */}
+              {/* Match Score */}
               {showMatchScores && (
                 <div className="mb-3">
                   <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-                    <span>Confidence</span>
-                    <span>{Math.round(product.intent_match_score * 100)}%</span>
+                    <span>Match Score</span>
+                    <span className="whitespace-nowrap">{Math.round(product.intent_match_score * 100)}% match</span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-slate-600 rounded h-1.5 overflow-hidden">
                     <div

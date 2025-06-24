@@ -68,13 +68,12 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
             {/* Match score badge */}
             {recommendation.intent_match_score >= 0.7 && (
               <span className={classNames(
-                'inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium flex-shrink-0',
+                'inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium flex-shrink-0 whitespace-nowrap',
                 recommendation.intent_match_score >= 0.8
                   ? 'bg-green-100 text-green-800 dark:bg-green-800/80 dark:text-green-100'
                   : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
               )}>
-                <span className="hidden sm:inline">{matchScorePercentage}% match</span>
-                <span className="sm:hidden">{matchScorePercentage}%</span>
+                {matchScorePercentage}% match
               </span>
             )}
           </div>
