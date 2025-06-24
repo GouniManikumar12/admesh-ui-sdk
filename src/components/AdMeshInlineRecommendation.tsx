@@ -17,8 +17,8 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
     'admesh-inline-recommendation',
     'group cursor-pointer transition-all duration-200',
     {
-      'p-2 rounded-md bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700': !compact,
-      'p-1.5 rounded hover:bg-gray-50 dark:hover:bg-slate-800/30': compact,
+      'p-2 sm:p-3 rounded-md bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700': !compact,
+      'p-1.5 sm:p-2 rounded hover:bg-gray-50 dark:hover:bg-slate-800/30': compact,
     },
     className
   );
@@ -55,12 +55,12 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-start sm:items-center gap-2 mb-1 flex-col sm:flex-row">
             <h4 className={classNames(
-              'font-medium truncate transition-colors duration-200',
+              'font-medium transition-colors duration-200 flex-shrink-0',
               'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300',
               'cursor-pointer hover:underline',
-              compact ? 'text-sm' : 'text-base'
+              compact ? 'text-sm sm:text-base' : 'text-base sm:text-lg'
             )}>
               {recommendation.title}
             </h4>
@@ -68,12 +68,13 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
             {/* Match score badge */}
             {recommendation.intent_match_score >= 0.7 && (
               <span className={classNames(
-                'inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium',
-                recommendation.intent_match_score >= 0.8 
+                'inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium flex-shrink-0',
+                recommendation.intent_match_score >= 0.8
                   ? 'bg-green-100 text-green-800 dark:bg-green-800/80 dark:text-green-100'
                   : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
               )}>
-                {matchScorePercentage}% match
+                <span className="hidden sm:inline">{matchScorePercentage}% match</span>
+                <span className="sm:hidden">{matchScorePercentage}%</span>
               </span>
             )}
           </div>

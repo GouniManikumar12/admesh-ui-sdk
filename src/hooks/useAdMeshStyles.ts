@@ -263,6 +263,71 @@ const ADMESH_STYLES = `
   }
 }
 
+/* Mobile responsiveness improvements for all components */
+@media (max-width: 640px) {
+  /* Product cards mobile optimization */
+  .admesh-card {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Inline recommendations mobile optimization */
+  .admesh-inline-recommendation {
+    padding: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Conversation summary mobile optimization */
+  .admesh-conversation-summary {
+    padding: 1rem !important;
+  }
+
+  /* Percentage text mobile improvements */
+  .admesh-component .text-xs {
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+  }
+
+  .admesh-component .text-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+
+  /* Button mobile improvements */
+  .admesh-component button {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    min-height: 2rem !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Badge mobile improvements */
+  .admesh-component .rounded-full {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.625rem !important;
+    line-height: 1rem !important;
+  }
+
+  /* Progress bar mobile improvements */
+  .admesh-component .bg-gray-200,
+  .admesh-component .bg-slate-600 {
+    height: 0.25rem !important;
+  }
+
+  /* Flex layout mobile improvements */
+  .admesh-component .flex {
+    flex-wrap: wrap !important;
+  }
+
+  .admesh-component .gap-2 {
+    gap: 0.375rem !important;
+  }
+
+  .admesh-component .gap-3 {
+    gap: 0.5rem !important;
+  }
+}
+
 .admesh-product-card__button {
   display: inline-flex;
   align-items: center;

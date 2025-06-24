@@ -19,7 +19,7 @@ export const AdMeshConversationSummary: React.FC<AdMeshConversationSummaryProps>
   const containerClasses = classNames(
     'admesh-conversation-summary',
     'bg-white dark:bg-black',
-    'rounded-lg border border-gray-200 dark:border-gray-800 p-6',
+    'rounded-lg border border-gray-200 dark:border-gray-800 p-4 sm:p-6',
     'font-sans', // Standardize font family
     className
   );
@@ -37,17 +37,17 @@ export const AdMeshConversationSummary: React.FC<AdMeshConversationSummaryProps>
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <div className="flex-shrink-0">
-          <div className="w-10 h-10 bg-black dark:bg-white rounded-full flex items-center justify-center">
-            <svg className="w-5 h-5 text-white dark:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black dark:bg-white rounded-full flex items-center justify-center">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
-        <div>
-          <h3 className="text-lg font-semibold text-black dark:text-white">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base sm:text-lg font-semibold text-black dark:text-white">
             Conversation Summary
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
             Here's what we discussed and found for you
           </p>
         </div>

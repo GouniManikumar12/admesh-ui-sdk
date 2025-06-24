@@ -49,7 +49,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   const cardClasses = classNames(
     'admesh-component',
     'admesh-card',
-    'relative p-3 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow transition-shadow cursor-pointer',
+    'relative p-3 sm:p-4 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow transition-shadow cursor-pointer',
     className
   );
 
@@ -76,25 +76,26 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         data-admesh-theme={theme?.mode}
       >
         {/* Header with badges and title */}
-        <div className="flex justify-between items-start mb-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
             {showBadges && badges.includes('Top Match') && (
-              <span className="text-xs font-semibold text-white bg-black px-2 py-0.5 rounded-full">
+              <span className="text-xs font-semibold text-white bg-black px-2 py-0.5 rounded-full w-fit">
                 Top Match
               </span>
             )}
-            <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+            <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-sm sm:text-base truncate">
               {recommendation.title}
             </h4>
+          </div>
 
-            <div className="flex gap-2">
-              <button className="text-xs px-2 py-1 rounded-full bg-black text-white hover:bg-gray-800 flex items-center">
-                Visit
-                <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </button>
-            </div>
+          <div className="flex gap-2 flex-shrink-0">
+            <button className="text-xs sm:text-sm px-2 py-1 rounded-full bg-black text-white hover:bg-gray-800 flex items-center">
+              <span className="hidden sm:inline">Visit</span>
+              <span className="sm:hidden">Go</span>
+              <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -105,13 +106,13 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         {/* Confidence Score */}
         {showMatchScore && typeof recommendation.intent_match_score === "number" && (
           <div className="mb-3">
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-              <span>Confidence</span>
-              <span>{matchScorePercentage}%</span>
+            <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1">
+              <span className="font-medium">Confidence</span>
+              <span className="font-semibold text-gray-700 dark:text-gray-300">{matchScorePercentage}%</span>
             </div>
             <div className="w-full bg-gray-200 dark:bg-slate-600 rounded h-1.5 overflow-hidden">
               <div
-                className="bg-black h-1.5"
+                className="bg-black h-1.5 transition-all duration-300 ease-out"
                 style={{ width: `${matchScorePercentage}%` }}
               />
             </div>
