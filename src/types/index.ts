@@ -156,6 +156,7 @@ export interface AdMeshSidebarProps {
   onSearch?: (query: string) => void;
   onFilter?: (filters: SidebarFilters) => void;
   className?: string;
+  containerMode?: boolean; // When true, uses relative positioning for container integration
 }
 
 export interface SidebarFilters {

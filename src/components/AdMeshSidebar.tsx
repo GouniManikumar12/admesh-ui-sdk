@@ -14,7 +14,8 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
   onRecommendationClick,
   onSearch,
   // onFilter,
-  className
+  className,
+  containerMode = false // New prop for demo/container integration
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(config.defaultCollapsed || false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -114,11 +115,13 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
     {
       'border-r': config.position === 'left',
       'border-l': config.position === 'right',
-      'fixed top-0 bottom-0 z-50': true,
-      'left-0': config.position === 'left',
-      'right-0': config.position === 'right',
-      'transform -translate-x-full': config.position === 'left' && !isOpen,
-      'transform translate-x-full': config.position === 'right' && !isOpen,
+      // Use fixed positioning for full-screen mode, relative for container mode
+      'fixed top-0 bottom-0 z-50': !containerMode,
+      'relative h-full': containerMode,
+      'left-0': config.position === 'left' && !containerMode,
+      'right-0': config.position === 'right' && !containerMode,
+      'transform -translate-x-full': config.position === 'left' && !isOpen && !containerMode,
+      'transform translate-x-full': config.position === 'right' && !isOpen && !containerMode,
     },
     className
   );
@@ -133,9 +136,9 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
 
   return (
     <>
-      {/* Overlay for mobile */}
-      {isOpen && !isCollapsed && (
-        <div 
+      {/* Overlay for mobile - only show in full-screen mode */}
+      {!containerMode && isOpen && !isCollapsed && (
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => onToggle?.()}
         />
