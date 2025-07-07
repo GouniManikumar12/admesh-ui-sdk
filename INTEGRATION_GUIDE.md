@@ -396,5 +396,5 @@ Need help? We're here for you:
 
 - 📖 **Documentation**: https://docs.useadmesh.com
 - 💬 **Discord**: https://discord.gg/admesh
-- 📧 **Email**: support@useadmesh.com
+- 📧 **Email**: mani@useadmesh.com
 - 🐛 **Issues**: https://github.com/GouniManikumar12/admesh-ui-sdk/issues

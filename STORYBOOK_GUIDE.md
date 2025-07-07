@@ -239,7 +239,7 @@ Storybook ads show dramatically better performance:
 - **Storybook Issues**: Check the browser console for errors
 - **Component Questions**: Review the documentation in each story
 - **Integration Help**: See the code examples and implementation guides
-- **Custom Requirements**: Contact [support@useadmesh.com](mailto:support@useadmesh.com)
+- **Custom Requirements**: Contact [mani@useadmesh.com](mailto:mani@useadmesh.com)
 
 ## 🔗 Related Resources
 

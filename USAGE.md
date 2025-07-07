@@ -345,4 +345,4 @@ import { AdMeshLayout } from '@admesh/ui-sdk/dist/components/AdMeshLayout';
 
 - 📖 **Documentation**: https://docs.useadmesh.com
 - 🐛 **Issues**: https://github.com/GouniManikumar12/admesh-ui-sdk/issues
-- 📧 **Email**: support@useadmesh.com
+- 📧 **Email**: mani@useadmesh.com

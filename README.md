@@ -1017,4 +1017,4 @@ MIT License
 
 - Documentation: [AdMesh Docs](https://docs.useadmesh.com)
 - GitHub Issues: [Report a bug](https://github.com/GouniManikumar12/admesh-ui-sdk/issues)
-- Email: support@useadmesh.com
+- Email: mani@useadmesh.com

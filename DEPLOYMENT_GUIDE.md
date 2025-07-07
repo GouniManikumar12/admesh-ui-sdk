@@ -196,4 +196,4 @@ admesh-ui-sdk/
 
 - **Documentation Issues**: [GitHub Issues](https://github.com/GouniManikumar12/admesh-ui-sdk/issues)
 - **Deployment Support**: [Vercel Support](https://vercel.com/support)
-- **AdMesh Support**: [support@useadmesh.com](mailto:support@useadmesh.com)
+- **AdMesh Support**: [mani@useadmesh.com](mailto:mani@useadmesh.com)
