@@ -139,14 +139,14 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
       <div
         style={{
           background: colors.headerBg,
-          padding: theme.spacing?.large || '16px',
+          padding: '20px',
           borderBottom: isExpanded || !collapsible ? `1px solid ${colors.border}` : 'none',
           position: 'relative',
           transition: 'all 0.2s ease'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing?.medium || '12px', flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
             <div
               style={{
                 width: '40px',
@@ -169,10 +169,10 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
               <h3
                 style={{
                   margin: 0,
-                  fontSize: theme.fontSize?.large || '16px',
+                  fontSize: '18px',
                   fontWeight: '600',
                   color: colors.text,
-                  lineHeight: '1.3',
+                  lineHeight: '1.4',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap'
@@ -182,8 +182,8 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
               </h3>
               <p
                 style={{
-                  margin: '4px 0 0 0',
-                  fontSize: theme.fontSize?.small || '12px',
+                  margin: '8px 0 0 0',
+                  fontSize: '13px',
                   color: colors.textSecondary,
                   fontWeight: '400',
                   overflow: 'hidden',
@@ -197,7 +197,7 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing?.small || '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* CTA Button when collapsed */}
             {!isExpanded && collapsible && (
               <AdMeshLinkTracker
@@ -245,30 +245,57 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
               </AdMeshLinkTracker>
             )}
 
-            {/* Expand/Collapse button */}
+            {/* Modern Expand/Collapse button */}
             {collapsible && (
               <button
                 onClick={handleToggleExpand}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: theme.spacing?.small || '4px',
-                  borderRadius: theme.borderRadius || '4px',
-                  color: colors.textSecondary,
-                  fontSize: '16px',
-                  transition: 'transform 0.2s ease',
-                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  gap: '8px',
+                  padding: '8px 12px',
+                  background: theme.mode === 'dark' ? '#374151' : '#f3f4f6',
+                  border: `1px solid ${theme.mode === 'dark' ? '#4b5563' : '#d1d5db'}`,
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  color: theme.accentColor || '#2563eb',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  transition: 'all 0.2s ease'
                 }}
-                aria-label={isExpanded ? 'Collapse' : 'Expand'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = theme.mode === 'dark' ? '#4b5563' : '#e5e7eb';
+                  e.currentTarget.style.borderColor = theme.accentColor || '#2563eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = theme.mode === 'dark' ? '#374151' : '#f3f4f6';
+                  e.currentTarget.style.borderColor = theme.mode === 'dark' ? '#4b5563' : '#d1d5db';
+                }}
+                aria-label={isExpanded ? 'Show less details' : 'Show more details'}
               >
-                {isExpanded
-                  ? (theme.icons?.collapseIcon || '▲')
-                  : (theme.icons?.expandIcon || '▼')
-                }
+                <span>{isExpanded ? 'Less Details' : 'More Details'}</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {isExpanded ? (
+                    // Minus icon for collapse
+                    <path d="M5 12h14" />
+                  ) : (
+                    // Info icon for expand
+                    <>
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 16v-4" />
+                      <path d="M12 8h.01" />
+                    </>
+                  )}
+                </svg>
               </button>
             )}
           </div>
@@ -283,20 +310,20 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
             <div
               key={index}
               style={{
-                padding: '16px',
+                padding: '24px',
                 backgroundColor: index % 2 === 0 ? colors.background : colors.sectionBg,
                 borderBottom: index < displaySections.length - 1 ? `1px solid ${colors.border}` : 'none'
               }}
             >
               <h4
                 style={{
-                  margin: '0 0 8px 0',
-                  fontSize: '14px',
+                  margin: '0 0 12px 0',
+                  fontSize: '15px',
                   fontWeight: '600',
                   color: colors.text,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '12px'
                 }}
               >
                 {section.icon && <span>{section.icon}</span>}
@@ -305,9 +332,9 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
               <p
                 style={{
                   margin: 0,
-                  fontSize: '13px',
+                  fontSize: '14px',
                   color: colors.textSecondary,
-                  lineHeight: '1.4'
+                  lineHeight: '1.6'
                 }}
               >
                 {section.description}
@@ -317,7 +344,7 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
 
           {/* CTA Button - only show when expanded or when not collapsible */}
           {(isExpanded || !collapsible) && (
-            <div style={{ padding: '16px' }}>
+            <div style={{ padding: '24px', borderTop: `1px solid ${colors.border}`, backgroundColor: colors.background }}>
               <AdMeshLinkTracker
                 adId={recommendation.ad_id}
                 admeshLink={recommendation.admesh_link}
