@@ -5,9 +5,10 @@ export {
   AdMeshProductCard,
   AdMeshCompareTable,
   AdMeshBadge,
-  AdMeshLayout,
+
   AdMeshLinkTracker,
-  AdMeshSimpleAd,
+
+  AdMeshExpandableUnit,
   AdMeshConversationSummary,
   AdMeshCitationUnit,
   AdMeshInlineRecommendation,
@@ -35,6 +36,32 @@ export {
   useAdMeshStyles
 } from './hooks/useAdMeshStyles';
 
+// Export theme utilities
+export {
+  createAdMeshTheme,
+  createDarkTheme,
+  themePresets,
+  mergeThemes,
+  themeFromCSSProperties
+} from './utils/themeUtils';
+
+// Export disclosure utilities
+export {
+  getRecommendationLabel,
+  getLabelTooltip,
+  getSectionDisclosure,
+  getInlineDisclosure,
+  getInlineTooltip,
+  getBadgeText,
+  getCtaText,
+  hasHighQualityMatches,
+  getPoweredByText
+} from './utils/disclosureUtils';
+
+export type {
+  DisclosureConfig
+} from './utils/disclosureUtils';
+
 // Export types
 export type {
   AdMeshRecommendation,
@@ -47,9 +74,9 @@ export type {
   AdMeshProductCardProps,
   AdMeshCompareTableProps,
   AdMeshBadgeProps,
-  AdMeshLayoutProps,
+
   AdMeshLinkTrackerProps,
-  AdMeshSimpleAdProps,
+
   UseAdMeshTrackerReturn,
   AgentRecommendationResponse,
   AdMeshConfig,

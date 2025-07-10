@@ -84,7 +84,9 @@ export const AdMeshSidebar: React.FC<AdMeshSidebarProps> = ({
 
     // Apply free tier filter
     if (filters.hasFreeTier) {
-      filtered = filtered.filter(rec => rec.has_free_tier);
+      // Note: has_free_tier property not available in current type definition
+      // This filter is disabled until the property is added to AdMeshRecommendation
+      // filtered = filtered.filter(rec => rec.has_free_tier);
     }
 
     // Apply trial filter

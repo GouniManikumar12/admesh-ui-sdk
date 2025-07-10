@@ -17,13 +17,52 @@ export interface AdMeshRecommendation {
   categories?: string[];
   features?: string[];
   integrations?: string[];
-  has_free_tier?: boolean;
   trial_days?: number;
   audience_segment?: string;
-  is_ai_powered?: boolean;
   is_open_source?: boolean;
   offer_trust_score?: number;
   brand_trust_score?: number;
+
+  // New marketing content fields
+  recommendation_title?: string; // Marketing-optimized title for recommendations
+  recommendation_description?: string; // Marketing-optimized description for recommendations
+  offer_images?: Array<{
+    url: string;
+    storage_path: string;
+    filename: string;
+    content_type: string;
+    dimensions: {
+      width: number;
+      height: number;
+    };
+  }>;
+  product_logo?: {
+    url: string;
+    storage_path: string;
+    filename: string;
+    content_type: string;
+    dimensions: {
+      width: number;
+      height: number;
+    };
+  };
+  feature_sections?: Array<{
+    title: string;
+    description: string;
+    icon: string;
+  }>;
+
+  // Content variations for different ad formats
+  content_variations?: {
+    statement?: {
+      text: string;
+      cta?: string;
+    };
+    question?: {
+      text: string;
+      cta?: string;
+    };
+  };
 
   // Extended fields for compatibility
   reviews_summary?: string;
@@ -33,12 +72,70 @@ export interface AdMeshRecommendation {
   badges?: string[];
 }
 
-// Theme configuration
+// Enhanced theme configuration with full customization freedom
 export interface AdMeshTheme {
   mode: 'light' | 'dark';
+
+  // Color customization
   accentColor?: string;
-  borderRadius?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  backgroundColor?: string;
+  surfaceColor?: string;
+  borderColor?: string;
+  textColor?: string;
+  textSecondaryColor?: string;
+
+  // Typography
   fontFamily?: string;
+  fontSize?: {
+    small?: string;
+    base?: string;
+    large?: string;
+    title?: string;
+  };
+
+  // Layout & Spacing
+  borderRadius?: string;
+  spacing?: {
+    small?: string;
+    medium?: string;
+    large?: string;
+  };
+
+  // Shadows & Effects
+  shadows?: {
+    small?: string;
+    medium?: string;
+    large?: string;
+  };
+
+  // Icon customization
+  icons?: {
+    expandIcon?: string | React.ReactNode;
+    collapseIcon?: string | React.ReactNode;
+    starIcon?: string | React.ReactNode;
+    checkIcon?: string | React.ReactNode;
+    arrowIcon?: string | React.ReactNode;
+  };
+
+  // Advanced styling options
+  gradients?: {
+    primary?: string;
+    secondary?: string;
+    accent?: string;
+  };
+
+  // Component-specific overrides
+  components?: {
+    card?: React.CSSProperties;
+    button?: React.CSSProperties;
+    expandableUnit?: React.CSSProperties;
+    productCard?: React.CSSProperties;
+  };
+
+  // Disable default styling to allow full custom control
+  disableDefaultStyles?: boolean;
 }
 
 // Intent types for layout selection
@@ -78,7 +175,7 @@ export interface AdMeshProductCardProps {
   theme?: AdMeshTheme;
   showMatchScore?: boolean;
   showBadges?: boolean;
-  maxKeywords?: number;
+  variation?: 'statement' | 'question' | 'default' | 'simple';
   onClick?: (adId: string, admeshLink: string) => void;
   onTrackView?: (data: TrackingData) => void;
   className?: string;
@@ -237,18 +334,7 @@ export interface AdMeshBadgeProps {
   className?: string;
 }
 
-export interface AdMeshLayoutProps {
-  recommendations: AdMeshRecommendation[];
-  intentType?: IntentType;
-  theme?: AdMeshTheme;
-  maxDisplayed?: number;
-  showMatchScores?: boolean;
-  showFeatures?: boolean;
-  autoLayout?: boolean; // Automatically choose layout based on data
-  onProductClick?: (adId: string, admeshLink: string) => void;
-  onTrackView?: (data: TrackingData) => void;
-  className?: string;
-}
+
 
 export interface AdMeshLinkTrackerProps {
   adId: string;
@@ -260,14 +346,7 @@ export interface AdMeshLinkTrackerProps {
   className?: string;
 }
 
-export interface AdMeshSimpleAdProps {
-  recommendation: AdMeshRecommendation;
-  theme?: AdMeshTheme;
-  className?: string;
-  onClick?: (adId: string, admeshLink: string) => void;
-  showPoweredBy?: boolean;
-  variation?: 'question' | 'statement';
-}
+
 
 // Hook return types
 export interface UseAdMeshTrackerReturn {

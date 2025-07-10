@@ -12,7 +12,7 @@ const badgeTypeVariants: Record<BadgeType, string> = {
   'Trial Available': 'success'
 };
 
-// Badge type to icon mapping (using modern Unicode icons)
+// Badge type to icon mapping (using clean Unicode symbols)
 const badgeTypeIcons: Partial<Record<BadgeType, string>> = {
   'Top Match': '★',
   'Free Tier': '◆',

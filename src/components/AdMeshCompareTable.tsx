@@ -64,12 +64,8 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
         {/* Product Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {productsToCompare.map((product, index) => (
-            <AdMeshLinkTracker
+            <div
               key={product.product_id || index}
-              adId={product.ad_id}
-              admeshLink={product.admesh_link}
-              productId={product.product_id}
-              onClick={() => onProductClick?.(product.ad_id, product.admesh_link)}
               className="relative p-4 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow transition-shadow"
             >
               {/* Product Header */}
@@ -123,14 +119,7 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
                   </span>
                 )}
 
-                {product.has_free_tier && (
-                  <span className="flex items-center px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400 rounded-full">
-                    <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                    </svg>
-                    Free Tier
-                  </span>
-                )}
+
 
                 {product.trial_days && product.trial_days > 0 && (
                   <span className="flex items-center text-gray-600 dark:text-gray-400">
@@ -170,13 +159,25 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
               )}
 
               {/* Visit Button */}
-              <button className="w-full text-xs px-3 py-2 rounded-lg bg-black text-white hover:bg-gray-800 flex items-center justify-center gap-1 mt-auto">
-                Visit Offer
-                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </button>
-            </AdMeshLinkTracker>
+              <AdMeshLinkTracker
+                adId={product.ad_id}
+                admeshLink={product.admesh_link}
+                productId={product.product_id}
+                onClick={() => onProductClick?.(product.ad_id, product.admesh_link)}
+                trackingData={{
+                  title: product.title,
+                  matchScore: product.intent_match_score,
+                  component: 'compare_table_cta'
+                }}
+              >
+                <button className="w-full text-xs px-3 py-2 rounded-lg bg-black text-white hover:bg-gray-800 flex items-center justify-center gap-1 mt-auto transition-colors">
+                  Visit Offer
+                  <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </button>
+              </AdMeshLinkTracker>
+            </div>
           ))}
         </div>
 

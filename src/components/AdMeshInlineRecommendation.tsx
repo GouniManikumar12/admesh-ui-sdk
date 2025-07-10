@@ -2,6 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import type { AdMeshInlineRecommendationProps } from '../types/index';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
+import {
+  getInlineDisclosure,
+  getInlineTooltip
+} from '../utils/disclosureUtils';
 
 export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProps> = ({
   recommendation,
@@ -12,6 +16,10 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
   className
 }) => {
   const matchScorePercentage = Math.round(recommendation.intent_match_score * 100);
+
+  // Get compliant labels and disclosures
+  const inlineDisclosure = getInlineDisclosure(recommendation, compact);
+  const inlineTooltip = getInlineTooltip();
 
   const containerClasses = classNames(
     'admesh-inline-recommendation',
@@ -46,7 +54,23 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
       >
         {/* Icon/Badge */}
         <div className="flex-shrink-0 mt-0.5">
-          {recommendation.intent_match_score >= 0.8 ? (
+          {recommendation.offer_images && recommendation.offer_images.length > 0 ? (
+            <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-200 dark:border-gray-600">
+              <img
+                src={recommendation.offer_images[0].url}
+                alt={recommendation.recommendation_title || recommendation.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : recommendation.product_logo ? (
+            <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-200 dark:border-gray-600">
+              <img
+                src={recommendation.product_logo.url}
+                alt={recommendation.recommendation_title || recommendation.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : recommendation.intent_match_score >= 0.8 ? (
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
           ) : (
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -62,7 +86,7 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
               'cursor-pointer hover:underline',
               compact ? 'text-sm sm:text-base' : 'text-base sm:text-lg'
             )}>
-              {recommendation.title}
+              {recommendation.recommendation_title || recommendation.title}
             </h4>
             
             {/* Match score badge */}
@@ -79,14 +103,25 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
           </div>
 
           {/* Reason/Description */}
-          {showReason && recommendation.reason && (
+          {showReason && (recommendation.recommendation_description || recommendation.reason) && (
             <p className={classNames(
               'text-gray-600 dark:text-gray-400 line-clamp-2',
               compact ? 'text-xs' : 'text-sm'
             )}>
-              {recommendation.reason}
+              {recommendation.recommendation_description || recommendation.reason}
             </p>
           )}
+
+          {/* Disclosure */}
+          <p
+            className={classNames(
+              'text-gray-500 dark:text-gray-400 mt-1',
+              compact ? 'text-xs' : 'text-xs'
+            )}
+            title={inlineTooltip}
+          >
+            {inlineDisclosure}
+          </p>
 
           {/* Features/Keywords */}
           {!compact && recommendation.keywords && recommendation.keywords.length > 0 && (
@@ -108,18 +143,11 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
           )}
 
           {/* Pricing/Trial info */}
-          {!compact && (recommendation.has_free_tier || recommendation.trial_days) && (
+          {!compact && recommendation.trial_days && recommendation.trial_days > 0 && (
             <div className="flex items-center gap-2 mt-2">
-              {recommendation.has_free_tier && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800/80 dark:text-green-100">
-                  Free tier
-                </span>
-              )}
-              {recommendation.trial_days && recommendation.trial_days > 0 && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                  {recommendation.trial_days}-day trial
-                </span>
-              )}
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                {recommendation.trial_days}-day trial
+              </span>
             </div>
           )}
         </div>
