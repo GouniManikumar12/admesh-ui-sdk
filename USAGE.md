@@ -10,11 +10,11 @@ npm install @admesh/ui-sdk
 
 ## 🚀 Quick Start
 
-### 1. Import Components and Styles
+### 1. Import Components
 
 ```jsx
 import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+// No CSS import needed! Styles are automatically injected ✨
 ```
 
 ### 2. Prepare Your Data
@@ -324,10 +324,19 @@ function SEORecommendations({ recommendations }) {
 
 ## 🚨 Common Issues
 
-### CSS Not Loading
+### Components Not Styling Properly
+The AdMesh UI SDK is self-contained and automatically injects all necessary styles. If components appear unstyled:
+
+1. **Ensure React is properly set up** - The SDK requires React 18+ or 19+
+2. **Check for JavaScript errors** - Style injection happens automatically when components mount
+3. **Verify component imports** - Make sure you're importing from 'admesh-ui-sdk'
+
 ```jsx
-// Make sure to import the CSS
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+// ✅ Correct - No CSS import needed
+import { AdMeshProductCard } from 'admesh-ui-sdk';
+
+// ❌ Incorrect - Don't try to import CSS manually
+// import 'admesh-ui-sdk/dist/styles.css';
 ```
 
 ### TypeScript Errors

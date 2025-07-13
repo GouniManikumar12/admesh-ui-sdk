@@ -7,9 +7,9 @@ export const AdMeshLinkTracker: React.FC<AdMeshLinkTrackerProps> = ({
   admeshLink,
   productId,
   children,
-  onClick,
   trackingData,
-  className
+  className,
+  style
 }) => {
   const { trackClick, trackView } = useAdMeshTracker();
   const elementRef = useRef<HTMLDivElement>(null);
@@ -59,10 +59,7 @@ export const AdMeshLinkTracker: React.FC<AdMeshLinkTrackerProps> = ({
       console.error('Failed to track click:', error);
     }
 
-    // Call custom onClick handler if provided
-    if (onClick) {
-      onClick();
-    }
+
 
     // If the children contain a link, let the browser handle navigation
     // Otherwise, navigate programmatically
@@ -74,14 +71,17 @@ export const AdMeshLinkTracker: React.FC<AdMeshLinkTrackerProps> = ({
       window.open(admeshLink, '_blank', 'noopener,noreferrer');
     }
     // If there's a link, let the browser handle it naturally
-  }, [adId, admeshLink, productId, trackingData, trackClick, onClick]);
+  }, [adId, admeshLink, productId, trackingData, trackClick]);
 
   return (
     <div
       ref={elementRef}
       className={className}
       onClick={handleClick}
-      style={{ cursor: 'pointer' }}
+      style={{
+        cursor: 'pointer',
+        ...style
+      }}
     >
       {children}
     </div>

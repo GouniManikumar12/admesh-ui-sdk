@@ -12,8 +12,8 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
   theme,
   compact = false,
   showReason = true,
-  onClick,
-  className
+  className,
+  style
 }) => {
   const matchScorePercentage = Math.round(recommendation.intent_match_score * 100);
 
@@ -40,12 +40,16 @@ export const AdMeshInlineRecommendation: React.FC<AdMeshInlineRecommendationProp
       adId={recommendation.ad_id}
       admeshLink={recommendation.admesh_link}
       productId={recommendation.product_id}
-      onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
       trackingData={{
         title: recommendation.title,
         matchScore: recommendation.intent_match_score
       }}
       className={containerClasses}
+      style={{
+        fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ...theme?.components?.inlineRecommendation,
+        ...style
+      }}
     >
       <div
         className="flex items-start gap-3"

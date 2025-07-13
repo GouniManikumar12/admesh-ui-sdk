@@ -1,8 +1,15 @@
 import { useEffect } from 'react';
 
-// CSS content as a string - this will be injected automatically
+// Complete CSS content as a string - this will be injected automatically
 const ADMESH_STYLES = `
-/* AdMesh UI SDK Scoped Styles - Smart Recommendations Design */
+/* AdMesh UI SDK - Complete Self-Contained Styles */
+
+/* CSS Reset for AdMesh components */
+.admesh-component, .admesh-component * {
+  box-sizing: border-box;
+}
+
+/* CSS Variables */
 .admesh-component {
   --admesh-primary: #6366f1;
   --admesh-primary-hover: #4f46e5;
@@ -427,6 +434,216 @@ const ADMESH_STYLES = `
   .admesh-compare-table td {
     padding: 0.5rem;
   }
+}
+
+/* Essential Utility Classes for Self-Contained SDK - High Specificity */
+.admesh-component .relative { position: relative !important; }
+.admesh-component .absolute { position: absolute !important; }
+.admesh-component .flex { display: flex !important; }
+.admesh-component .inline-flex { display: inline-flex !important; }
+.admesh-component .grid { display: grid !important; }
+.admesh-component .hidden { display: none !important; }
+.admesh-component .block { display: block !important; }
+.admesh-component .inline-block { display: inline-block !important; }
+
+/* Flexbox utilities */
+.admesh-component .flex-col { flex-direction: column !important; }
+.admesh-component .flex-row { flex-direction: row !important; }
+.admesh-component .flex-wrap { flex-wrap: wrap !important; }
+.admesh-component .items-center { align-items: center !important; }
+.admesh-component .items-start { align-items: flex-start !important; }
+.admesh-component .items-end { align-items: flex-end !important; }
+.admesh-component .justify-center { justify-content: center !important; }
+.admesh-component .justify-between { justify-content: space-between !important; }
+.admesh-component .justify-end { justify-content: flex-end !important; }
+.admesh-component .flex-1 { flex: 1 1 0% !important; }
+.admesh-component .flex-shrink-0 { flex-shrink: 0 !important; }
+
+/* Grid utilities */
+.admesh-component .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.admesh-component .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.admesh-component .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Spacing utilities */
+.admesh-component .gap-1 { gap: 0.25rem; }
+.admesh-component .gap-2 { gap: 0.5rem; }
+.admesh-component .gap-3 { gap: 0.75rem; }
+.admesh-component .gap-4 { gap: 1rem; }
+.admesh-component .gap-6 { gap: 1.5rem; }
+.admesh-component .gap-8 { gap: 2rem; }
+
+/* Padding utilities */
+.admesh-component .p-1 { padding: 0.25rem; }
+.admesh-component .p-2 { padding: 0.5rem; }
+.admesh-component .p-3 { padding: 0.75rem; }
+.admesh-component .p-4 { padding: 1rem; }
+.admesh-component .p-5 { padding: 1.25rem; }
+.admesh-component .p-6 { padding: 1.5rem; }
+.admesh-component .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.admesh-component .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.admesh-component .px-4 { padding-left: 1rem; padding-right: 1rem; }
+.admesh-component .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.admesh-component .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.admesh-component .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.admesh-component .pt-2 { padding-top: 0.5rem; }
+.admesh-component .pt-3 { padding-top: 0.75rem; }
+.admesh-component .pb-2 { padding-bottom: 0.5rem; }
+.admesh-component .pb-3 { padding-bottom: 0.75rem; }
+
+/* Margin utilities */
+.admesh-component .m-0 { margin: 0; }
+.admesh-component .mb-1 { margin-bottom: 0.25rem; }
+.admesh-component .mb-2 { margin-bottom: 0.5rem; }
+.admesh-component .mb-3 { margin-bottom: 0.75rem; }
+.admesh-component .mb-4 { margin-bottom: 1rem; }
+.admesh-component .mb-6 { margin-bottom: 1.5rem; }
+.admesh-component .mt-1 { margin-top: 0.25rem; }
+.admesh-component .mt-2 { margin-top: 0.5rem; }
+.admesh-component .mt-4 { margin-top: 1rem; }
+.admesh-component .mt-6 { margin-top: 1.5rem; }
+.admesh-component .mt-auto { margin-top: auto; }
+.admesh-component .ml-1 { margin-left: 0.25rem; }
+.admesh-component .mr-1 { margin-right: 0.25rem; }
+.admesh-component .mr-2 { margin-right: 0.5rem; }
+
+/* Width and height utilities */
+.admesh-component .w-2 { width: 0.5rem; }
+.admesh-component .w-3 { width: 0.75rem; }
+.admesh-component .w-4 { width: 1rem; }
+.admesh-component .w-5 { width: 1.25rem; }
+.admesh-component .w-6 { width: 1.5rem; }
+.admesh-component .w-full { width: 100%; }
+.admesh-component .w-fit { width: fit-content; }
+.admesh-component .h-2 { height: 0.5rem; }
+.admesh-component .h-3 { height: 0.75rem; }
+.admesh-component .h-4 { height: 1rem; }
+.admesh-component .h-5 { height: 1.25rem; }
+.admesh-component .h-6 { height: 1.5rem; }
+.admesh-component .h-full { height: 100%; }
+.admesh-component .min-w-0 { min-width: 0px; }
+
+/* Border utilities */
+.admesh-component .border { border-width: 1px; }
+.admesh-component .border-t { border-top-width: 1px; }
+.admesh-component .border-gray-100 { border-color: #f3f4f6; }
+.admesh-component .border-gray-200 { border-color: #e5e7eb; }
+.admesh-component .border-gray-300 { border-color: #d1d5db; }
+.admesh-component .border-blue-200 { border-color: #bfdbfe; }
+.admesh-component .border-green-200 { border-color: #bbf7d0; }
+
+/* Border radius utilities */
+.admesh-component .rounded { border-radius: 0.25rem !important; }
+.admesh-component .rounded-md { border-radius: 0.375rem !important; }
+.admesh-component .rounded-lg { border-radius: 0.5rem !important; }
+.admesh-component .rounded-xl { border-radius: 0.75rem !important; }
+.admesh-component .rounded-full { border-radius: 9999px !important; }
+
+/* Background utilities */
+.admesh-component .bg-white { background-color: #ffffff; }
+.admesh-component .bg-gray-50 { background-color: #f9fafb; }
+.admesh-component .bg-gray-100 { background-color: #f3f4f6; }
+.admesh-component .bg-blue-50 { background-color: #eff6ff; }
+.admesh-component .bg-blue-100 { background-color: #dbeafe; }
+.admesh-component .bg-green-100 { background-color: #dcfce7; }
+.admesh-component .bg-green-500 { background-color: #22c55e; }
+.admesh-component .bg-blue-500 { background-color: #3b82f6; }
+
+/* Gradients */
+.admesh-component .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+.admesh-component .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+.admesh-component .from-white { --tw-gradient-from: #ffffff; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0)); }
+.admesh-component .to-gray-50 { --tw-gradient-to: #f9fafb; }
+.admesh-component .from-purple-500 { --tw-gradient-from: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(168, 85, 247, 0)); }
+.admesh-component .to-pink-500 { --tw-gradient-to: #ec4899; }
+.admesh-component .from-green-400 { --tw-gradient-from: #4ade80; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(74, 222, 128, 0)); }
+.admesh-component .to-blue-500 { --tw-gradient-to: #3b82f6; }
+
+/* Text utilities */
+.admesh-component .text-xs { font-size: 0.75rem; line-height: 1rem; }
+.admesh-component .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.admesh-component .text-base { font-size: 1rem; line-height: 1.5rem; }
+.admesh-component .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.admesh-component .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.admesh-component .font-medium { font-weight: 500; }
+.admesh-component .font-semibold { font-weight: 600; }
+.admesh-component .font-bold { font-weight: 700; }
+.admesh-component .leading-relaxed { line-height: 1.625; }
+
+/* Text colors */
+.admesh-component .text-white { color: #ffffff; }
+.admesh-component .text-gray-400 { color: #9ca3af; }
+.admesh-component .text-gray-500 { color: #6b7280; }
+.admesh-component .text-gray-600 { color: #4b5563; }
+.admesh-component .text-gray-700 { color: #374151; }
+.admesh-component .text-gray-800 { color: #1f2937; }
+.admesh-component .text-blue-600 { color: #2563eb; }
+.admesh-component .text-blue-700 { color: #1d4ed8; }
+.admesh-component .text-green-700 { color: #15803d; }
+
+/* Shadow utilities */
+.admesh-component .shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.admesh-component .shadow { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }
+.admesh-component .shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+.admesh-component .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.admesh-component .shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+
+/* Transition utilities */
+.admesh-component .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.admesh-component .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.admesh-component .duration-200 { transition-duration: 200ms; }
+.admesh-component .duration-300 { transition-duration: 300ms; }
+
+/* Transform utilities */
+.admesh-component .hover\\:-translate-y-1:hover { transform: translateY(-0.25rem); }
+.admesh-component .hover\\:scale-105:hover { transform: scale(1.05); }
+
+/* Hover utilities */
+.admesh-component .hover\\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+.admesh-component .hover\\:bg-gray-100:hover { background-color: #f3f4f6; }
+.admesh-component .hover\\:text-blue-800:hover { color: #1e40af; }
+
+/* Cursor utilities */
+.admesh-component .cursor-pointer { cursor: pointer; }
+
+/* Overflow utilities */
+.admesh-component .overflow-hidden { overflow: hidden; }
+.admesh-component .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Text decoration */
+.admesh-component .underline { text-decoration-line: underline; }
+
+/* Whitespace */
+.admesh-component .whitespace-nowrap { white-space: nowrap; }
+
+/* Dark mode utilities */
+@media (prefers-color-scheme: dark) {
+  .admesh-component .dark\\:bg-slate-800 { background-color: #1e293b; }
+  .admesh-component .dark\\:bg-slate-900 { background-color: #0f172a; }
+  .admesh-component .dark\\:border-slate-700 { border-color: #334155; }
+  .admesh-component .dark\\:text-white { color: #ffffff; }
+  .admesh-component .dark\\:text-gray-200 { color: #e5e7eb; }
+  .admesh-component .dark\\:text-gray-300 { color: #d1d5db; }
+  .admesh-component .dark\\:text-gray-400 { color: #9ca3af; }
+  .admesh-component .dark\\:text-blue-400 { color: #60a5fa; }
+}
+
+/* Responsive utilities */
+@media (min-width: 640px) {
+  .admesh-component .sm\\:p-5 { padding: 1.25rem; }
+  .admesh-component .sm\\:text-base { font-size: 1rem; line-height: 1.5rem; }
+  .admesh-component .sm\\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+  .admesh-component .sm\\:flex-row { flex-direction: row; }
+  .admesh-component .sm\\:items-center { align-items: center; }
+  .admesh-component .sm\\:justify-between { justify-content: space-between; }
+}
+
+@media (min-width: 768px) {
+  .admesh-component .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .admesh-component .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .admesh-component .lg\\:col-span-1 { grid-column: span 1 / span 1; }
 }
 `;
 

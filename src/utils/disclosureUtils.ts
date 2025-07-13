@@ -96,18 +96,18 @@ export const getInlineDisclosure = (
   const matchScore = recommendation.intent_match_score || 0;
 
   if (compact) {
-    return "Promoted Match";
+    return "Promoted";
   }
 
   if (matchScore >= 0.8) {
-    return "Smart Pick";
+    return "Smart Recommendation";
   }
 
   if (matchScore >= 0.6) {
     return "Partner Match";
   }
 
-  return "Promoted Option";
+  return "Promoted";
 };
 
 /**

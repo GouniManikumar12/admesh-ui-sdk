@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import type { AdMeshCompareTableProps } from '../types/index';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
+import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
 
 export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
   recommendations,
@@ -9,9 +10,12 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
   maxProducts = 3,
   showMatchScores = true,
   showFeatures = true,
-  onProductClick,
-  className
+  className,
+  style
 }) => {
+  // Inject styles automatically
+  useAdMeshStyles();
+
   // Limit the number of products to compare
   const productsToCompare = useMemo(() => {
     return recommendations.slice(0, maxProducts);
@@ -31,7 +35,16 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
 
   if (productsToCompare.length === 0) {
     return (
-      <div className={containerClasses}>
+      <div
+        className={containerClasses}
+        style={{
+          ...containerStyle,
+          fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          ...theme?.components?.compareTable,
+          ...style
+        }}
+        data-admesh-theme={theme?.mode}
+      >
         <div className="p-8 text-center text-gray-500 dark:text-gray-400">
           <p>No products to compare</p>
         </div>
@@ -42,7 +55,12 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
   return (
     <div
       className={containerClasses}
-      style={containerStyle}
+      style={{
+        ...containerStyle,
+        fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ...theme?.components?.compareTable,
+        ...style
+      }}
       data-admesh-theme={theme?.mode}
     >
       <div className="space-y-6">
@@ -163,7 +181,6 @@ export const AdMeshCompareTable: React.FC<AdMeshCompareTableProps> = ({
                 adId={product.ad_id}
                 admeshLink={product.admesh_link}
                 productId={product.product_id}
-                onClick={() => onProductClick?.(product.ad_id, product.admesh_link)}
                 trackingData={{
                   title: product.title,
                   matchScore: product.intent_match_score,

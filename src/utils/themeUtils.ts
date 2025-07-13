@@ -159,6 +159,7 @@ export const themePresets = {
 export const mergeThemes = (...themes: Partial<AdMeshTheme>[]): AdMeshTheme => {
   const baseTheme = createAdMeshTheme();
   return themes.reduce((merged, theme) => {
+    if (!theme) return merged;
     return createAdMeshTheme({
       ...merged,
       ...theme

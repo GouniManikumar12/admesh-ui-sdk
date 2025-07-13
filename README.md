@@ -33,6 +33,18 @@ A comprehensive React + TypeScript component library for displaying AdMesh produ
 npm install admesh-ui-sdk
 ```
 
+## ✨ Self-Contained Design
+
+**Zero configuration required!** The AdMesh UI SDK is completely self-contained and works like Google Ads or any professional SDK:
+
+- ✅ **No Tailwind CSS setup needed** - All styles are automatically injected
+- ✅ **No external CSS imports required** - Works out of the box in any React app
+- ✅ **No build configuration changes** - Just install and use
+- ✅ **Platform independent** - Consistent appearance across all applications
+- ✅ **Zero dependencies** - Only requires React and ReactDOM as peer dependencies
+
+The SDK automatically injects all necessary styles when components are rendered, ensuring consistent appearance regardless of your application's CSS framework, Tailwind configuration, or styling approach.
+
 ## 🎯 Quick Start
 
 ```tsx

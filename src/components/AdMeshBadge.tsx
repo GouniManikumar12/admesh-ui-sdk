@@ -26,7 +26,8 @@ export const AdMeshBadge: React.FC<AdMeshBadgeProps> = ({
   type,
   variant,
   size = 'md',
-  className
+  className,
+  style
 }) => {
   const effectiveVariant = variant || badgeTypeVariants[type] || 'secondary';
   const icon = badgeTypeIcons[type];
@@ -40,7 +41,10 @@ export const AdMeshBadge: React.FC<AdMeshBadgeProps> = ({
   );
 
   return (
-    <span className={badgeClasses}>
+    <span
+      className={badgeClasses}
+      style={style}
+    >
       {icon && <span className="admesh-badge__icon">{icon}</span>}
       <span className="admesh-badge__text">{type}</span>
     </span>

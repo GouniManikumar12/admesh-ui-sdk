@@ -19,7 +19,6 @@ export interface AdMeshRecommendation {
   integrations?: string[];
   trial_days?: number;
   audience_segment?: string;
-  is_open_source?: boolean;
   offer_trust_score?: number;
   brand_trust_score?: number;
 
@@ -132,6 +131,9 @@ export interface AdMeshTheme {
     button?: React.CSSProperties;
     expandableUnit?: React.CSSProperties;
     productCard?: React.CSSProperties;
+    compareTable?: React.CSSProperties;
+    citationUnit?: React.CSSProperties;
+    inlineRecommendation?: React.CSSProperties;
   };
 
   // Disable default styling to allow full custom control
@@ -176,9 +178,10 @@ export interface AdMeshProductCardProps {
   showMatchScore?: boolean;
   showBadges?: boolean;
   variation?: 'statement' | 'question' | 'default' | 'simple';
-  onClick?: (adId: string, admeshLink: string) => void;
+  expandable?: boolean; // For question and statement variations, default: false
   onTrackView?: (data: TrackingData) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 // Conversational ad unit types
@@ -202,9 +205,9 @@ export interface AdMeshConversationSummaryProps {
   conversationSummary: string;
   theme?: AdMeshTheme;
   showTopRecommendations?: number;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   onStartNewConversation?: () => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 
@@ -216,9 +219,9 @@ export interface AdMeshCitationUnitProps {
   theme?: AdMeshTheme;
   showCitationList?: boolean;
   citationStyle?: 'numbered' | 'bracketed' | 'superscript';
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   onCitationHover?: (recommendation: AdMeshRecommendation) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 
@@ -249,11 +252,11 @@ export interface AdMeshSidebarProps {
   title?: string;
   isOpen?: boolean;
   onToggle?: () => void;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   onSearch?: (query: string) => void;
   onFilter?: (filters: SidebarFilters) => void;
   className?: string;
   containerMode?: boolean; // When true, uses relative positioning for container integration
+  style?: React.CSSProperties;
 }
 
 export interface SidebarFilters {
@@ -273,6 +276,7 @@ export interface AdMeshSidebarHeaderProps {
   onSearch?: (query: string) => void;
   showSearch?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshSidebarContentProps {
@@ -280,8 +284,8 @@ export interface AdMeshSidebarContentProps {
   displayMode: SidebarDisplayMode;
   theme?: AdMeshTheme;
   maxRecommendations?: number;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 // Chat types
@@ -311,6 +315,7 @@ export interface AdMeshChatConfig {
   enableTypingIndicator?: boolean;
   enableSuggestions?: boolean;
   suggestions?: string[];
+  showInputField?: boolean;
 }
 
 
@@ -323,8 +328,8 @@ export interface AdMeshCompareTableProps {
   maxProducts?: number;
   showMatchScores?: boolean;
   showFeatures?: boolean;
-  onProductClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshBadgeProps {
@@ -332,6 +337,7 @@ export interface AdMeshBadgeProps {
   variant?: BadgeVariant;
   size?: BadgeSize;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 
@@ -341,9 +347,9 @@ export interface AdMeshLinkTrackerProps {
   admeshLink: string;
   productId?: string;
   children: React.ReactNode;
-  onClick?: () => void;
   trackingData?: Record<string, unknown>;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 
@@ -400,8 +406,8 @@ export interface AdMeshInlineRecommendationProps {
   theme?: AdMeshTheme;
   compact?: boolean;
   showReason?: boolean;
-  onClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshChatInputProps {
@@ -412,13 +418,15 @@ export interface AdMeshChatInputProps {
   disabled?: boolean;
   suggestions?: string[];
   className?: string;
+  theme?: AdMeshTheme;
+  onSendMessage?: (message: string) => void;
 }
 
 export interface AdMeshChatMessageProps {
   message: ChatMessage;
   theme?: AdMeshTheme;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshChatInterfaceProps {
@@ -426,8 +434,9 @@ export interface AdMeshChatInterfaceProps {
   config: AdMeshChatConfig;
   theme?: AdMeshTheme;
   onSendMessage: (message: string) => void;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  isLoading?: boolean;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshFloatingChatProps {
@@ -437,16 +446,27 @@ export interface AdMeshFloatingChatProps {
   isOpen?: boolean;
   onToggle?: () => void;
   onSendMessage: (message: string) => void;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  title?: string;
+  subtitle?: string;
+  autoRecommendations?: AdMeshRecommendation[];
+  autoRecommendationTrigger?: string;
+  showInputField?: boolean;
+  style?: React.CSSProperties;
+  autoShowRecommendations?: boolean;
+  onAutoRecommendationDismiss?: () => void;
 }
 
 export interface AdMeshCitationReferenceProps {
-  recommendations: AdMeshRecommendation[];
+  recommendations?: AdMeshRecommendation[];
   theme?: AdMeshTheme;
   citationStyle?: 'numbered' | 'bracketed' | 'superscript';
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  recommendation: AdMeshRecommendation;
+  citationNumber: number;
+  showTooltip?: boolean;
+  onHover?: (rec: AdMeshRecommendation) => void;
+  style?: React.CSSProperties;
 }
 
 export interface AdMeshConversationalUnitProps {
@@ -454,6 +474,9 @@ export interface AdMeshConversationalUnitProps {
   config: ConversationalAdConfig;
   theme?: AdMeshTheme;
   trigger?: string;
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
   className?: string;
+  conversationSummary?: string;
+  sessionId?: string;
+  onDismiss?: () => void;
+  style?: React.CSSProperties;
 }

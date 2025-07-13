@@ -1,6 +1,6 @@
 {
   "name": "admesh-ui-sdk",
-  "version": "0.9.11",
+  "version": "0.10.2",
   "description": "Beautiful, modern React components for displaying AI-powered product recommendations with citation-based conversation ads, auto-triggered widgets, floating chat, conversational interfaces, persistent sidebar, and built-in tracking",
   "type": "module",
   "main": "./dist/index.js",
@@ -92,7 +92,6 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "admesh-ui-sdk": "^0.9.3",
     "ajv": "^8.17.1",
     "classnames": "^2.5.1"
   },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { AdMeshRecommendation, AdMeshTheme } from '../types';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
+import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
 import {
   getInlineDisclosure,
   getInlineTooltip
@@ -13,8 +14,8 @@ export interface AdMeshExpandableUnitProps {
   theme?: AdMeshTheme;
   /** Custom CSS class name */
   className?: string;
-  /** Callback when the ad is clicked */
-  onClick?: (adId: string, admeshLink: string) => void;
+  /** Custom inline styles */
+  style?: React.CSSProperties;
   /** Show "powered by AdMesh" branding */
   showPoweredBy?: boolean;
   /** Initial expanded state */
@@ -44,18 +45,19 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
   recommendation,
   theme = { mode: 'light' },
   className = '',
-  onClick,
+  style,
   showPoweredBy = true,
   initialExpanded = false,
   sections,
   ctaText,
   collapsible = true
 }) => {
+  // Inject styles automatically
+  useAdMeshStyles();
+
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
-  const handleClick = () => {
-    onClick?.(recommendation.ad_id, recommendation.admesh_link);
-  };
+
 
   const handleToggleExpand = () => {
     if (collapsible) {
@@ -128,10 +130,11 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
 
   return (
     <div
-      className={`admesh-expandable-unit ${className}`}
+      className={`admesh-component admesh-expandable-unit ${className}`}
       style={{
         ...customStyles,
-        ...theme.components?.expandableUnit
+        ...theme.components?.expandableUnit,
+        ...style
       }}
       data-admesh-theme={theme.mode}
     >
@@ -204,7 +207,6 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
                 adId={recommendation.ad_id}
                 admeshLink={recommendation.admesh_link}
                 productId={recommendation.product_id}
-                onClick={handleClick}
                 trackingData={{
                   title: recommendation.recommendation_title || recommendation.title,
                   component: 'expandable_unit',
@@ -349,7 +351,6 @@ export const AdMeshExpandableUnit: React.FC<AdMeshExpandableUnitProps> = ({
                 adId={recommendation.ad_id}
                 admeshLink={recommendation.admesh_link}
                 productId={recommendation.product_id}
-                onClick={handleClick}
                 trackingData={{
                   title: recommendation.title,
                   component: 'expandable_unit',

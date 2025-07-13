@@ -95,9 +95,9 @@ export const AdMeshFloatingChat: React.FC<AdMeshFloatingChatProps> = ({
     setIsLoading(true);
 
     try {
-      // Get AI response
-      const assistantMessage = await onSendMessage(messageContent);
-      setMessages(prev => [...prev, assistantMessage]);
+      // Send message
+      await onSendMessage(messageContent);
+      // Note: The response should be handled by the parent component
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage: ChatMessage = {
@@ -216,7 +216,7 @@ export const AdMeshFloatingChat: React.FC<AdMeshFloatingChatProps> = ({
               }}
               theme={theme}
               isLoading={isLoading}
-              onSendMessage={showInputField ? handleSendMessage : undefined}
+              onSendMessage={showInputField ? handleSendMessage : () => {}}
               onRecommendationClick={onRecommendationClick}
               className="h-full"
             />

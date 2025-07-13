@@ -9,9 +9,9 @@ export const AdMeshCitationReference: React.FC<AdMeshCitationReferenceProps> = (
   citationStyle = 'numbered',
   theme,
   showTooltip = true,
-  onClick,
   onHover,
-  className
+  className,
+  style
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -24,9 +24,7 @@ export const AdMeshCitationReference: React.FC<AdMeshCitationReferenceProps> = (
     setIsHovered(false);
   };
 
-  const handleClick = () => {
-    onClick?.(recommendation.ad_id, recommendation.admesh_link);
-  };
+
 
   // Generate citation display based on style
   const getCitationDisplay = () => {
@@ -70,7 +68,6 @@ export const AdMeshCitationReference: React.FC<AdMeshCitationReferenceProps> = (
         adId={recommendation.ad_id}
         admeshLink={recommendation.admesh_link}
         productId={recommendation.product_id}
-        onClick={handleClick}
         trackingData={{
           title: recommendation.title,
           matchScore: recommendation.intent_match_score,
@@ -78,6 +75,7 @@ export const AdMeshCitationReference: React.FC<AdMeshCitationReferenceProps> = (
           citationStyle
         }}
         className={citationClasses}
+        style={style}
       >
         <span
           style={containerStyle}

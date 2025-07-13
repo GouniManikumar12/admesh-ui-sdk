@@ -13,9 +13,13 @@ export default defineConfig({
       exclude: ['src/**/*.stories.*', 'src/**/*.test.*'],
       outDir: 'dist',
       tsconfigPath: './tsconfig.build.json',
-      rollupTypes: false
+      rollupTypes: false,
+      skipDiagnostics: true
     })
   ],
+  css: {
+    postcss: './postcss.config.js'
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),

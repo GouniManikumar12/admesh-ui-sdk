@@ -10,9 +10,9 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
   theme,
   showCitationList = true,
   citationStyle = 'numbered',
-  onRecommendationClick,
   onCitationHover,
-  className
+  className,
+  style
 }) => {
   const [hoveredRecommendation, setHoveredRecommendation] = useState<AdMeshRecommendation | null>(null);
 
@@ -93,7 +93,6 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
               citationStyle={citationStyle}
               theme={theme}
               showTooltip={true}
-              onClick={onRecommendationClick}
               onHover={(rec) => {
                 setHoveredRecommendation(rec);
                 onCitationHover?.(rec);
@@ -120,7 +119,12 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
   return (
     <div
       className={containerClasses}
-      style={containerStyle}
+      style={{
+        ...containerStyle,
+        fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ...theme?.components?.citationUnit,
+        ...style
+      }}
       data-admesh-theme={theme?.mode}
     >
       {/* Main conversation text with embedded citations */}
@@ -163,7 +167,6 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
                         citationStyle={citationStyle}
                         theme={theme}
                         showTooltip={false}
-                        onClick={onRecommendationClick}
                       />
                     </div>
                     
@@ -174,7 +177,6 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
                         theme={theme}
                         compact={true}
                         showReason={false}
-                        onClick={onRecommendationClick}
                       />
                     </div>
                   </div>

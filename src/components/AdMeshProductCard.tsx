@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { AdMeshProductCardProps, BadgeType } from '../types/index';
 import { AdMeshLinkTracker } from './AdMeshLinkTracker';
+import { useAdMeshStyles } from '../hooks/useAdMeshStyles';
 import {
   getRecommendationLabel,
   getLabelTooltip,
@@ -16,9 +17,13 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   showMatchScore = false,
   showBadges = true,
   variation = 'default',
-  onClick,
-  className
+  expandable = false,
+  className,
+  style
 }) => {
+  // Inject styles automatically
+  useAdMeshStyles();
+
   // State for expandable variations
   const [isExpanded, setIsExpanded] = useState(false);
   // Generate badges based on recommendation data using compliant labels
@@ -57,10 +62,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
       });
     }
 
-    // Add open source badge
-    if (recommendation.is_open_source) {
-      generatedBadges.push('Popular'); // Use Popular as a substitute for Open Source
-    }
+    // Note: is_open_source field has been removed
 
     return generatedBadges;
   }, [recommendation]);
@@ -149,7 +151,8 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         )}
         style={{
           fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          ...theme?.components?.productCard
+          ...theme?.components?.productCard,
+          ...style
         }}
         data-admesh-theme={theme?.mode}
       >
@@ -184,7 +187,6 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
           adId={recommendation.ad_id}
           admeshLink={recommendation.admesh_link}
           productId={recommendation.product_id}
-          onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
           trackingData={{
             title: recommendation.title,
             matchScore: recommendation.intent_match_score,
@@ -220,16 +222,25 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   }
 
   if (variation === 'question' || variation === 'statement') {
-    // Expandable layout - starts simple, can expand to full card
+    // Expandable layout - starts simple, can expand to full card (only if expandable=true)
     return (
-      <div className={classNames(
-        "admesh-component admesh-expandable-variation transition-all duration-300",
-        isExpanded
-          ? "p-4 sm:p-5 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border border-gray-200/50 dark:border-slate-700/50 shadow-lg"
-          : "p-4 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md"
-      )}>
-        {!isExpanded ? (
-          // Simple inline layout with top label
+      <div
+        className={classNames(
+          "admesh-component admesh-expandable-variation transition-all duration-300",
+          expandable && isExpanded
+            ? "p-4 sm:p-5 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border border-gray-200/50 dark:border-slate-700/50 shadow-lg"
+            : "p-4 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md",
+          className
+        )}
+        style={{
+          fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          ...theme?.components?.productCard,
+          ...style
+        }}
+        data-admesh-theme={theme?.mode}
+      >
+        {!expandable || !isExpanded ? (
+          // Simple inline layout with top label (or non-expandable layout)
           <>
             {/* Recommendation label at top */}
             <div className="mb-2">
@@ -257,7 +268,6 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
                     adId={recommendation.ad_id}
                     admeshLink={recommendation.admesh_link}
                     productId={recommendation.product_id}
-                    onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
                     trackingData={{
                       title: recommendation.title,
                       matchScore: recommendation.intent_match_score,
@@ -273,19 +283,21 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
                 </p>
               </div>
 
-              {/* Expand Button */}
-              <div className="flex items-center gap-3 flex-shrink-0">
-                <button
-                  onClick={() => setIsExpanded(true)}
-                  className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 border border-blue-200 dark:border-blue-700 hover:border-blue-300 dark:hover:border-blue-600"
-                  title="View more details"
-                >
-                  <span>More Details</span>
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              {/* Expand Button - only show if expandable is true */}
+              {expandable && (
+                <div className="flex items-center gap-3 flex-shrink-0">
+                  <button
+                    onClick={() => setIsExpanded(true)}
+                    className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 border border-blue-200 dark:border-blue-700 hover:border-blue-300 dark:hover:border-blue-600"
+                    title="View more details"
+                  >
+                    <span>More Details</span>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </button>
               </div>
+              )}
             </div>
 
 
@@ -345,7 +357,6 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
                   adId={recommendation.ad_id}
                   admeshLink={recommendation.admesh_link}
                   productId={recommendation.product_id}
-                  onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
                   trackingData={{
                     title: recommendation.title,
                     matchScore: recommendation.intent_match_score,
@@ -483,11 +494,18 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
   // Default full product card layout
   return (
-    <div className={cardClasses}>
+    <div
+      className={cardClasses}
+      style={{
+        fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ...theme?.components?.productCard,
+        ...style
+      }}
+      data-admesh-theme={theme?.mode}
+    >
       <div
         className="h-full flex flex-col"
         style={cardStyle}
-        data-admesh-theme={theme?.mode}
       >
         {/* Recommendation label at top */}
         <div className="mb-3">
@@ -530,7 +548,6 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
               adId={recommendation.ad_id}
               admeshLink={recommendation.admesh_link}
               productId={recommendation.product_id}
-              onClick={() => onClick?.(recommendation.ad_id, recommendation.admesh_link)}
               trackingData={{
                 title: recommendation.title,
                 matchScore: recommendation.intent_match_score,
