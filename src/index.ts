@@ -3,6 +3,7 @@
 // Export all components
 export {
   AdMeshProductCard,
+  AdMeshEcommerceCards,
   AdMeshCompareTable,
   AdMeshBadge,
 
@@ -72,6 +73,8 @@ export type {
   BadgeSize,
   TrackingData,
   AdMeshProductCardProps,
+  AdMeshEcommerceCardsProps,
+  EcommerceProduct,
   AdMeshCompareTableProps,
   AdMeshBadgeProps,
 

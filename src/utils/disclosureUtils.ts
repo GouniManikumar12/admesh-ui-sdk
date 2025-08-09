@@ -37,11 +37,11 @@ export const getRecommendationLabel = (
   
   // Lower match score (<0.6)
   if (matchScore >= 0.3) {
-    return customLabels.promotedOption || 'Promoted Option';
+    return customLabels.promotedOption || 'Promoted';
   }
   
   // Very low match - related option
-  return customLabels.relatedOption || 'Related Option';
+  return customLabels.relatedOption || 'Related';
 };
 
 /**

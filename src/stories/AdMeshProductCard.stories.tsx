@@ -41,7 +41,7 @@ const sampleRecommendationAI: AdMeshRecommendation = {
   product_id: "openai-gpt4",
   features: ["Natural Language Processing", "Code Generation", "Content Creation", "API Access"],
   integrations: ["REST API", "Python SDK", "Node.js SDK"],
-  pricing: "$0.03/1K tokens",
+  pricing: "$0.031/1K tokens",
   trial_days: 0,
   url: "https://openai.com",
   keywords: ["AI", "Machine Learning", "Natural Language", "API"],

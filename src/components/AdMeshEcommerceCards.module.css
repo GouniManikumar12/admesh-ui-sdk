@@ -1,0 +1,313 @@
+/* AdMesh Ecommerce Cards Styles */
+
+.ecommerceContainer {
+  position: relative;
+  width: 100%;
+}
+
+.scrollContainer {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.productCard {
+  flex-shrink: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.productCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.productCard.dark {
+  background: #1f2937;
+  border-color: #374151;
+  color: white;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.05);
+}
+
+.imagePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.discountBadge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  z-index: 10;
+}
+
+.sourceBadge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #3b82f6;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+.productInfo {
+  padding: 0.75rem;
+}
+
+.brandName {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.productTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dark .productTitle {
+  color: white;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  font-size: 0.875rem;
+}
+
+.star {
+  color: #fbbf24;
+}
+
+.starEmpty {
+  color: #d1d5db;
+}
+
+.reviewCount {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.pricingContainer {
+  margin-bottom: 0.5rem;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.currentPrice {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dark .currentPrice {
+  color: white;
+}
+
+.originalPrice {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+.shippingInfo {
+  font-size: 0.75rem;
+  color: #059669;
+  font-weight: 500;
+}
+
+.availabilityInStock {
+  font-size: 0.75rem;
+  color: #059669;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.availabilityOutOfStock {
+  font-size: 0.75rem;
+  color: #dc2626;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.scrollIndicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.ecommerceContainer:hover .scrollIndicator {
+  opacity: 1;
+}
+
+.scrollIndicatorLeft {
+  left: -1rem;
+}
+
+.scrollIndicatorRight {
+  right: -1rem;
+}
+
+.scrollIndicator:hover {
+  background: #f9fafb;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .scrollIndicator {
+  background: #374151;
+  color: #d1d5db;
+}
+
+.dark .scrollIndicator:hover {
+  background: #4b5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .scrollContainer {
+    gap: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .productCard {
+    width: 12rem;
+    min-width: 12rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productCard {
+    width: 10rem;
+    min-width: 10rem;
+  }
+  
+  .productInfo {
+    padding: 0.5rem;
+  }
+  
+  .productTitle {
+    font-size: 0.8125rem;
+  }
+  
+  .currentPrice {
+    font-size: 1rem;
+  }
+}
+
+/* Animation for smooth scrolling */
+.scrollContainer.scrolling {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.productCard:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.productCard:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Loading state */
+.productCard.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.productCard.loading .productImage {
+  filter: blur(2px);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .productCard {
+    border-width: 2px;
+  }
+  
+  .discountBadge,
+  .sourceBadge {
+    border: 1px solid currentColor;
+  }
+}

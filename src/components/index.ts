@@ -1,5 +1,6 @@
 // AdMesh UI SDK Components
 export { AdMeshProductCard } from './AdMeshProductCard';
+export { AdMeshEcommerceCards } from './AdMeshEcommerceCards';
 export { AdMeshCompareTable } from './AdMeshCompareTable';
 export { AdMeshBadge } from './AdMeshBadge';
 

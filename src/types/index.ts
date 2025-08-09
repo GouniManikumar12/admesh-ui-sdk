@@ -1,3 +1,45 @@
+// Ecommerce product types for horizontal scroll cards
+export interface EcommerceProduct {
+  id: string;
+  title: string;
+  price?: number;
+  original_price?: number;
+  discount_percentage?: number;
+  image_url?: string;
+  brand?: string;
+  rating?: number;
+  review_count?: number;
+  url: string;
+  source?: 'walmart' | 'admesh' | string;
+  availability?: string;
+  shipping_info?: {
+    free_shipping_over_35?: boolean;
+    standard_rate?: number;
+    two_day_rate?: number;
+  };
+  description?: string;
+  admesh_link?: string;
+}
+
+export interface AdMeshEcommerceCardsProps {
+  products: EcommerceProduct[];
+  title?: string;
+  showTitle?: boolean;
+  className?: string;
+  cardClassName?: string;
+  onProductClick?: (product: EcommerceProduct) => void;
+  showPricing?: boolean;
+  showRatings?: boolean;
+  showBrand?: boolean;
+  showSource?: boolean;
+  showShipping?: boolean;
+  maxCards?: number;
+  cardWidth?: 'sm' | 'md' | 'lg';
+  theme?: 'light' | 'dark' | 'auto';
+  borderRadius?: 'none' | 'sm' | 'md' | 'lg';
+  shadow?: 'none' | 'sm' | 'md' | 'lg';
+}
+
 // Core AdMesh recommendation types based on agent_recommendation.py response
 export interface AdMeshRecommendation {
   title: string;

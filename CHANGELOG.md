@@ -5,6 +5,41 @@ All notable changes to the AdMesh UI SDK will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0] - 2025-01-09
+
+### Added
+- **AdMeshEcommerceCards** - New horizontal scrolling product cards component for ecommerce recommendations
+- **Google-style Product Display** - Product cards similar to Google product search results with images, pricing, ratings
+- **Mixed Source Support** - Display both AdMesh affiliate offers and external ecommerce products (Walmart, Amazon, etc.)
+- **Intelligent Product Ranking** - Physical products ranked higher for ecommerce queries, software for software queries
+- **Responsive Design** - Mobile-optimized horizontal scrolling with touch support
+- **Rich Product Information** - Pricing, discounts, ratings, reviews, shipping info, availability status
+- **Customizable Display** - Configurable card sizes, themes, shadows, border radius
+- **Source Badges** - Optional badges showing product source (Walmart, AdMesh, etc.)
+- **Discount Indicators** - Visual discount percentage badges on product images
+- **Star Ratings** - Visual star rating display with review counts
+- **Free Shipping Indicators** - Shipping information display
+- **Brand Display** - Product brand information
+- **Availability Status** - In stock/out of stock indicators
+- **Click Tracking** - Built-in click tracking for affiliate links
+- **Dark Mode Support** - Full dark theme compatibility
+- **TypeScript Support** - Complete type definitions for EcommerceProduct interface
+- **Storybook Stories** - Comprehensive component documentation and examples
+
+### Enhanced
+- Updated package version to 0.11.0
+- Added EcommerceProduct and AdMeshEcommerceCardsProps type exports
+- Enhanced README.md with AdMeshEcommerceCards documentation
+- Added component to comparison table in documentation
+- Created example usage file with real API response data conversion
+
+### Technical
+- Built with Vite and TypeScript
+- CSS modules for styling isolation
+- Responsive design with mobile-first approach
+- Accessibility features (WCAG 2.1 AA compliant)
+- Performance optimized with lazy loading images
+
 ## [0.8.0] - 2024-12-30
 
 ### Added

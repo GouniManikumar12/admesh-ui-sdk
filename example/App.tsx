@@ -57,7 +57,7 @@ const sampleRecommendations: AdMeshRecommendation[] = [
     features: ["Natural Language Processing", "Code Generation", "Content Creation", "API Access"],
     has_free_tier: false,
     integrations: ["REST API", "Python SDK", "Node.js SDK"],
-    pricing: "$0.03/1K tokens",
+    pricing: "$0.031/1K tokens",
     trial_days: 0,
     keywords: ["AI", "Machine Learning", "Natural Language", "API"]
   }
@@ -70,7 +70,7 @@ function App() {
   const handleProductClick = (adId: string, admeshLink: string) => {
     console.log('Product clicked:', { adId, admeshLink });
     // In a real app, this would navigate to the product
-    alert(`Clicked product with ad_id: ${adId}`);
+    console.log(`Clicked product with ad_id: ${adId}`);
   };
 
   const toggleTheme = () => {

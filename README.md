@@ -93,6 +93,7 @@ Choose the right ad unit for your use case:
 |---------|----------|---------------|----------------------|------------------|
 
 | **AdMeshProductCard** | Individual products | Single card | ⭐ Easy | ✅ Yes |
+| **AdMeshEcommerceCards** | Product carousels | Horizontal scroll | ⭐ Easy | ✅ Yes |
 | **AdMeshCompareTable** | Product comparisons | Side-by-side table | ⭐⭐ Medium | ✅ Yes |
 | **AdMeshConversationalUnit** | Chat interfaces | Inline/floating | ⭐⭐ Medium | ✅ Yes |
 | **AdMeshCitationUnit** | AI assistants | Numbered references | ⭐⭐⭐ Advanced | ✅ Yes |
@@ -119,6 +120,29 @@ Individual product recommendation card with rich information display.
   onClick={(adId, admeshLink) => window.open(admeshLink)}
 />
 ```
+
+#### AdMeshEcommerceCards
+Horizontal scrolling product cards for ecommerce recommendations, similar to Google product search results.
+
+```tsx
+<AdMeshEcommerceCards
+  products={ecommerceProducts}
+  title="Recommended Laptops"
+  showPricing={true}
+  showRatings={true}
+  showBrand={true}
+  cardWidth="md"
+  maxCards={10}
+  onProductClick={(product) => window.open(product.admesh_link || product.url)}
+/>
+```
+
+**Perfect for:**
+- Product search results
+- Ecommerce recommendations
+- Mixed AdMesh + Walmart/Amazon products
+- Google-style product carousels
+- Shopping comparison displays
 
 #### AdMeshCompareTable
 Side-by-side product comparison table for multiple recommendations.
