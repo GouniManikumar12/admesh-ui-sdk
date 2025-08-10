@@ -1533,7 +1533,7 @@ The AdMesh UI SDK provides a complete solution for displaying product recommenda
 
 ### ✅ What You Get
 - **10+ Ad Unit Types** - From simple cards to complex conversational interfaces
-- **Unified JSON Response** - Same recommendation structure works across all components
+- **Unified JSON Schema** - Same recommendation structure works across all components and sources (Walmart, AdMesh, etc.)
 - **Built-in Tracking** - Automatic analytics for views, clicks, and conversions
 - **Full Responsive Design** - Mobile-first with accessibility compliance
 - **TypeScript Support** - Complete type safety and IntelliSense
@@ -1545,6 +1545,110 @@ The AdMesh UI SDK provides a complete solution for displaying product recommenda
 1. **Install**: `npm install admesh-ui-sdk`
 2. **Import**: `import { AdMeshProductCard } from 'admesh-ui-sdk';`
 3. **Use**: `<AdMeshProductCard recommendations={recommendations} />`
+
+📋 **New in v0.13.0**: [Unified Schema Guide](./UNIFIED_SCHEMA_GUIDE.md) - Learn about the new unified JSON schema that works across all recommendation sources.
+
+## 📋 Unified JSON Schema
+
+The AdMesh UI SDK uses a unified JSON schema that works across all recommendation sources (Walmart, AdMesh, Amazon, etc.). This ensures consistent data structure regardless of the source:
+
+```typescript
+interface AdMeshRecommendation {
+  // Required core fields
+  ad_id: string;
+  admesh_link: string;
+  audience_segment: string;
+  availability: string;
+  brand: string;
+  brand_trust_score: number;
+  categories: string[];
+  description: string;
+  discount_percentage: number;
+  external_id: string;
+  feature_sections: any[];
+  features: string[];
+  image_url: string;
+  integrations: any[];
+  intent_match_score: number; // 0-1 normalized score
+  is_fallback: boolean;
+  keywords: string[];
+  offer_trust_score: number;
+  original_price: number;
+  price: number;
+  pricing: string; // Formatted price string (e.g., "$99.48")
+  product_id: string;
+  rating: number;
+  reason: string; // Match reason/explanation
+  recommendation_description: string; // Marketing-optimized description
+  recommendation_title: string; // Marketing-optimized title
+  redirect_url: string;
+  review_count: number;
+  reward_note: string;
+  source: string; // Source platform (walmart, admesh, etc.)
+  title: string; // Product title
+  trial_days: number;
+  url: string;
+
+  // Optional fields
+  content_variations?: {
+    statement?: any;
+    question?: any;
+  };
+  shipping_info?: {
+    free_shipping_over_35: boolean;
+    standard_rate: number;
+    two_day_rate: number;
+    ship_to_store: boolean;
+    free_ship_to_store: boolean;
+  };
+  // ... additional optional fields
+}
+```
+
+### Example Unified Response
+
+```json
+{
+  "ad_id": "walmart_249887530",
+  "admesh_link": "https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F249887530",
+  "audience_segment": "",
+  "availability": "in_stock",
+  "brand": "ZENY",
+  "brand_trust_score": 0.5,
+  "categories": ["All Walmart Restored Large Appliances"],
+  "description": "The smallest and lightest twin tub portable washing machine available...",
+  "discount_percentage": 34.9,
+  "external_id": "249887530",
+  "features": ["Free 2-3 day shipping"],
+  "image_url": "https://i5.walmartimages.com/asr/7505138e-bbfa-4a43-9de4-2ab8c71eed99.6810f971aaffdca38d18e9928b3e4450.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff",
+  "intent_match_score": 0.72,
+  "is_fallback": false,
+  "keywords": [],
+  "offer_trust_score": 1,
+  "original_price": 152.9,
+  "price": 99.48,
+  "pricing": "$99.48",
+  "product_id": "walmart_249887530",
+  "rating": 4,
+  "reason": "Perfect match for 'best washing machine to buy' - from trusted brand ZENY, highly rated (4.0/5)",
+  "recommendation_description": "The smallest and lightest twin tub portable washing machine available...",
+  "recommendation_title": "ZENY Portable Washing Machine Mini Twin Tub Washing Machine with Washer & Spinner, Gravity Drain ...",
+  "redirect_url": "https://www.walmart.com/ip/249887530",
+  "review_count": 384,
+  "reward_note": "",
+  "source": "walmart",
+  "title": "ZENY Portable Washing Machine Mini Twin Tub Washing Machine with Washer & Spinner, Gravity Drain ...",
+  "trial_days": 0,
+  "url": "https://www.walmart.com/ip/249887530",
+  "shipping_info": {
+    "free_shipping_over_35": false,
+    "standard_rate": 0,
+    "two_day_rate": 0,
+    "ship_to_store": false,
+    "free_ship_to_store": false
+  }
+}
+```
 
 ### 🌟 Perfect For
 - **AI Applications** - Citation-based conversation ads

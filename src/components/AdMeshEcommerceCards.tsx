@@ -1,37 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { AdMeshRecommendation } from '../types/index';
-
-export interface EcommerceProduct {
-  id: string;
-  title: string;
-  price?: number;
-  original_price?: number;
-  discount_percentage?: number;
-  image_url?: string;
-  brand?: string;
-  rating?: number;
-  review_count?: number;
-  url: string;
-  source?: 'walmart' | 'admesh' | string;
-  availability?: string;
-  shipping_info?: {
-    free_shipping_over_35?: boolean;
-    standard_rate?: number;
-    two_day_rate?: number;
-  };
-  description?: string;
-  admesh_link?: string;
-}
+import type { AdMeshRecommendation, EcommerceProduct } from '../types/index';
 
 export interface AdMeshEcommerceCardsProps {
   products?: EcommerceProduct[]; // Legacy support
-  recommendations?: AdMeshRecommendation[]; // New: recommendations with recommendation_source=walmart
+  recommendations?: AdMeshRecommendation[]; // New: unified schema recommendations
   title?: string;
   showTitle?: boolean;
   className?: string;
   cardClassName?: string;
-  onProductClick?: (product: EcommerceProduct) => void;
+  onProductClick?: (product: EcommerceProduct | AdMeshRecommendation) => void;
   showPricing?: boolean;
   showRatings?: boolean;
   showBrand?: boolean;
@@ -63,37 +41,10 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
   borderRadius = 'md',
   shadow = 'sm'
 }) => {
-  // Convert recommendations to product format for display
-  // The backend now provides standardized fields that match the Walmart API format
-  const convertedProducts = recommendations.map(rec => ({
-    id: rec.id || rec.ad_id || rec.product_id || `product-${Math.random()}`,
-    title: rec.title || 'Product Title',
-    price: rec.price || 99.99,
-    original_price: rec.original_price || rec.price || 129.99,
-    image_url: rec.image_url || rec.logo_url || 'https://via.placeholder.com/300x300?text=Product',
-    brand: rec.brand || rec.company_name || 'Brand',
-    rating: rec.rating || 4.5,
-    review_count: rec.review_count || 100,
-    url: rec.admesh_link || rec.url || '#',
-    source: rec.source || rec.recommendation_source || 'admesh',
-    availability: rec.availability || 'in_stock',
-    shipping_info: rec.shipping_info || {
-      free_shipping_over_35: true,
-      two_day_shipping: true
-    },
-    discount_percentage: rec.discount_percentage || (rec.original_price && rec.price ?
-      Math.round(((rec.original_price - rec.price) / rec.original_price) * 100) : 0),
-    description: rec.description || rec.reason || 'Product description',
-    admesh_link: rec.admesh_link || rec.url || '#',
-    external_id: rec.external_id,
-    trust_score: rec.trust_score,
-    intent_match_score: rec.intent_match_score,
-    features: rec.features || []
-  }));
+  // Use recommendations directly if provided, otherwise use legacy products
+  const displayItems: (AdMeshRecommendation | EcommerceProduct)[] = recommendations.length > 0 ? recommendations.slice(0, maxCards) : products.slice(0, maxCards);
 
-  // Use converted products if recommendations provided, otherwise use legacy products
-  const allProducts = recommendations.length > 0 ? convertedProducts : products;
-  const displayProducts = allProducts.slice(0, maxCards);
+
 
   const getCardWidthClass = () => {
     switch (cardWidth) {
@@ -169,19 +120,20 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
     return stars;
   };
 
-  const handleProductClick = (product: EcommerceProduct) => {
+  const handleProductClick = (item: EcommerceProduct | AdMeshRecommendation) => {
     if (onProductClick) {
-      onProductClick(product);
+      onProductClick(item);
     } else {
       // Default behavior: open product link
-      const link = product.admesh_link || product.url;
+      const link = item.admesh_link || item.url;
       if (link) {
         window.open(link, '_blank', 'noopener,noreferrer');
       }
     }
   };
 
-  if (!products || products.length === 0) {
+  // Check if we have any data to display
+  if ((!products || products.length === 0) && (!recommendations || recommendations.length === 0)) {
     return null;
   }
 
@@ -197,31 +149,35 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
       )}
       
       <div className="relative">
-        {displayProducts.length === 0 ? (
+        {displayItems.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             No products to display
           </div>
         ) : (
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-            {displayProducts.map((product) => (
-            <div
-              key={product.id}
-              className={classNames(
-                getCardWidthClass(),
-                getBorderRadiusClass(),
-                getShadowClass(),
-                getThemeClasses(),
-                'flex-shrink-0 border border-gray-200 dark:border-gray-700 transition-all duration-200 cursor-pointer hover:scale-[1.02]',
-                cardClassName
-              )}
-              onClick={() => handleProductClick(product)}
-            >
+            {displayItems.map((item) => {
+              // Get the appropriate ID for the key
+              const itemId = (item as any).product_id || (item as any).id || (item as any).ad_id;
+
+              return (
+                <div
+                  key={itemId}
+                  className={classNames(
+                    getCardWidthClass(),
+                    getBorderRadiusClass(),
+                    getShadowClass(),
+                    getThemeClasses(),
+                    'flex-shrink-0 border border-gray-200 dark:border-gray-700 transition-all duration-200 cursor-pointer hover:scale-[1.02]',
+                    cardClassName
+                  )}
+                  onClick={() => handleProductClick(item)}
+                >
               {/* Product Image */}
               <div className="relative aspect-square w-full overflow-hidden">
-                {product.image_url ? (
+                {item.image_url ? (
                   <img
-                    src={product.image_url}
-                    alt={product.title}
+                    src={item.image_url}
+                    alt={item.title}
                     className="h-full w-full object-cover transition-transform duration-200 hover:scale-105"
                     loading="lazy"
                   />
@@ -232,18 +188,18 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
                     </svg>
                   </div>
                 )}
-                
+
                 {/* Discount Badge */}
-                {showPricing && product.discount_percentage && product.discount_percentage > 0 && (
+                {showPricing && item.discount_percentage && item.discount_percentage > 0 && (
                   <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                    -{Math.round(product.discount_percentage)}%
+                    -{Math.round(item.discount_percentage)}%
                   </div>
                 )}
 
                 {/* Source Badge */}
-                {showSource && product.source && (
+                {showSource && item.source && (
                   <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs font-medium px-2 py-1 rounded">
-                    {product.source.toUpperCase()}
+                    {item.source.toUpperCase()}
                   </div>
                 )}
               </div>
@@ -251,39 +207,39 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
               {/* Product Info */}
               <div className="p-3">
                 {/* Brand */}
-                {showBrand && product.brand && (
+                {showBrand && item.brand && (
                   <div className="text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide">
-                    {product.brand}
+                    {item.brand}
                   </div>
                 )}
 
                 {/* Title */}
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2 mb-2 leading-tight">
-                  {product.title}
+                  {item.title}
                 </h4>
 
                 {/* Rating */}
-                {showRatings && product.rating && (
+                {showRatings && item.rating && (
                   <div className="flex items-center gap-1 mb-2">
                     <div className="flex text-sm">
-                      {renderStars(product.rating)}
+                      {renderStars(item.rating)}
                     </div>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      ({product.review_count || 0})
+                      ({item.review_count || 0})
                     </span>
                   </div>
                 )}
 
                 {/* Pricing */}
-                {showPricing && product.price && (
+                {showPricing && item.price && (
                   <div className="mb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-lg font-bold text-gray-900 dark:text-white">
-                        {formatPrice(product.price)}
+                        {formatPrice(item.price)}
                       </span>
-                      {product.original_price && product.original_price > product.price && (
+                      {item.original_price && item.original_price > item.price && (
                         <span className="text-sm text-gray-500 dark:text-gray-400 line-through">
-                          {formatPrice(product.original_price)}
+                          {formatPrice(item.original_price)}
                         </span>
                       )}
                     </div>
@@ -291,31 +247,32 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
                 )}
 
                 {/* Shipping Info */}
-                {showShipping && product.shipping_info?.free_shipping_over_35 && (
+                {showShipping && item.shipping_info?.free_shipping_over_35 && (
                   <div className="text-xs text-green-600 dark:text-green-400 font-medium">
                     Free shipping over $35
                   </div>
                 )}
 
                 {/* Availability */}
-                {product.availability && product.availability !== 'unknown' && (
+                {item.availability && item.availability !== 'unknown' && (
                   <div className={classNames(
                     'text-xs font-medium mt-1',
-                    product.availability === 'in_stock' 
-                      ? 'text-green-600 dark:text-green-400' 
+                    item.availability === 'in_stock'
+                      ? 'text-green-600 dark:text-green-400'
                       : 'text-red-600 dark:text-red-400'
                   )}>
-                    {product.availability === 'in_stock' ? 'In Stock' : 'Out of Stock'}
+                    {item.availability === 'in_stock' ? 'In Stock' : 'Out of Stock'}
                   </div>
                 )}
               </div>
             </div>
-          ))}
+              );
+            })}
           </div>
         )}
 
         {/* Scroll Indicators - only show when there are products */}
-        {displayProducts.length > 0 && (
+        {displayItems.length > 0 && (
           <>
             <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full shadow-lg p-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

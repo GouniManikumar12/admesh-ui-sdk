@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AdMeshEcommerceCards } from '../components/AdMeshEcommerceCards';
-import type { EcommerceProduct } from '../components/AdMeshEcommerceCards';
+import type { AdMeshRecommendation } from '../types/index';
 
 const meta: Meta<typeof AdMeshEcommerceCards> = {
   title: 'AdMesh/EcommerceCards',
@@ -75,121 +75,112 @@ const meta: Meta<typeof AdMeshEcommerceCards> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Sample product data based on the actual API response
-const sampleProducts: EcommerceProduct[] = [
+// Sample recommendations using unified JSON schema (based on your provided JSON)
+const sampleRecommendations: AdMeshRecommendation[] = [
   {
-    id: "walmart_15840257186",
-    title: "HP 15.6 inch Windows Touch Laptop Intel Core i3-N305 8GB RAM 256GB SSD Moonlight Blue",
-    price: 279.0,
-    original_price: 469.0,
-    discount_percentage: 40.5,
-    image_url: "https://i5.walmartimages.com/asr/6f19d833-3b1f-4482-a2e3-efe4ebd791bc.94d309d793b48d07af4c27d45b860f37.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff",
-    brand: "HP",
-    rating: 4.4,
-    review_count: 97,
-    url: "https://www.walmart.com/ip/15840257186",
-    source: "walmart",
+    // Your exact JSON structure
+    ad_id: "walmart_249887530",
+    admesh_link: "https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F249887530",
+    audience_segment: "",
     availability: "in_stock",
+    brand: "ZENY",
+    brand_trust_score: 0.5,
+    categories: ['All Walmart Restored Large Appliances'],
+    description: "The smallest and lightest twin tub portable washing machine available, our highly popular Super Compact washing machine simply hooks up to your kitchen faucet, and it's ready to go. With a 5.5 lb. wash capacity + 4.4 lb. Spin capacity, this 2in1 washing machine is perfect for washing small loads ...",
+    discount_percentage: 34.9,
+    external_id: "249887530",
+    feature_sections: [],
+    features: ['Free 2-3 day shipping'],
+    image_url: "https://i5.walmartimages.com/asr/7505138e-bbfa-4a43-9de4-2ab8c71eed99.6810f971aaffdca38d18e9928b3e4450.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff",
+    integrations: [],
+    intent_match_score: 0.72,
+    is_fallback: false,
+    keywords: [],
+    offer_trust_score: 1,
+    original_price: 152.9,
+    price: 99.48,
+    pricing: "$99.48",
+    product_id: "walmart_249887530",
+    rating: 4,
+    reason: "Perfect match for 'best washing machine to buy' - from trusted brand ZENY, highly rated (4.0/5)",
+    recommendation_description: "The smallest and lightest twin tub portable washing machine available, our highly popular Super Compact washing machine simply hooks up to your kitchen faucet, and it's ready to go. With a 5.5 lb. wash capacity + 4.4 lb. Spin capacity, this 2in1 washing machine is perfect for washing small loads ...",
+    recommendation_title: "ZENY Portable Washing Machine Mini Twin Tub Washing Machine with Washer & Spinner, Gravity Drain ...",
+    redirect_url: "https://www.walmart.com/ip/249887530",
+    review_count: 384,
+    reward_note: "",
     shipping_info: {
-      free_shipping_over_35: true,
+      free_shipping_over_35: false,
       standard_rate: 0,
       two_day_rate: 0,
+      ship_to_store: false,
+      free_ship_to_store: false
     },
-    description: "The HP 15 inch FHD Laptop packs in the reliable processing power of an Intel Core processor, plus ample SSD storage, powerful graphics, and design with recycled materials to give you the power and capacity to do more.",
-    admesh_link: "https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F15840257186"
+    source: "walmart",
+    title: "ZENY Portable Washing Machine Mini Twin Tub Washing Machine with Washer & Spinner, Gravity Drain ...",
+    trial_days: 0,
+    url: "https://www.walmart.com/ip/249887530",
+    content_variations: {
+      statement: {},
+      question: {}
+    },
+    offer_images: [],
+    product_logo: null
   },
   {
-    id: "walmart_15843466879",
-    title: "MSI Thin 15.6 inch FHD 144Hz Gaming Laptop Intel Core i5-13420H NVIDIA GeForce RTX 4050",
-    price: 599.0,
-    original_price: 699.0,
-    discount_percentage: 14.3,
-    image_url: "https://i5.walmartimages.com/asr/aa2646f3-3788-414c-b4f2-92c721dd215c.d7b975ea4876f1be66fc2d060c971f01.png?odnHeight=450&odnWidth=450&odnBg=ffffff",
+    // Additional Walmart product example
+    ad_id: "walmart_15843466879",
+    admesh_link: "https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F15843466879",
+    audience_segment: "Gamers",
+    availability: "in_stock",
     brand: "MSI",
+    brand_trust_score: 0.8,
+    categories: ['Electronics', 'Gaming Laptops'],
+    description: "The MSI Thin 15 is equipped with a 13th Gen Intel Core i5-13420H processor and NVIDIA GeForce RTX 4050 Laptop GPU.",
+    discount_percentage: 14.3,
+    external_id: "15843466879",
+    feature_sections: [],
+    features: ['144Hz Display', 'RTX 4050 GPU', 'Intel i5-13420H'],
+    image_url: "https://i5.walmartimages.com/asr/aa2646f3-3788-414c-b4f2-92c721dd215c.d7b975ea4876f1be66fc2d060c971f01.png?odnHeight=450&odnWidth=450&odnBg=ffffff",
+    integrations: [],
+    intent_match_score: 0.85,
+    is_fallback: false,
+    keywords: ['gaming', 'laptop', 'MSI'],
+    offer_trust_score: 0.9,
+    original_price: 699.0,
+    price: 599.0,
+    pricing: "$599.00",
+    product_id: "walmart_15843466879",
     rating: 4.2,
+    reason: "High-performance gaming laptop with excellent graphics",
+    recommendation_description: "The MSI Thin 15 is equipped with a 13th Gen Intel Core i5-13420H processor and NVIDIA GeForce RTX 4050 Laptop GPU.",
+    recommendation_title: "MSI Thin 15.6 inch FHD 144Hz Gaming Laptop Intel Core i5-13420H NVIDIA GeForce RTX 4050",
+    redirect_url: "https://www.walmart.com/ip/15843466879",
     review_count: 35,
-    url: "https://www.walmart.com/ip/15843466879",
-    source: "walmart",
-    availability: "in_stock",
+    reward_note: "",
     shipping_info: {
       free_shipping_over_35: true,
       standard_rate: 0,
       two_day_rate: 0,
+      ship_to_store: false,
+      free_ship_to_store: false
     },
-    description: "The MSI Thin 15 is equipped with a 13th Gen Intel Core i5-13420H processor and NVIDIA GeForce RTX 4050 Laptop GPU.",
-    admesh_link: "https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F15843466879"
-  },
-  {
-    id: "admesh_stripe",
-    title: "Stripe",
-    price: 29.0,
-    image_url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=400&fit=crop",
-    brand: "Stripe",
-    rating: 4.8,
-    review_count: 1250,
-    url: "https://stripe.com",
-    source: "admesh",
-    availability: "in_stock",
-    description: "Online payment processing for internet businesses",
-    admesh_link: "http://127.0.0.1:8000/click/r/b652be63-9c08-4278-854b-dd400dffbc31"
-  },
-  {
-    id: "walmart_laptop_4",
-    title: "ASUS VivoBook 15.6\" FHD Laptop AMD Ryzen 5 7520U 8GB RAM 512GB SSD",
-    price: 449.0,
-    original_price: 549.0,
-    discount_percentage: 18.2,
-    image_url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop",
-    brand: "ASUS",
-    rating: 4.3,
-    review_count: 128,
-    url: "https://www.walmart.com/ip/laptop-4",
     source: "walmart",
-    availability: "in_stock",
-    shipping_info: {
-      free_shipping_over_35: true,
+    title: "MSI Thin 15.6 inch FHD 144Hz Gaming Laptop Intel Core i5-13420H NVIDIA GeForce RTX 4050",
+    trial_days: 0,
+    url: "https://www.walmart.com/ip/15843466879",
+    content_variations: {
+      statement: {},
+      question: {}
     },
-  },
-  {
-    id: "walmart_laptop_5",
-    title: "Lenovo IdeaPad 3 15.6\" Laptop Intel Core i5-1235U 8GB RAM 256GB SSD",
-    price: 379.0,
-    original_price: 499.0,
-    discount_percentage: 24.0,
-    image_url: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=400&fit=crop",
-    brand: "Lenovo",
-    rating: 4.1,
-    review_count: 89,
-    url: "https://www.walmart.com/ip/laptop-5",
-    source: "walmart",
-    availability: "in_stock",
-    shipping_info: {
-      free_shipping_over_35: true,
-    },
-  },
-  {
-    id: "walmart_laptop_6",
-    title: "Dell Inspiron 15 3000 Laptop Intel Celeron N4020 4GB RAM 128GB SSD",
-    price: 229.0,
-    original_price: 299.0,
-    discount_percentage: 23.4,
-    image_url: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400&h=400&fit=crop",
-    brand: "Dell",
-    rating: 3.9,
-    review_count: 67,
-    url: "https://www.walmart.com/ip/laptop-6",
-    source: "walmart",
-    availability: "in_stock",
-    shipping_info: {
-      free_shipping_over_35: true,
-    },
+    offer_images: [],
+    product_logo: null
   }
 ];
 
 export const Default: Story = {
   args: {
-    products: sampleProducts,
-    title: "Recommended Laptops",
+    recommendations: sampleRecommendations,
+    title: "Recommended Products",
     showTitle: true,
     showPricing: true,
     showRatings: true,
@@ -290,7 +281,40 @@ export const RoundedCards: Story = {
 
 export const EmptyState: Story = {
   args: {
-    products: [],
+    recommendations: [],
     title: "No Products Available",
+  },
+};
+
+// Debug story to test unified schema
+export const DebugUnifiedSchema: Story = {
+  render: () => {
+    const testRecommendation = sampleRecommendations[0];
+    console.log('Debug test recommendation:', testRecommendation);
+
+    return (
+      <div>
+        <h3>Debug: Single Recommendation Test</h3>
+        <pre style={{ fontSize: '12px', background: '#f5f5f5', padding: '10px', marginBottom: '20px' }}>
+          {JSON.stringify(testRecommendation, null, 2)}
+        </pre>
+        <AdMeshEcommerceCards
+          recommendations={[testRecommendation]}
+          title="Debug Test"
+          showTitle={true}
+          showPricing={true}
+          showRatings={true}
+          showBrand={true}
+          maxCards={1}
+        />
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '🐛 **Debug**: Testing unified schema with single recommendation.',
+      },
+    },
   },
 };

@@ -13,36 +13,56 @@ const meta: Meta<typeof AdMeshLayout> = {
 export default meta;
 type Story = StoryObj<typeof AdMeshLayout>;
 
-// Sample data
+// Sample data using unified JSON schema
 const sampleRecommendations = [
   {
-    id: 'walmart_15840257186',
+    // Unified schema structure
     ad_id: 'walmart_15840257186',
-    title: 'HP 15.6 inch Windows Touch Laptop Intel Core i3-N305 8GB RAM 256GB SSD Moonlight Blue',
-    reason: 'Perfect match for laptop search - from trusted brand HP, highly rated (4.4/5)',
-    intent_match_score: 0.9,
     admesh_link: 'https://goto.walmart.com/c/None/568844/9383?veh=aff&sourceid=imp_000011112222333344&u=https%3A%2F%2Fwww.walmart.com%2Fip%2F15840257186',
-    url: 'https://www.walmart.com/ip/15840257186',
-    product_id: 'walmart_15840257186',
-    // Standardized ecommerce fields (matching Walmart API format)
-    price: 279.0,
-    original_price: 469.0,
-    image_url: 'https://i5.walmartimages.com/asr/6f19d833-3b1f-4482-a2e3-efe4ebd791bc.94d309d793b48d07af4c27d45b860f37.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff',
-    brand: 'HP',
-    rating: 4.4,
-    review_count: 97,
+    audience_segment: 'Students and Professionals',
     availability: 'in_stock',
-    discount_percentage: 40.5,
-    source: 'walmart',
+    brand: 'HP',
+    brand_trust_score: 0.8,
+    categories: ['Electronics', 'Laptops'],
     description: 'The HP 15 inch FHD Laptop packs in the reliable processing power of an Intel Core processor, plus ample SSD storage, powerful graphics, and design with recycled materials to give you the power and capacity to do more.',
-    features: ['Free shipping over $35'],
+    discount_percentage: 40.5,
+    external_id: '15840257186',
+    feature_sections: [],
+    features: ['Free shipping over $35', 'Intel Core i3-N305', '8GB RAM', '256GB SSD'],
+    image_url: 'https://i5.walmartimages.com/asr/6f19d833-3b1f-4482-a2e3-efe4ebd791bc.94d309d793b48d07af4c27d45b860f37.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff',
+    integrations: [],
+    intent_match_score: 0.9,
+    is_fallback: false,
+    keywords: ['laptop', 'HP', 'Windows'],
+    offer_trust_score: 0.9,
+    original_price: 469.0,
+    price: 279.0,
+    pricing: '$279.00',
+    product_id: 'walmart_15840257186',
+    rating: 4.4,
+    reason: 'Perfect match for laptop search - from trusted brand HP, highly rated (4.4/5)',
+    recommendation_description: 'The HP 15 inch FHD Laptop packs in the reliable processing power of an Intel Core processor, plus ample SSD storage, powerful graphics, and design with recycled materials to give you the power and capacity to do more.',
+    recommendation_title: 'HP 15.6 inch Windows Touch Laptop Intel Core i3-N305 8GB RAM 256GB SSD Moonlight Blue',
+    redirect_url: 'https://www.walmart.com/ip/15840257186',
+    review_count: 97,
+    reward_note: '',
     shipping_info: {
       free_shipping_over_35: true,
       standard_rate: 0,
       two_day_rate: 0,
       ship_to_store: false,
       free_ship_to_store: false
-    }
+    },
+    source: 'walmart',
+    title: 'HP 15.6 inch Windows Touch Laptop Intel Core i3-N305 8GB RAM 256GB SSD Moonlight Blue',
+    trial_days: 0,
+    url: 'https://www.walmart.com/ip/15840257186',
+    content_variations: {
+      statement: {},
+      question: {}
+    },
+    offer_images: [],
+    product_logo: null
   },
   {
     id: 'walmart_15843466879',

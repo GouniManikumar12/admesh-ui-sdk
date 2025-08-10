@@ -2,22 +2,44 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AdMeshProductCard } from '../components/AdMeshProductCard';
 import type { AdMeshRecommendation } from '../types/index';
 
-// Sample recommendation data based on agent_recommendation.py response
+// Sample recommendation data using unified JSON schema
 const sampleRecommendation: AdMeshRecommendation = {
-  title: "HubSpot CRM",
-  reason: "Perfect for remote teams with excellent collaboration features",
-  intent_match_score: 0.92,
-  admesh_link: "https://useadmesh.com/track?ad_id=hubspot-123&redirect=https://hubspot.com",
+  // Required core fields from unified schema
   ad_id: "hubspot-123",
-  product_id: "hubspot-crm",
+  admesh_link: "https://useadmesh.com/track?ad_id=hubspot-123&redirect=https://hubspot.com",
+  audience_segment: "Startups and SMBs",
+  availability: "in_stock",
+  brand: "HubSpot",
+  brand_trust_score: 0.93,
+  categories: ["CRM", "Sales Tools", "Marketing"],
+  description: "All-in-one CRM platform with contact management, email marketing, sales pipeline, and reporting features. Perfect for remote teams with excellent collaboration capabilities.",
+  discount_percentage: 20,
+  external_id: "hubspot-crm-001",
+  feature_sections: [],
   features: ["Contact Management", "Email Marketing", "Sales Pipeline", "Reporting", "Mobile App"],
-  pricing: "Free - $1,200/month",
+  image_url: "https://logo.clearbit.com/hubspot.com",
+  integrations: [],
+  intent_match_score: 0.92,
+  is_fallback: false,
+  keywords: ["CRM", "Sales", "Marketing", "Customer Management"],
+  offer_trust_score: 0.95,
+  original_price: 1200,
+  price: 960,
+  pricing: "Free - $960/month",
+  product_id: "hubspot-crm",
+  rating: 4.5,
+  reason: "Perfect for remote teams with excellent collaboration features",
+  recommendation_description: "All-in-one CRM platform with contact management, email marketing, sales pipeline, and reporting features. Perfect for remote teams with excellent collaboration capabilities.",
+  recommendation_title: "HubSpot CRM - Complete Sales & Marketing Platform",
+  redirect_url: "https://hubspot.com",
+  review_count: 2847,
+  reward_note: "Get 20% off your first year with code ADMESH20",
+  source: "admesh",
+  title: "HubSpot CRM",
   trial_days: 14,
   url: "https://hubspot.com",
-  keywords: ["CRM", "Sales", "Marketing", "Customer Management"],
-  badges: ["Top Match"],
-  categories: ["CRM", "Sales Tools", "Marketing"],
-  reward_note: "Get 20% off your first year with code ADMESH20",
+
+  // Optional fields
   content_variations: {
     statement: {
       text: "HubSpot CRM is perfect for remote teams with excellent collaboration features, visit",
@@ -27,26 +49,61 @@ const sampleRecommendation: AdMeshRecommendation = {
       text: "Looking for CRM solutions for your team? Try",
       cta: "HubSpot CRM"
     }
+  },
+  shipping_info: {
+    free_shipping_over_35: false,
+    standard_rate: 0,
+    two_day_rate: 0,
+    ship_to_store: false,
+    free_ship_to_store: false
+  },
+  offer_images: [],
+  product_logo: {
+    url: "https://logo.clearbit.com/hubspot.com",
+    storage_path: "logos/hubspot.png",
+    filename: "hubspot.png",
+    content_type: "image/png",
+    dimensions: { width: 32, height: 32 }
   }
 };
 
 const sampleRecommendationAI: AdMeshRecommendation = {
-  title: "OpenAI GPT-4 API",
-  reason: "Leading AI language model with excellent performance for content generation and analysis",
-  intent_match_score: 0.88,
-  admesh_link: "https://useadmesh.com/track?ad_id=openai-456&redirect=https://openai.com",
+  // Required core fields from unified schema
   ad_id: "openai-456",
-  product_id: "openai-gpt4",
+  admesh_link: "https://useadmesh.com/track?ad_id=openai-456&redirect=https://openai.com",
+  audience_segment: "Developers and AI Engineers",
+  availability: "in_stock",
+  brand: "OpenAI",
+  brand_trust_score: 0.93,
+  categories: ["AI", "Developer Tools", "APIs"],
+  description: "Leading AI language model with excellent performance for content generation, code generation, and analysis. Powerful API access for developers.",
+  discount_percentage: 0,
+  external_id: "openai-gpt4-api",
+  feature_sections: [],
   features: ["Natural Language Processing", "Code Generation", "Content Creation", "API Access"],
+  image_url: "https://logo.clearbit.com/openai.com",
+  integrations: [],
+  intent_match_score: 0.88,
+  is_fallback: false,
+  keywords: ["AI", "Machine Learning", "Natural Language", "API"],
+  offer_trust_score: 0.95,
+  original_price: 0.031,
+  price: 0.031,
   pricing: "$0.031/1K tokens",
+  product_id: "openai-gpt4",
+  rating: 4.8,
+  reason: "Leading AI language model with excellent performance for content generation and analysis",
+  recommendation_description: "Leading AI language model with excellent performance for content generation, code generation, and analysis. Powerful API access for developers.",
+  recommendation_title: "OpenAI GPT-4 API - Advanced Language Model",
+  redirect_url: "https://openai.com",
+  review_count: 15420,
+  reward_note: "",
+  source: "admesh",
+  title: "OpenAI GPT-4 API",
   trial_days: 0,
   url: "https://openai.com",
-  keywords: ["AI", "Machine Learning", "Natural Language", "API"],
-  badges: ["Popular"],
-  categories: ["AI", "Developer Tools", "APIs"],
-  audience_segment: "Developers and AI Engineers",
-  offer_trust_score: 0.95,
-  brand_trust_score: 0.93,
+
+  // Optional fields
   content_variations: {
     statement: {
       text: "OpenAI GPT-4 API is the leading AI language model with excellent performance, visit",
@@ -56,6 +113,21 @@ const sampleRecommendationAI: AdMeshRecommendation = {
       text: "Looking for AI solutions for your application? Try",
       cta: "OpenAI GPT-4 API"
     }
+  },
+  shipping_info: {
+    free_shipping_over_35: false,
+    standard_rate: 0,
+    two_day_rate: 0,
+    ship_to_store: false,
+    free_ship_to_store: false
+  },
+  offer_images: [],
+  product_logo: {
+    url: "https://logo.clearbit.com/openai.com",
+    storage_path: "logos/openai.png",
+    filename: "openai.png",
+    content_type: "image/png",
+    dimensions: { width: 32, height: 32 }
   }
 };
 
@@ -182,20 +254,58 @@ export const AllFeaturesShowcase: Story = {
 
 
 
-// Minimal data
+// Minimal data using unified schema
 export const MinimalData: Story = {
   args: {
     recommendation: {
-      title: "Basic Product",
-      reason: "Simple recommendation without extra features",
-      intent_match_score: 0.75,
-      admesh_link: "https://useadmesh.com/track?ad_id=basic-123",
+      // Required core fields from unified schema
       ad_id: "basic-123",
-      product_id: "basic-product"
+      admesh_link: "https://useadmesh.com/track?ad_id=basic-123",
+      audience_segment: "",
+      availability: "in_stock",
+      brand: "Basic Brand",
+      brand_trust_score: 0.5,
+      categories: ["General"],
+      description: "Simple recommendation without extra features",
+      discount_percentage: 0,
+      external_id: "basic-product-001",
+      feature_sections: [],
+      features: [],
+      image_url: "https://via.placeholder.com/300x300?text=Basic+Product",
+      integrations: [],
+      intent_match_score: 0.75,
+      is_fallback: false,
+      keywords: [],
+      offer_trust_score: 0.5,
+      original_price: 100,
+      price: 100,
+      pricing: "$100",
+      product_id: "basic-product",
+      rating: 3.5,
+      reason: "Simple recommendation without extra features",
+      recommendation_description: "Simple recommendation without extra features",
+      recommendation_title: "Basic Product",
+      redirect_url: "https://example.com",
+      review_count: 10,
+      reward_note: "",
+      source: "admesh",
+      title: "Basic Product",
+      trial_days: 0,
+      url: "https://example.com",
+
+      // Optional fields
+      shipping_info: {
+        free_shipping_over_35: false,
+        standard_rate: 0,
+        two_day_rate: 0,
+        ship_to_store: false,
+        free_ship_to_store: false
+      },
+      offer_images: [],
+      product_logo: null
     },
     showMatchScore: true,
     showBadges: true,
-
   }
 };
 

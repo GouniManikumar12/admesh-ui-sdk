@@ -245,10 +245,11 @@ export const mergeThemes = (...themes: Partial<AdMeshTheme>[]): AdMeshTheme => {
   const baseTheme = createAdMeshTheme();
   return themes.reduce((merged, theme) => {
     if (!theme) return merged;
-    return createAdMeshTheme({
+    return {
       ...merged,
-      ...theme
-    });
+      ...theme,
+      mode: theme.mode || merged.mode
+    };
   }, baseTheme);
 };
 

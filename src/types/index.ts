@@ -1,24 +1,48 @@
-// Ecommerce product types for horizontal scroll cards
+// Ecommerce product types for horizontal scroll cards - aligned with unified schema
 export interface EcommerceProduct {
-  id: string;
+  // Core required fields
+  ad_id: string;
+  product_id: string;
+  external_id: string;
   title: string;
-  price?: number;
+  price: number;
+  pricing: string; // Formatted price string
+  url: string;
+  redirect_url: string;
+  admesh_link: string;
+  source: string;
+
+  // Optional display fields
   original_price?: number;
   discount_percentage?: number;
   image_url?: string;
   brand?: string;
   rating?: number;
   review_count?: number;
-  url: string;
-  source?: 'walmart' | 'admesh' | string;
   availability?: string;
-  shipping_info?: {
-    free_shipping_over_35?: boolean;
-    standard_rate?: number;
-    two_day_rate?: number;
-  };
   description?: string;
-  admesh_link?: string;
+
+  // Enhanced shipping information aligned with unified schema
+  shipping_info?: {
+    free_shipping_over_35: boolean;
+    standard_rate: number;
+    two_day_rate: number;
+    ship_to_store: boolean;
+    free_ship_to_store: boolean;
+  };
+
+  // Trust and scoring
+  brand_trust_score?: number;
+  offer_trust_score?: number;
+  intent_match_score?: number;
+
+  // Additional metadata
+  categories?: string[];
+  features?: string[];
+  keywords?: string[];
+
+  // Legacy compatibility (deprecated)
+  id?: string; // Alias for product_id
 }
 
 export interface AdMeshEcommerceCardsProps {
@@ -40,95 +64,51 @@ export interface AdMeshEcommerceCardsProps {
   shadow?: 'none' | 'sm' | 'md' | 'lg';
 }
 
-// Core AdMesh recommendation types based on agent_recommendation.py response
+// Core AdMesh recommendation types - Unified JSON Schema for all sources
 export interface AdMeshRecommendation {
-  title: string;
-  reason: string;
-  intent_match_score: number; // 0-1 normalized score
-  admesh_link: string;
+  // Required core fields
   ad_id: string;
+  admesh_link: string;
+  audience_segment: string;
+  availability: string;
+  brand: string;
+  brand_trust_score: number;
+  categories: string[];
+  description: string;
+  discount_percentage: number;
+  external_id: string;
+  feature_sections: any[]; // Array of feature sections
+  features: string[];
+  image_url: string;
+  integrations: any[];
+  intent_match_score: number; // 0-1 normalized score
+  is_fallback: boolean;
+  keywords: string[];
+  offer_trust_score: number;
+  original_price: number;
+  price: number;
+  pricing: string; // Formatted price string (e.g., "$99.48")
   product_id: string;
+  rating: number;
+  reason: string; // Match reason/explanation
+  recommendation_description: string; // Marketing-optimized description
+  recommendation_title: string; // Marketing-optimized title
+  redirect_url: string;
+  review_count: number;
+  reward_note: string;
+  source: string; // Source platform (walmart, admesh, etc.)
+  title: string; // Product title
+  trial_days: number;
+  url: string;
 
-  // Core product/offer fields
-  url?: string;
-  redirect_url?: string;
-  description?: string;
-  pricing?: string;
-  reward_note?: string | null;
-  keywords?: string[]; // Note: Use 'keywords' not 'tags' per AdMesh standards
-  categories?: string[];
-  features?: string[];
-  integrations?: string[];
-  trial_days?: number;
-  audience_segment?: string;
-  offer_trust_score?: number;
-  brand_trust_score?: number;
+  // Source information
+  recommendation_source?: string; // 'admesh', 'walmart', etc.
 
-  // New marketing content fields
-  recommendation_title?: string; // Marketing-optimized title for recommendations
-  recommendation_description?: string; // Marketing-optimized description for recommendations
-  conversationText?: string; // AI-generated conversation text for this recommendation
+  // Citation and conversation fields
+  conversationText?: string; // For citation units
+  badges?: string[]; // Product badges
 
-  // Source-specific fields
-  recommendation_source?: 'admesh' | 'walmart' | 'amazon' | 'other'; // Source of the recommendation
-
-  // Standardized ecommerce fields (mapped from source-specific data by backend)
-  id?: string; // Standardized product ID (mapped from walmart_item_id, amazon_asin, etc.)
-  price?: number; // Standardized price (mapped from walmart_sale_price, amazon_price, etc.)
-  original_price?: number; // Standardized original price (mapped from walmart_price, amazon_list_price, etc.)
-  image_url?: string; // Standardized product image (mapped from walmart_images.large, amazon_image, etc.)
-  brand?: string; // Standardized brand name (mapped from walmart_brand, amazon_brand, etc.)
-  rating?: number | null; // Standardized rating (mapped from walmart_rating.average_rating, amazon_rating, etc.)
-  review_count?: number; // Standardized review count (mapped from walmart_rating.total_reviews, amazon_reviews, etc.)
-  availability?: string; // Standardized availability (mapped from walmart_availability, amazon_availability, etc.)
-  source?: string; // Standardized source (walmart, amazon, etc.)
-  shipping_info?: {
-    free_shipping?: boolean;
-    free_shipping_over_35?: boolean;
-    two_day_shipping?: boolean;
-    pickup_available?: boolean;
-  };
-  discount_percentage?: number; // Calculated discount percentage
-  company_name?: string; // For software/SaaS products
-  logo_url?: string; // For software/SaaS products
-  external_id?: string; // External ID from source (e.g., Walmart item ID)
-  trust_score?: number; // Trust score for the product/offer
-
-  // Walmart-specific fields (when recommendation_source=walmart)
-  walmart_item_id?: string;
-  walmart_product_id?: string;
-  walmart_upc?: string;
-  walmart_category_path?: string;
-  walmart_brand?: string;
-  walmart_manufacturer?: string;
-  walmart_short_description?: string;
-  walmart_long_description?: string;
-  walmart_price?: number;
-  walmart_sale_price?: number;
-  walmart_currency?: string;
-  walmart_availability?: string;
-  walmart_stock?: string;
-  walmart_shipping?: {
-    two_day_shipping?: boolean;
-    free_shipping_over_35?: boolean;
-    pickup?: boolean;
-  };
-  walmart_rating?: {
-    average_rating?: number;
-    total_reviews?: number;
-    rating_image?: string;
-  };
-  walmart_images?: {
-    thumbnail?: string;
-    medium?: string;
-    large?: string;
-    extra_large?: string;
-  };
-  walmart_variants?: Array<{
-    variant_id?: string;
-    variant_name?: string;
-    variant_value?: string;
-  }>;
+  // Optional fields
   offer_images?: Array<{
     url: string;
     storage_path: string;
@@ -148,12 +128,16 @@ export interface AdMeshRecommendation {
       width: number;
       height: number;
     };
+  } | null;
+
+  // Enhanced shipping information
+  shipping_info?: {
+    free_shipping_over_35: boolean;
+    standard_rate: number;
+    two_day_rate: number;
+    ship_to_store: boolean;
+    free_ship_to_store: boolean;
   };
-  feature_sections?: Array<{
-    title: string;
-    description: string;
-    icon: string;
-  }>;
 
   // Content variations for different ad formats
   content_variations?: {
@@ -167,12 +151,16 @@ export interface AdMeshRecommendation {
     };
   };
 
+  // Legacy/compatibility fields (deprecated but maintained for backward compatibility)
+  company_name?: string; // For software/SaaS products
+  logo_url?: string; // For software/SaaS products
+  trust_score?: number; // Generic trust score
+
   // Extended fields for compatibility
   reviews_summary?: string;
   security?: string[];
   slug?: string;
   support?: string[];
-  badges?: string[];
 }
 
 // Enhanced theme configuration with full customization freedom

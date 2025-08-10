@@ -5,6 +5,53 @@ All notable changes to the AdMesh UI SDK will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.13.0] - 2025-01-10
+
+### Added
+- **Unified JSON Schema**: Implemented comprehensive unified schema that works across all recommendation sources (Walmart, AdMesh, Amazon, etc.)
+- Enhanced shipping information structure with detailed options (`free_shipping_over_35`, `standard_rate`, `two_day_rate`, `ship_to_store`, `free_ship_to_store`)
+- New required fields for better data consistency:
+  - `ad_id`: Unique advertisement identifier
+  - `external_id`: External source identifier (e.g., Walmart item ID)
+  - `pricing`: Formatted price string (e.g., "$99.48")
+  - `recommendation_title`: Marketing-optimized title
+  - `recommendation_description`: Marketing-optimized description
+  - `brand_trust_score` and `offer_trust_score`: Trust scoring metrics
+  - `is_fallback`: Indicates if recommendation is a fallback option
+  - `feature_sections`: Structured feature information
+- Content variations support for different presentation formats
+- Comprehensive example component demonstrating unified schema usage
+
+### Changed
+- **BREAKING**: Updated `AdMeshRecommendation` interface to use unified schema structure
+- **BREAKING**: Updated `EcommerceProduct` interface to align with unified schema
+- Removed deprecated Walmart-specific fields in favor of standardized fields
+- Enhanced `AdMeshEcommerceCards` component to work with unified schema
+- Updated documentation to reflect unified schema structure
+- Improved type safety with required vs optional field distinctions
+
+### Removed
+- Deprecated Walmart-specific fields (`walmart_item_id`, `walmart_price`, etc.) - now handled through unified schema
+- Legacy field mappings that are no longer needed
+
+### Migration Guide
+If you're upgrading from a previous version:
+
+1. **Update your data structure** to match the new unified schema
+2. **Replace Walmart-specific fields** with standardized equivalents:
+   - `walmart_item_id` → `external_id`
+   - `walmart_sale_price` → `price`
+   - `walmart_price` → `original_price`
+   - `walmart_images.large` → `image_url`
+   - `walmart_brand` → `brand`
+3. **Ensure required fields** are present in your recommendation data
+4. **Update shipping_info structure** to use new detailed format
+
+## [0.12.3] - 2025-01-09
+
+### Fixed
+- Minor bug fixes and improvements
+
 ## [0.11.0] - 2025-01-09
 
 ### Added
