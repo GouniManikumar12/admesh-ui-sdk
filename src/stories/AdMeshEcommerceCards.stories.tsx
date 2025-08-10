@@ -3,7 +3,7 @@ import { AdMeshEcommerceCards } from '../components/AdMeshEcommerceCards';
 import type { EcommerceProduct } from '../components/AdMeshEcommerceCards';
 
 const meta: Meta<typeof AdMeshEcommerceCards> = {
-  title: 'AdMesh/AdMeshEcommerceCards',
+  title: 'AdMesh/EcommerceCards',
   component: AdMeshEcommerceCards,
   parameters: {
     layout: 'padded',

@@ -1,28 +1,14 @@
 // AdMesh UI SDK - Main Entry Point
 
-// Export all components
+// Export core components only
 export {
+  AdMeshLayout,
   AdMeshProductCard,
+  AdMeshInlineCard,
   AdMeshEcommerceCards,
-  AdMeshCompareTable,
-  AdMeshBadge,
-
-  AdMeshLinkTracker,
-
-  AdMeshExpandableUnit,
-  AdMeshConversationSummary,
   AdMeshCitationUnit,
-  AdMeshInlineRecommendation,
-  AdMeshConversationalUnit,
-  AdMeshCitationReference,
-  AdMeshFloatingChat,
-  AdMeshChatInterface,
-  AdMeshChatMessage,
-  AdMeshChatInput,
-  AdMeshSidebar,
-  AdMeshSidebarHeader,
-  AdMeshSidebarContent,
-  AdMeshAutoRecommendationWidget
+  AdMeshLinkTracker,
+  AdMeshBadge
 } from './components';
 
 // Export hooks
@@ -75,36 +61,14 @@ export type {
   AdMeshProductCardProps,
   AdMeshEcommerceCardsProps,
   EcommerceProduct,
-  AdMeshCompareTableProps,
   AdMeshBadgeProps,
-
+  AdMeshLayoutProps,
+  AdMeshLayoutType,
   AdMeshLinkTrackerProps,
-
+  AdMeshCitationUnitProps,
   UseAdMeshTrackerReturn,
   AgentRecommendationResponse,
-  AdMeshConfig,
-  ConversationalDisplayMode,
-  ConversationContext,
-  ConversationalAdConfig,
-  AdMeshConversationSummaryProps,
-  AdMeshCitationUnitProps,
-  AdMeshInlineRecommendationProps,
-  AdMeshChatInputProps,
-  AdMeshChatMessageProps,
-  AdMeshChatInterfaceProps,
-  AdMeshFloatingChatProps,
-  AdMeshCitationReferenceProps,
-  AdMeshConversationalUnitProps,
-  ChatMessage,
-  SidebarPosition,
-  SidebarSize,
-  SidebarDisplayMode,
-  AdMeshSidebarConfig,
-  AdMeshSidebarProps,
-  SidebarFilters,
-  AdMeshSidebarHeaderProps,
-  AdMeshSidebarContentProps,
-
+  AdMeshConfig
 } from './types/index';
 
 // Version info

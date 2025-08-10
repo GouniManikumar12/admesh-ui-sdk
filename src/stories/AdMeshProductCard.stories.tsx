@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import React from 'react';
 import { AdMeshProductCard } from '../components/AdMeshProductCard';
 import type { AdMeshRecommendation } from '../types/index';
 
@@ -12,7 +11,6 @@ const sampleRecommendation: AdMeshRecommendation = {
   ad_id: "hubspot-123",
   product_id: "hubspot-crm",
   features: ["Contact Management", "Email Marketing", "Sales Pipeline", "Reporting", "Mobile App"],
-  integrations: ["Gmail", "Outlook", "Slack", "Zoom"],
   pricing: "Free - $1,200/month",
   trial_days: 14,
   url: "https://hubspot.com",
@@ -40,7 +38,6 @@ const sampleRecommendationAI: AdMeshRecommendation = {
   ad_id: "openai-456",
   product_id: "openai-gpt4",
   features: ["Natural Language Processing", "Code Generation", "Content Creation", "API Access"],
-  integrations: ["REST API", "Python SDK", "Node.js SDK"],
   pricing: "$0.031/1K tokens",
   trial_days: 0,
   url: "https://openai.com",
@@ -63,7 +60,7 @@ const sampleRecommendationAI: AdMeshRecommendation = {
 };
 
 const meta: Meta<typeof AdMeshProductCard> = {
-  title: 'Product Card/AdMeshProductCard',
+  title: 'AdMesh/ProductCard',
   component: AdMeshProductCard,
   parameters: {
     layout: 'centered',
@@ -156,118 +153,13 @@ export const CustomAccentColor: Story = {
   }
 };
 
-// Without badges
-export const WithoutBadges: Story = {
-  args: {
-    recommendation: sampleRecommendation,
-    showMatchScore: true,
-    showBadges: false,
 
-  }
-};
 
-// Without match score
-export const WithoutMatchScore: Story = {
-  args: {
-    recommendation: sampleRecommendation,
-    showMatchScore: false,
-    showBadges: true,
 
-  }
-};
 
-// Question Variation - Expandable layout
-export const QuestionVariation: Story = {
-  args: {
-    recommendation: sampleRecommendation,
-    variation: 'question',
-    showMatchScore: true,
-    showBadges: true
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Question variation starts as a simple inline layout but can be expanded to show full product details. Click the expand button to see more information.'
-      }
-    }
-  }
-};
 
-// Statement Variation - Expandable layout
-export const StatementVariation: Story = {
-  args: {
-    recommendation: sampleRecommendation,
-    variation: 'statement',
-    showMatchScore: true,
-    showBadges: true
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Statement variation starts as a simple inline layout but can be expanded to show full product details. Click the expand button to see more information.'
-      }
-    }
-  }
-};
 
-// Question Variation with AI Product - Expandable
-export const QuestionVariationAI: Story = {
-  args: {
-    recommendation: sampleRecommendationAI,
-    variation: 'question',
-    showMatchScore: true,
-    showBadges: true
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Question variation with AI product showing the expandable inline layout. Starts simple but can expand to show full details.'
-      }
-    }
-  }
-};
 
-// Comparison of all variations
-export const AllVariations: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Default (Full Card)</h3>
-        <AdMeshProductCard
-          recommendation={sampleRecommendation}
-          variation="default"
-          showMatchScore={true}
-          showBadges={true}
-        />
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Question (Expandable)</h3>
-        <AdMeshProductCard
-          recommendation={sampleRecommendation}
-          variation="question"
-          showMatchScore={true}
-          showBadges={true}
-        />
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Statement (Expandable)</h3>
-        <AdMeshProductCard
-          recommendation={sampleRecommendation}
-          variation="statement"
-          showMatchScore={true}
-          showBadges={true}
-        />
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Comparison showing all three variations: default full card, question expandable, and statement expandable. The expandable variations start simple but can be expanded to show full details.'
-      }
-    }
-  }
-};
 
 // All Features Showcase
 export const AllFeaturesShowcase: Story = {
@@ -288,60 +180,7 @@ export const AllFeaturesShowcase: Story = {
   }
 };
 
-// Expandable Demo - Interactive showcase
-export const ExpandableDemo: Story = {
-  render: () => {
-    const [currentVariation, setCurrentVariation] = React.useState<'question' | 'statement'>('question');
 
-    return (
-      <div className="space-y-4">
-        <div className="flex gap-2 mb-4">
-          <button
-            onClick={() => setCurrentVariation('question')}
-            className={`px-3 py-1 rounded text-sm ${
-              currentVariation === 'question'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            Question Variation
-          </button>
-          <button
-            onClick={() => setCurrentVariation('statement')}
-            className={`px-3 py-1 rounded text-sm ${
-              currentVariation === 'statement'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            Statement Variation
-          </button>
-        </div>
-
-        <div>
-          <p className="text-sm text-gray-600 mb-3">
-            This component starts as a simple inline ad but can be expanded to show full product details.
-            Click the expand button (↓) to see more information, then click collapse (↑) to return to simple view.
-          </p>
-          <AdMeshProductCard
-            key={currentVariation} // Force re-render to reset state
-            recommendation={sampleRecommendation}
-            variation={currentVariation}
-            showMatchScore={true}
-            showBadges={true}
-          />
-        </div>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive demo showing the expandable functionality. The component starts simple and can be expanded to show full details.'
-      }
-    }
-  }
-};
 
 // Minimal data
 export const MinimalData: Story = {

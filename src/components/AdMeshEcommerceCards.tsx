@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import type { AdMeshRecommendation } from '../types/index';
 
 export interface EcommerceProduct {
   id: string;
@@ -24,7 +25,8 @@ export interface EcommerceProduct {
 }
 
 export interface AdMeshEcommerceCardsProps {
-  products: EcommerceProduct[];
+  products?: EcommerceProduct[]; // Legacy support
+  recommendations?: AdMeshRecommendation[]; // New: recommendations with recommendation_source=walmart
   title?: string;
   showTitle?: boolean;
   className?: string;
@@ -43,7 +45,8 @@ export interface AdMeshEcommerceCardsProps {
 }
 
 export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
-  products,
+  products = [],
+  recommendations = [],
   title = "Product Recommendations",
   showTitle = true,
   className = "",
@@ -60,7 +63,37 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
   borderRadius = 'md',
   shadow = 'sm'
 }) => {
-  const displayProducts = products.slice(0, maxCards);
+  // Convert recommendations to product format for display
+  // The backend now provides standardized fields that match the Walmart API format
+  const convertedProducts = recommendations.map(rec => ({
+    id: rec.id || rec.ad_id || rec.product_id || `product-${Math.random()}`,
+    title: rec.title || 'Product Title',
+    price: rec.price || 99.99,
+    original_price: rec.original_price || rec.price || 129.99,
+    image_url: rec.image_url || rec.logo_url || 'https://via.placeholder.com/300x300?text=Product',
+    brand: rec.brand || rec.company_name || 'Brand',
+    rating: rec.rating || 4.5,
+    review_count: rec.review_count || 100,
+    url: rec.admesh_link || rec.url || '#',
+    source: rec.source || rec.recommendation_source || 'admesh',
+    availability: rec.availability || 'in_stock',
+    shipping_info: rec.shipping_info || {
+      free_shipping_over_35: true,
+      two_day_shipping: true
+    },
+    discount_percentage: rec.discount_percentage || (rec.original_price && rec.price ?
+      Math.round(((rec.original_price - rec.price) / rec.original_price) * 100) : 0),
+    description: rec.description || rec.reason || 'Product description',
+    admesh_link: rec.admesh_link || rec.url || '#',
+    external_id: rec.external_id,
+    trust_score: rec.trust_score,
+    intent_match_score: rec.intent_match_score,
+    features: rec.features || []
+  }));
+
+  // Use converted products if recommendations provided, otherwise use legacy products
+  const allProducts = recommendations.length > 0 ? convertedProducts : products;
+  const displayProducts = allProducts.slice(0, maxCards);
 
   const getCardWidthClass = () => {
     switch (cardWidth) {
@@ -164,8 +197,13 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
       )}
       
       <div className="relative">
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-          {displayProducts.map((product) => (
+        {displayProducts.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            No products to display
+          </div>
+        ) : (
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+            {displayProducts.map((product) => (
             <div
               key={product.id}
               className={classNames(
@@ -273,19 +311,34 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
 
-        {/* Scroll Indicators */}
-        <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full shadow-lg p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </div>
-        <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full shadow-lg p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
+        {/* Scroll Indicators - only show when there are products */}
+        {displayProducts.length > 0 && (
+          <>
+            <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full shadow-lg p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </div>
+            <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full shadow-lg p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Disclosure */}
+      <div className="flex justify-between items-center mt-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+        <span className="text-xs text-gray-500 dark:text-gray-400">
+          Sponsored
+        </span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">
+          Powered by AdMesh
+        </span>
       </div>
 
       {/* Custom scrollbar styles */}

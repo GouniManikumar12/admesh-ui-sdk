@@ -59,7 +59,7 @@ All of these CRM solutions offer strong integration capabilities and can scale w
 `;
 
 const meta: Meta<typeof AdMeshCitationUnit> = {
-  title: 'Citation/AdMeshCitationUnit',
+  title: 'AdMesh/CitationUnit',
   component: AdMeshCitationUnit,
   parameters: {
     layout: 'padded',
@@ -303,6 +303,66 @@ export const StorybookBusinessNarrative: Story = {
     docs: {
       description: {
         story: '📚 **Storybook Ad Format**: A business growth story showing how AdMesh recommendations appear as academic-style citations within narratives. This demonstrates the revolutionary "storybook advertising" approach that enhances content rather than interrupting it.',
+      },
+    },
+  },
+};
+
+// Dynamic Template Story
+export const DynamicTemplate: StoryObj<typeof AdMeshCitationUnit> = {
+  args: {
+    recommendations: sampleRecommendations,
+    dynamicTemplate: "For your startup, I recommend {product1} as the primary CRM solution and {product2} as an enterprise alternative. You might also consider {product3} for simple pipeline management.",
+    linkInsertionStrategy: 'template',
+    enableRealTimeUpdates: true,
+    onTextUpdate: (text) => console.log('Updated text:', text),
+    theme: { mode: 'light' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '🎯 **Dynamic Template**: Uses template placeholders like {product1}, {product2} to dynamically insert recommendation links. Perfect for AI-generated content with structured recommendations.',
+      },
+    },
+  },
+};
+
+// Custom Keywords Strategy
+export const CustomKeywords: StoryObj<typeof AdMeshCitationUnit> = {
+  args: {
+    recommendations: sampleRecommendations,
+    conversationText: "When choosing CRM software for your business, consider the sales automation features and enterprise scalability requirements.",
+    linkInsertionStrategy: 'keywords',
+    customLinkPatterns: [
+      { pattern: "CRM", recommendationIndex: 0, linkText: "HubSpot CRM" },
+      { pattern: "business", recommendationIndex: 1, linkText: "Salesforce" },
+      { pattern: "sales", recommendationIndex: 2, linkText: "Pipedrive" }
+    ],
+    enableRealTimeUpdates: true,
+    theme: { mode: 'light' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '🔍 **Custom Keywords**: Uses custom patterns to insert specific recommendation links at targeted keywords. Ideal for content with known trigger words.',
+      },
+    },
+  },
+};
+
+// Append Strategy
+export const AppendLinks: StoryObj<typeof AdMeshCitationUnit> = {
+  args: {
+    recommendations: sampleRecommendations,
+    conversationText: "Here are some excellent CRM solutions that would work well for your team's needs.",
+    linkInsertionStrategy: 'append',
+    enableRealTimeUpdates: true,
+    theme: { mode: 'light' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '📎 **Append Strategy**: Adds all recommendation links naturally at the end of the text. Great for summary sections or conclusion paragraphs.',
       },
     },
   },

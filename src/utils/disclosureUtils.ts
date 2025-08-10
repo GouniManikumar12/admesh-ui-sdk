@@ -8,7 +8,7 @@ export interface DisclosureConfig {
   showTooltips?: boolean;
   compactMode?: boolean;
   customLabels?: {
-    smartPick?: string;
+    partnerRecommendation?: string;
     partnerMatch?: string;
     promotedOption?: string;
     relatedOption?: string;
@@ -27,7 +27,7 @@ export const getRecommendationLabel = (
 
   // High match score (>0.8)
   if (matchScore >= 0.8) {
-    return customLabels.smartPick || 'Smart Pick';
+    return customLabels.partnerRecommendation || 'Partner Recommendation';
   }
   
   // Medium match score (0.6-0.8)
@@ -123,7 +123,7 @@ export const getInlineTooltip = (): string => {
 export const getBadgeText = (badgeType: string): string => {
   const badgeMap: Record<string, string> = {
     'Top Match': 'Top Match',
-    'Smart Pick': 'Smart Pick',
+    'Partner Recommendation': 'Partner Recommendation',
     'Perfect Fit': 'Perfect Fit',
     'Great Match': 'Great Match',
     'Recommended': 'Recommended',

@@ -67,6 +67,68 @@ export interface AdMeshRecommendation {
   // New marketing content fields
   recommendation_title?: string; // Marketing-optimized title for recommendations
   recommendation_description?: string; // Marketing-optimized description for recommendations
+  conversationText?: string; // AI-generated conversation text for this recommendation
+
+  // Source-specific fields
+  recommendation_source?: 'admesh' | 'walmart' | 'amazon' | 'other'; // Source of the recommendation
+
+  // Standardized ecommerce fields (mapped from source-specific data by backend)
+  id?: string; // Standardized product ID (mapped from walmart_item_id, amazon_asin, etc.)
+  price?: number; // Standardized price (mapped from walmart_sale_price, amazon_price, etc.)
+  original_price?: number; // Standardized original price (mapped from walmart_price, amazon_list_price, etc.)
+  image_url?: string; // Standardized product image (mapped from walmart_images.large, amazon_image, etc.)
+  brand?: string; // Standardized brand name (mapped from walmart_brand, amazon_brand, etc.)
+  rating?: number | null; // Standardized rating (mapped from walmart_rating.average_rating, amazon_rating, etc.)
+  review_count?: number; // Standardized review count (mapped from walmart_rating.total_reviews, amazon_reviews, etc.)
+  availability?: string; // Standardized availability (mapped from walmart_availability, amazon_availability, etc.)
+  source?: string; // Standardized source (walmart, amazon, etc.)
+  shipping_info?: {
+    free_shipping?: boolean;
+    free_shipping_over_35?: boolean;
+    two_day_shipping?: boolean;
+    pickup_available?: boolean;
+  };
+  discount_percentage?: number; // Calculated discount percentage
+  company_name?: string; // For software/SaaS products
+  logo_url?: string; // For software/SaaS products
+  external_id?: string; // External ID from source (e.g., Walmart item ID)
+  trust_score?: number; // Trust score for the product/offer
+
+  // Walmart-specific fields (when recommendation_source=walmart)
+  walmart_item_id?: string;
+  walmart_product_id?: string;
+  walmart_upc?: string;
+  walmart_category_path?: string;
+  walmart_brand?: string;
+  walmart_manufacturer?: string;
+  walmart_short_description?: string;
+  walmart_long_description?: string;
+  walmart_price?: number;
+  walmart_sale_price?: number;
+  walmart_currency?: string;
+  walmart_availability?: string;
+  walmart_stock?: string;
+  walmart_shipping?: {
+    two_day_shipping?: boolean;
+    free_shipping_over_35?: boolean;
+    pickup?: boolean;
+  };
+  walmart_rating?: {
+    average_rating?: number;
+    total_reviews?: number;
+    rating_image?: string;
+  };
+  walmart_images?: {
+    thumbnail?: string;
+    medium?: string;
+    large?: string;
+    extra_large?: string;
+  };
+  walmart_variants?: Array<{
+    variant_id?: string;
+    variant_name?: string;
+    variant_value?: string;
+  }>;
   offer_images?: Array<{
     url: string;
     storage_path: string;
@@ -217,10 +279,10 @@ export interface TrackingData {
 export interface AdMeshProductCardProps {
   recommendation: AdMeshRecommendation;
   theme?: AdMeshTheme;
-  showMatchScore?: boolean;
+  showMatchScore?: boolean; // Deprecated - Match Score removed from UI
   showBadges?: boolean;
-  variation?: 'statement' | 'question' | 'default' | 'simple';
-  expandable?: boolean; // For question and statement variations, default: false
+  variation?: 'default' | 'simple';
+  expandable?: boolean; // Deprecated - moved to AdMeshInlineCard
   onTrackView?: (data: TrackingData) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -242,93 +304,29 @@ export interface ConversationalAdConfig {
 
 
 
-export interface AdMeshConversationSummaryProps {
-  recommendations: AdMeshRecommendation[];
-  conversationSummary: string;
-  theme?: AdMeshTheme;
-  showTopRecommendations?: number;
-  onStartNewConversation?: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-
-
 // Citation-based conversation ad types
 export interface AdMeshCitationUnitProps {
   recommendations: AdMeshRecommendation[];
-  conversationText: string;
+  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping
   theme?: AdMeshTheme;
-  showCitationList?: boolean;
   citationStyle?: 'numbered' | 'bracketed' | 'superscript';
   onCitationHover?: (recommendation: AdMeshRecommendation) => void;
   className?: string;
   style?: React.CSSProperties;
+
+  // Dynamic content options
+  dynamicTemplate?: string; // Template with placeholders like "I recommend {product1} and {product2}"
+  linkInsertionStrategy?: 'auto' | 'template' | 'keywords' | 'append';
+  customLinkPatterns?: Array<{
+    pattern: string | RegExp;
+    recommendationIndex: number;
+    linkText?: string;
+  }>;
+  onTextUpdate?: (newText: string) => void;
+  enableRealTimeUpdates?: boolean;
 }
 
 
-
-// Sidebar types
-export type SidebarPosition = 'left' | 'right';
-export type SidebarSize = 'sm' | 'md' | 'lg' | 'xl';
-export type SidebarDisplayMode = 'recommendations' | 'history' | 'favorites' | 'mixed';
-
-export interface AdMeshSidebarConfig {
-  position: SidebarPosition;
-  size: SidebarSize;
-  displayMode: SidebarDisplayMode;
-  collapsible?: boolean;
-  defaultCollapsed?: boolean;
-  showHeader?: boolean;
-  showSearch?: boolean;
-  showFilters?: boolean;
-  maxRecommendations?: number;
-  autoRefresh?: boolean;
-  refreshInterval?: number; // in milliseconds
-}
-
-export interface AdMeshSidebarProps {
-  recommendations: AdMeshRecommendation[];
-  config: AdMeshSidebarConfig;
-  theme?: AdMeshTheme;
-  title?: string;
-  isOpen?: boolean;
-  onToggle?: () => void;
-  onSearch?: (query: string) => void;
-  onFilter?: (filters: SidebarFilters) => void;
-  className?: string;
-  containerMode?: boolean; // When true, uses relative positioning for container integration
-  style?: React.CSSProperties;
-}
-
-export interface SidebarFilters {
-  categories?: string[];
-  hasFreeTier?: boolean;
-  hasTrial?: boolean;
-  minMatchScore?: number;
-  maxPrice?: number;
-}
-
-export interface AdMeshSidebarHeaderProps {
-  title: string;
-  theme?: AdMeshTheme;
-  collapsible?: boolean;
-  isCollapsed?: boolean;
-  onToggle?: () => void;
-  onSearch?: (query: string) => void;
-  showSearch?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-export interface AdMeshSidebarContentProps {
-  recommendations: AdMeshRecommendation[];
-  displayMode: SidebarDisplayMode;
-  theme?: AdMeshTheme;
-  maxRecommendations?: number;
-  className?: string;
-  style?: React.CSSProperties;
-}
 
 // Chat types
 export type ChatMessageRole = 'user' | 'assistant' | 'system';
@@ -364,16 +362,6 @@ export interface AdMeshChatConfig {
 
 
 
-export interface AdMeshCompareTableProps {
-  recommendations: AdMeshRecommendation[];
-  theme?: AdMeshTheme;
-  maxProducts?: number;
-  showMatchScores?: boolean;
-  showFeatures?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
 export interface AdMeshBadgeProps {
   type: BadgeType;
   variant?: BadgeVariant;
@@ -382,7 +370,70 @@ export interface AdMeshBadgeProps {
   style?: React.CSSProperties;
 }
 
+// Layout component types
+export type AdMeshLayoutType =
+  | 'product'        // Product cards
+  | 'inline'         // Inline citation-style recommendation
+  | 'citation'       // Citation unit with conversation text (card style)
+  | 'ecommerce';     // Ecommerce cards layout
 
+export interface AdMeshLayoutProps {
+  // Content
+  recommendations?: AdMeshRecommendation[];
+  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping
+
+  // Backend-controlled layout (required)
+  layout: AdMeshLayoutType; // Backend specifies which layout to use
+
+  // Backend-controlled styling configuration
+  layoutConfig?: {
+    backgroundColor?: string;
+    textColor?: string;
+    primaryColor?: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    borderColor?: string;
+    borderRadius?: string;
+    fontSize?: string;
+    fontFamily?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    padding?: string;
+    margin?: string;
+    shadow?: string;
+    hoverColor?: string;
+    linkColor?: string;
+    customCSS?: string;
+    darkMode?: boolean;
+  };
+
+  // Layout configuration
+  maxItems?: number;
+  columns?: 'auto' | number | string;
+  spacing?: 'sm' | 'md' | 'lg' | 'xl' | string;
+  showTitle?: boolean;
+  title?: string;
+
+  // Styling (legacy support)
+  theme?: AdMeshTheme;
+  className?: string;
+  style?: React.CSSProperties;
+
+  // Component-specific props
+  productCardProps?: Partial<AdMeshProductCardProps>;
+  citationUnitProps?: Partial<AdMeshCitationUnitProps>;
+  ecommerceCardsProps?: Partial<AdMeshEcommerceCardsProps>;
+
+  // Event handlers
+  onRecommendationClick?: (adId: string, admeshLink: string) => void;
+  onProductClick?: (product: EcommerceProduct) => void;
+  onCitationHover?: (recommendation: AdMeshRecommendation) => void;
+
+  // Advanced options
+  enableAutoDetection?: boolean;
+  preferredComponents?: ('product' | 'inline' | 'citation' | 'ecommerce')[];
+  fallbackLayout?: AdMeshLayoutType;
+}
 
 export interface AdMeshLinkTrackerProps {
   adId: string;
@@ -442,15 +493,7 @@ export interface AdMeshConfig {
   debug?: boolean;
 }
 
-// Missing interface definitions
-export interface AdMeshInlineRecommendationProps {
-  recommendation: AdMeshRecommendation;
-  theme?: AdMeshTheme;
-  compact?: boolean;
-  showReason?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-}
+// Core interface definitions
 
 export interface AdMeshChatInputProps {
   value: string;
@@ -481,44 +524,6 @@ export interface AdMeshChatInterfaceProps {
   style?: React.CSSProperties;
 }
 
-export interface AdMeshFloatingChatProps {
-  messages: ChatMessage[];
-  config: AdMeshChatConfig;
-  theme?: AdMeshTheme;
-  isOpen?: boolean;
-  onToggle?: () => void;
-  onSendMessage: (message: string) => void;
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  autoRecommendations?: AdMeshRecommendation[];
-  autoRecommendationTrigger?: string;
-  showInputField?: boolean;
-  style?: React.CSSProperties;
-  autoShowRecommendations?: boolean;
-  onAutoRecommendationDismiss?: () => void;
-}
+// Removed unused AdMeshCitationReferenceProps
 
-export interface AdMeshCitationReferenceProps {
-  recommendations?: AdMeshRecommendation[];
-  theme?: AdMeshTheme;
-  citationStyle?: 'numbered' | 'bracketed' | 'superscript';
-  className?: string;
-  recommendation: AdMeshRecommendation;
-  citationNumber: number;
-  showTooltip?: boolean;
-  onHover?: (rec: AdMeshRecommendation) => void;
-  style?: React.CSSProperties;
-}
-
-export interface AdMeshConversationalUnitProps {
-  recommendations: AdMeshRecommendation[];
-  config: ConversationalAdConfig;
-  theme?: AdMeshTheme;
-  trigger?: string;
-  className?: string;
-  conversationSummary?: string;
-  sessionId?: string;
-  onDismiss?: () => void;
-  style?: React.CSSProperties;
-}
+// Removed unused AdMeshConversationalUnitProps

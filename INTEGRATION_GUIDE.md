@@ -297,24 +297,26 @@ const handleProductClick = (adId, admeshLink) => {
 ```jsx
 <AdMeshLayout
   recommendations={recommendations}
-  autoLayout={false} // Disable auto layout
-  intentType="compare_products" // Force comparison table
-  maxDisplayed={4}
+  layout="grid" // Specify layout type
+  maxItems={1} // Default: 1 for layout, 3 for ecommerce
+  columns={1} // 100% width when maxItems=1
 />
 ```
 
 ### Individual Components
 
+> **Important**: Individual components no longer show disclosures. Use AdMeshLayout for platform integration to ensure FTC compliance.
+
 ```jsx
 import { AdMeshProductCard, AdMeshCompareTable } from '@admesh/ui-sdk';
 
-// Use individual cards
+// Use individual cards (no disclosures - for internal use only)
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {recommendations.map(rec => (
     <AdMeshProductCard
       key={rec.ad_id}
       recommendation={rec}
-      showMatchScore={true}
+      showMatchScore={false} // Deprecated - removed from UI
       showBadges={true}
       maxKeywords={3}
       onClick={(adId, admeshLink) => window.open(admeshLink, '_blank')}
