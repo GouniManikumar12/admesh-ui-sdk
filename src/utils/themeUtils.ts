@@ -88,7 +88,8 @@ export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMes
   };
 
   // Ensure consistent widths are applied
-  return ensureConsistentWidths(mergedTheme) as AdMeshTheme;
+  const finalTheme = ensureConsistentWidths(mergedTheme);
+  return finalTheme as AdMeshTheme;
 };
 
 /**
@@ -206,22 +207,24 @@ export const themePresets = {
  * Ensures consistent width settings across all components
  * This function enforces the rule: 100% width for all components except ecommerce
  */
-export const ensureConsistentWidths = (theme: Partial<AdMeshTheme> = {}): Partial<AdMeshTheme> => {
+export const ensureConsistentWidths = (inputTheme: Partial<AdMeshTheme> = {}): Partial<AdMeshTheme> => {
+  const existingComponents = inputTheme.components || {};
+
   const consistentComponents = {
-    productCard: { width: '100%', ...theme.components?.productCard },
-    citationUnit: { width: '100%', ...theme.components?.citationUnit },
-    inlineRecommendation: { width: '100%', ...theme.components?.inlineRecommendation },
-    expandableUnit: { width: '100%', ...theme.components?.expandableUnit },
-    compareTable: { width: '100%', ...theme.components?.compareTable },
+    productCard: { width: '100%', ...existingComponents.productCard },
+    citationUnit: { width: '100%', ...existingComponents.citationUnit },
+    inlineRecommendation: { width: '100%', ...existingComponents.inlineRecommendation },
+    expandableUnit: { width: '100%', ...existingComponents.expandableUnit },
+    compareTable: { width: '100%', ...existingComponents.compareTable },
     // Ecommerce cards maintain their specific width behavior
-    card: { width: 'auto', ...theme.components?.card },
-    button: { width: 'auto', ...theme.components?.button }
+    card: { width: 'auto', ...existingComponents.card },
+    button: { width: 'auto', ...existingComponents.button }
   };
 
   return {
-    ...theme,
+    ...inputTheme,
     components: {
-      ...theme.components,
+      ...existingComponents,
       ...consistentComponents
     }
   };
