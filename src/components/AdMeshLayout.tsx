@@ -78,7 +78,7 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
       case 'inline':
       case 'citation':
       default:
-        return 'product';
+        return 1;
     }
   }, [maxItems, effectiveLayout]);
 
