@@ -349,6 +349,8 @@ export const AdMeshCitationUnit: React.FC<AdMeshCitationUnitProps> = ({
       style={{
         ...containerStyle,
         fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        // Ensure consistent width: 100% for citation units
+        width: theme?.components?.citationUnit?.width || '100%',
         ...theme?.components?.citationUnit,
         ...style
       }}

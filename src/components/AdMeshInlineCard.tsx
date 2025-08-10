@@ -69,6 +69,8 @@ export const AdMeshInlineCard: React.FC<AdMeshInlineCardProps> = ({
       className={cardClasses}
       style={{
         fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        // Ensure consistent width: 100% for inline cards
+        width: theme?.components?.inlineRecommendation?.width || '100%',
         ...theme?.components?.productCard,
         ...style,
       }}

@@ -385,19 +385,29 @@ Wrapper for tracking any clickable element with built-in analytics.
 
 The AdMesh UI SDK provides **complete freedom** for AI platforms to customize colors, icons, fonts, and styling to match their brand perfectly.
 
+### Consistent Design System
+
+The AdMesh UI SDK ensures consistent styling across all components:
+
+- **🎨 Unified Colors & Themes**: All components share the same color palette and theme system
+- **📝 Consistent Fonts**: All components use the same font family for visual consistency
+- **📐 Standardized Width**: 100% width for all components except ecommerce cards (which maintain horizontal scrolling)
+- **📱 Responsive Design**: Mobile-friendly and adaptive across all screen sizes
+- **🌙 Dark Mode Support**: Seamless light/dark mode transitions with consistent styling
+
 ### Enhanced Theme System
 
 ```tsx
 import { createAdMeshTheme, themePresets } from 'admesh-ui-sdk';
 
-// Custom brand colors
+// Custom brand colors with automatic consistency
 const customTheme = createAdMeshTheme({
   mode: 'light',
   primaryColor: '#ff6b6b',      // Your brand color
   secondaryColor: '#4ecdc4',    // Secondary brand color
   accentColor: '#45b7d1',       // Accent color
   borderRadius: '16px',         // Custom border radius
-  fontFamily: '"Poppins", sans-serif',
+  fontFamily: '"Poppins", sans-serif', // Applied consistently across all components
 
   // Custom icons (emoji or React components)
   icons: {
@@ -406,12 +416,17 @@ const customTheme = createAdMeshTheme({
     collapseIcon: '▲'
   },
 
-  // Component-specific overrides
+  // Component-specific overrides (width settings are automatically applied)
   components: {
     button: {
       backgroundColor: '#custom-color',
       borderRadius: '12px'
     }
+    // Width settings are automatically applied:
+    // - productCard: { width: '100%' }
+    // - citationUnit: { width: '100%' }
+    // - inlineRecommendation: { width: '100%' }
+    // - ecommerce cards maintain auto width for horizontal scrolling
   }
 });
 

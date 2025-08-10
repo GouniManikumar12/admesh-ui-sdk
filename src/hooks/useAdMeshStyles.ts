@@ -53,6 +53,28 @@ const ADMESH_STYLES = `
   padding: 1.5rem;
   box-shadow: var(--admesh-shadow);
   border: 1px solid var(--admesh-border);
+  /* Consistent width: 100% for all layouts except ecommerce */
+  width: 100%;
+}
+
+/* Ecommerce layout exception */
+.admesh-layout--ecommerce {
+  width: auto;
+}
+
+/* Citation Unit Styles */
+.admesh-citation-unit {
+  width: 100%;
+}
+
+/* Inline Recommendation Styles */
+.admesh-inline-recommendation {
+  width: 100%;
+}
+
+/* Simple Ad Styles */
+.admesh-simple-ad {
+  width: 100%;
 }
 
 .admesh-layout__header {
@@ -112,6 +134,8 @@ const ADMESH_STYLES = `
   transition: all 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
+  /* Consistent width: 100% for product cards */
+  width: 100%;
 }
 
 .admesh-product-card:hover {

@@ -247,6 +247,9 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
 
   // Combine all styles
   const combinedStyles = {
+    fontFamily: theme?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    // Ensure consistent width: 100% for all layouts except ecommerce
+    width: layout === 'ecommerce' ? 'auto' : '100%',
     ...dynamicStyles,
     ...cssVariables,
     ...style

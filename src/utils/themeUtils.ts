@@ -6,6 +6,7 @@ import type { AdMeshTheme } from '../types';
 
 /**
  * Creates a theme with sensible defaults and custom overrides
+ * Ensures consistent styling across all AdMesh UI SDK components
  */
 export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshTheme => {
   const baseTheme: AdMeshTheme = {
@@ -42,10 +43,26 @@ export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMes
       starIcon: '★',
       checkIcon: '✓',
       arrowIcon: '→'
+    },
+    gradients: {
+      primary: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+      secondary: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      accent: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'
+    },
+    // Component-specific defaults with consistent width settings
+    components: {
+      productCard: { width: '100%' },
+      citationUnit: { width: '100%' },
+      inlineRecommendation: { width: '100%' },
+      expandableUnit: { width: '100%' },
+      compareTable: { width: '100%' },
+      // Ecommerce cards maintain their specific width behavior
+      card: { width: 'auto' },
+      button: { width: 'auto' }
     }
   };
 
-  return {
+  const mergedTheme = {
     ...baseTheme,
     ...customTheme,
     fontSize: {
@@ -69,6 +86,9 @@ export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMes
       ...customTheme.components
     }
   };
+
+  // Ensure consistent widths are applied
+  return ensureConsistentWidths(mergedTheme) as AdMeshTheme;
 };
 
 /**
@@ -97,9 +117,10 @@ export const createDarkTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshT
 
 /**
  * Predefined theme presets for common AI platforms
+ * All presets ensure consistent width settings and styling
  */
 export const themePresets = {
-  // Clean, minimal theme
+  // Clean, minimal theme with consistent width
   minimal: createAdMeshTheme({
     primaryColor: '#000000',
     secondaryColor: '#666666',
@@ -108,10 +129,17 @@ export const themePresets = {
       small: 'none',
       medium: '0 1px 3px rgba(0, 0, 0, 0.1)',
       large: '0 2px 6px rgba(0, 0, 0, 0.1)'
+    },
+    components: {
+      productCard: { width: '100%' },
+      citationUnit: { width: '100%' },
+      inlineRecommendation: { width: '100%' },
+      expandableUnit: { width: '100%' },
+      compareTable: { width: '100%' }
     }
   }),
 
-  // Modern, colorful theme
+  // Modern, colorful theme with consistent width
   vibrant: createAdMeshTheme({
     primaryColor: '#8b5cf6',
     secondaryColor: '#06b6d4',
@@ -121,10 +149,17 @@ export const themePresets = {
       primary: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
       secondary: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
       accent: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)'
+    },
+    components: {
+      productCard: { width: '100%' },
+      citationUnit: { width: '100%' },
+      inlineRecommendation: { width: '100%' },
+      expandableUnit: { width: '100%' },
+      compareTable: { width: '100%' }
     }
   }),
 
-  // Professional, corporate theme
+  // Professional, corporate theme with consistent width
   corporate: createAdMeshTheme({
     primaryColor: '#1e40af',
     secondaryColor: '#059669',
@@ -132,10 +167,17 @@ export const themePresets = {
     surfaceColor: '#ffffff',
     borderColor: '#cbd5e1',
     borderRadius: '6px',
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif'
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
+    components: {
+      productCard: { width: '100%' },
+      citationUnit: { width: '100%' },
+      inlineRecommendation: { width: '100%' },
+      expandableUnit: { width: '100%' },
+      compareTable: { width: '100%' }
+    }
   }),
 
-  // High contrast theme for accessibility
+  // High contrast theme for accessibility with consistent width
   highContrast: createAdMeshTheme({
     primaryColor: '#000000',
     secondaryColor: '#ffffff',
@@ -149,8 +191,40 @@ export const themePresets = {
       small: 'none',
       medium: '0 0 0 2px #000000',
       large: '0 0 0 3px #000000'
+    },
+    components: {
+      productCard: { width: '100%' },
+      citationUnit: { width: '100%' },
+      inlineRecommendation: { width: '100%' },
+      expandableUnit: { width: '100%' },
+      compareTable: { width: '100%' }
     }
   })
+};
+
+/**
+ * Ensures consistent width settings across all components
+ * This function enforces the rule: 100% width for all components except ecommerce
+ */
+export const ensureConsistentWidths = (theme: Partial<AdMeshTheme> = {}): Partial<AdMeshTheme> => {
+  const consistentComponents = {
+    productCard: { width: '100%', ...theme.components?.productCard },
+    citationUnit: { width: '100%', ...theme.components?.citationUnit },
+    inlineRecommendation: { width: '100%', ...theme.components?.inlineRecommendation },
+    expandableUnit: { width: '100%', ...theme.components?.expandableUnit },
+    compareTable: { width: '100%', ...theme.components?.compareTable },
+    // Ecommerce cards maintain their specific width behavior
+    card: { width: 'auto', ...theme.components?.card },
+    button: { width: 'auto', ...theme.components?.button }
+  };
+
+  return {
+    ...theme,
+    components: {
+      ...theme.components,
+      ...consistentComponents
+    }
+  };
 };
 
 /**

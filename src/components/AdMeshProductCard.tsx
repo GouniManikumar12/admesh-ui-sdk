@@ -119,8 +119,10 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
     '--admesh-font-size-base': theme.fontSize?.base,
     '--admesh-font-size-lg': theme.fontSize?.large,
     '--admesh-font-size-title': theme.fontSize?.title,
-    fontFamily: theme.fontFamily
-  } as React.CSSProperties : undefined;
+    fontFamily: theme.fontFamily,
+    // Ensure consistent width: 100% for all components except ecommerce
+    width: theme.components?.productCard?.width || '100%'
+  } as React.CSSProperties : { width: '100%' } as React.CSSProperties;
 
   // Render different layouts based on variation
   if (variation === 'simple') {
