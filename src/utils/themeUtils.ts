@@ -122,85 +122,93 @@ export const createDarkTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshT
  */
 export const themePresets = {
   // Clean, minimal theme with consistent width
-  minimal: createAdMeshTheme({
-    primaryColor: '#000000',
-    secondaryColor: '#666666',
-    borderRadius: '4px',
-    shadows: {
-      small: 'none',
-      medium: '0 1px 3px rgba(0, 0, 0, 0.1)',
-      large: '0 2px 6px rgba(0, 0, 0, 0.1)'
-    },
-    components: {
-      productCard: { width: '100%' },
-      citationUnit: { width: '100%' },
-      inlineRecommendation: { width: '100%' },
-      expandableUnit: { width: '100%' },
-      compareTable: { width: '100%' }
-    }
-  }),
+  get minimal() {
+    return createAdMeshTheme({
+      primaryColor: '#000000',
+      secondaryColor: '#666666',
+      borderRadius: '4px',
+      shadows: {
+        small: 'none',
+        medium: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        large: '0 2px 6px rgba(0, 0, 0, 0.1)'
+      },
+      components: {
+        productCard: { width: '100%' },
+        citationUnit: { width: '100%' },
+        inlineRecommendation: { width: '100%' },
+        expandableUnit: { width: '100%' },
+        compareTable: { width: '100%' }
+      }
+    });
+  },
 
   // Modern, colorful theme with consistent width
-  vibrant: createAdMeshTheme({
-    primaryColor: '#8b5cf6',
-    secondaryColor: '#06b6d4',
-    accentColor: '#f59e0b',
-    borderRadius: '12px',
-    gradients: {
-      primary: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
-      secondary: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
-      accent: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)'
-    },
-    components: {
-      productCard: { width: '100%' },
-      citationUnit: { width: '100%' },
-      inlineRecommendation: { width: '100%' },
-      expandableUnit: { width: '100%' },
-      compareTable: { width: '100%' }
-    }
-  }),
+  get vibrant() {
+    return createAdMeshTheme({
+      primaryColor: '#8b5cf6',
+      secondaryColor: '#06b6d4',
+      accentColor: '#f59e0b',
+      borderRadius: '12px',
+      gradients: {
+        primary: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
+        secondary: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
+        accent: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)'
+      },
+      components: {
+        productCard: { width: '100%' },
+        citationUnit: { width: '100%' },
+        inlineRecommendation: { width: '100%' },
+        expandableUnit: { width: '100%' },
+        compareTable: { width: '100%' }
+      }
+    });
+  },
 
   // Professional, corporate theme with consistent width
-  corporate: createAdMeshTheme({
-    primaryColor: '#1e40af',
-    secondaryColor: '#059669',
-    backgroundColor: '#f8fafc',
-    surfaceColor: '#ffffff',
-    borderColor: '#cbd5e1',
-    borderRadius: '6px',
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
-    components: {
-      productCard: { width: '100%' },
-      citationUnit: { width: '100%' },
-      inlineRecommendation: { width: '100%' },
-      expandableUnit: { width: '100%' },
-      compareTable: { width: '100%' }
-    }
-  }),
+  get corporate() {
+    return createAdMeshTheme({
+      primaryColor: '#1e40af',
+      secondaryColor: '#059669',
+      backgroundColor: '#f8fafc',
+      surfaceColor: '#ffffff',
+      borderColor: '#cbd5e1',
+      borderRadius: '6px',
+      fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
+      components: {
+        productCard: { width: '100%' },
+        citationUnit: { width: '100%' },
+        inlineRecommendation: { width: '100%' },
+        expandableUnit: { width: '100%' },
+        compareTable: { width: '100%' }
+      }
+    });
+  },
 
   // High contrast theme for accessibility with consistent width
-  highContrast: createAdMeshTheme({
-    primaryColor: '#000000',
-    secondaryColor: '#ffffff',
-    backgroundColor: '#ffffff',
-    surfaceColor: '#f5f5f5',
-    borderColor: '#000000',
-    textColor: '#000000',
-    textSecondaryColor: '#333333',
-    borderRadius: '0px',
-    shadows: {
-      small: 'none',
-      medium: '0 0 0 2px #000000',
-      large: '0 0 0 3px #000000'
-    },
-    components: {
-      productCard: { width: '100%' },
-      citationUnit: { width: '100%' },
-      inlineRecommendation: { width: '100%' },
-      expandableUnit: { width: '100%' },
-      compareTable: { width: '100%' }
-    }
-  })
+  get highContrast() {
+    return createAdMeshTheme({
+      primaryColor: '#000000',
+      secondaryColor: '#ffffff',
+      backgroundColor: '#ffffff',
+      surfaceColor: '#f5f5f5',
+      borderColor: '#000000',
+      textColor: '#000000',
+      textSecondaryColor: '#333333',
+      borderRadius: '0px',
+      shadows: {
+        small: 'none',
+        medium: '0 0 0 2px #000000',
+        large: '0 0 0 3px #000000'
+      },
+      components: {
+        productCard: { width: '100%' },
+        citationUnit: { width: '100%' },
+        inlineRecommendation: { width: '100%' },
+        expandableUnit: { width: '100%' },
+        compareTable: { width: '100%' }
+      }
+    });
+  }
 };
 
 /**
