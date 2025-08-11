@@ -6,8 +6,36 @@ const meta: Meta<typeof AdMeshLayout> = {
   component: AdMeshLayout,
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: 'AdMeshLayout is the main layout component that automatically renders the appropriate display format based on backend response data. It supports both the new response object API and legacy props for backward compatibility.'
+      }
+    }
   },
   tags: ['autodocs'],
+  argTypes: {
+    response: {
+      control: 'object',
+      description: 'Backend response object (preferred) - contains layout_type, citation_summary, and recommendations'
+    },
+    layout: {
+      control: 'select',
+      options: ['citation', 'product', 'ecommerce', 'inline'],
+      description: 'Legacy layout type (deprecated - use response.layout_type instead)'
+    },
+    recommendations: {
+      control: 'object',
+      description: 'Legacy recommendations array (deprecated - use response.recommendations instead)'
+    },
+    citationSummary: {
+      control: 'text',
+      description: 'Legacy citation summary (deprecated - use response.citation_summary instead)'
+    },
+    theme: {
+      control: 'object',
+      description: 'Theme configuration for styling'
+    }
+  }
 };
 
 export default meta;
@@ -427,6 +455,65 @@ export const BackendControlledStyling: Story = {
     docs: {
       description: {
         story: '🎨 **Backend-Controlled Styling**: Demonstrates how the backend can control all visual aspects including colors, fonts, spacing, and custom CSS.',
+      },
+    },
+  },
+};
+
+// New Response Object API Stories
+export const NewResponseObjectCitation: Story = {
+  args: {
+    response: {
+      layout_type: 'citation',
+      citation_summary: 'For payment processing, I recommend [Stripe](http://127.0.0.1:8000/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true) for its excellent developer tools.',
+      recommendations: [
+        {
+          ad_id: 'stripe_payment_001',
+          product_id: 'prod_stripe_123',
+          admesh_link: 'http://127.0.0.1:8000/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true',
+          title: 'Stripe',
+          description: 'Complete payment infrastructure for the internet',
+          pricing: '2.9% + 30¢ per transaction',
+          brand: 'Stripe',
+          url: 'https://stripe.com',
+          redirect_url: 'https://stripe.com',
+          features: ['Developer Tools', 'Global Payments'],
+          categories: ['payments'],
+          keywords: ['payment'],
+          intent_match_score: 0.95,
+          reason: 'Perfect for startups',
+          source: 'admesh',
+          audience_segment: 'startups',
+          availability: 'global',
+          brand_trust_score: 0.9,
+          discount_percentage: 0,
+          external_id: 'stripe_001',
+          feature_sections: [],
+          image_url: '',
+          integrations: [],
+          is_fallback: false,
+          offer_trust_score: 0.9,
+          original_price: 0,
+          price: 0,
+          rating: 4.8,
+          review_count: 1250,
+          reward_note: '',
+          trial_days: 0,
+          recommendation_title: 'Stripe Payment Platform',
+          recommendation_description: 'Complete payment infrastructure'
+        }
+      ],
+      requires_summary: true
+    },
+    theme: {
+      mode: 'light',
+      primaryColor: '#3b82f6'
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '🆕 **New Response Object API**: Demonstrates the new response object format with citation layout and embedded AdMesh links.',
       },
     },
   },

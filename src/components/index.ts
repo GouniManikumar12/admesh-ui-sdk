@@ -3,7 +3,8 @@ export { AdMeshLayout } from './AdMeshLayout';
 export { AdMeshProductCard } from './AdMeshProductCard';
 export { AdMeshInlineCard } from './AdMeshInlineCard';
 export { AdMeshEcommerceCards } from './AdMeshEcommerceCards';
-export { AdMeshCitationUnit } from './AdMeshCitationUnit';
+export { AdMeshSummaryUnit } from './AdMeshSummaryUnit';
+export { AdMeshSummaryLayout } from './AdMeshSummaryLayout';
 
 // Internal Components (used by AdMeshLayout)
 export { AdMeshLinkTracker } from './AdMeshLinkTracker';

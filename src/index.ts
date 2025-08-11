@@ -6,7 +6,8 @@ export {
   AdMeshProductCard,
   AdMeshInlineCard,
   AdMeshEcommerceCards,
-  AdMeshCitationUnit,
+  AdMeshSummaryUnit,
+  AdMeshSummaryLayout,
   AdMeshLinkTracker,
   AdMeshBadge
 } from './components';
@@ -65,7 +66,8 @@ export type {
   AdMeshLayoutProps,
   AdMeshLayoutType,
   AdMeshLinkTrackerProps,
-  AdMeshCitationUnitProps,
+  AdMeshSummaryUnitProps,
+  AdMeshSummaryLayoutProps,
   UseAdMeshTrackerReturn,
   AgentRecommendationResponse,
   AdMeshConfig

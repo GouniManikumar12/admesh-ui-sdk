@@ -292,26 +292,33 @@ export interface ConversationalAdConfig {
 
 
 
-// Citation-based conversation ad types
-export interface AdMeshCitationUnitProps {
-  recommendations: AdMeshRecommendation[];
-  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping
+// Summary-based conversation ad types (replaces citation)
+export interface AdMeshSummaryUnitProps {
+  summaryText: string; // The citation_summary from backend response
+  recommendations: AdMeshRecommendation[]; // Full recommendation objects
   theme?: AdMeshTheme;
-  citationStyle?: 'numbered' | 'bracketed' | 'superscript';
-  onCitationHover?: (recommendation: AdMeshRecommendation) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  onLinkClick?: (recommendation: AdMeshRecommendation) => void;
+}
+
+export interface AdMeshSummaryLayoutProps {
+  // Backend response data
+  response: {
+    layout_type?: string; // "citation", "product_cards", "ecommerce"
+    citation_summary?: string; // LLM-generated summary with embedded links
+    recommendations: AdMeshRecommendation[];
+    requires_summary?: boolean;
+  };
+
+  // Styling
+  theme?: AdMeshTheme;
   className?: string;
   style?: React.CSSProperties;
 
-  // Dynamic content options
-  dynamicTemplate?: string; // Template with placeholders like "I recommend {product1} and {product2}"
-  linkInsertionStrategy?: 'auto' | 'template' | 'keywords' | 'append';
-  customLinkPatterns?: Array<{
-    pattern: string | RegExp;
-    recommendationIndex: number;
-    linkText?: string;
-  }>;
-  onTextUpdate?: (newText: string) => void;
-  enableRealTimeUpdates?: boolean;
+  // Behavior
+  onRecommendationClick?: (recommendation: AdMeshRecommendation) => void;
+  onLinkClick?: (recommendation: AdMeshRecommendation) => void;
 }
 
 
@@ -366,12 +373,21 @@ export type AdMeshLayoutType =
   | 'ecommerce';     // Ecommerce cards layout
 
 export interface AdMeshLayoutProps {
-  // Content
-  recommendations?: AdMeshRecommendation[];
-  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping
+  // New: Backend response object (preferred)
+  response?: {
+    layout_type?: string; // "citation", "product_cards", "ecommerce"
+    citation_summary?: string; // LLM-generated summary with embedded links
+    recommendations?: AdMeshRecommendation[];
+    requires_summary?: boolean;
+  };
 
-  // Backend-controlled layout (required)
-  layout: AdMeshLayoutType; // Backend specifies which layout to use
+  // Legacy content props (for backward compatibility)
+  recommendations?: AdMeshRecommendation[];
+  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping (deprecated)
+  citationSummary?: string; // Deprecated: use response.citation_summary instead
+
+  // Legacy layout (optional - use response.layout_type instead)
+  layout?: AdMeshLayoutType; // Backend specifies which layout to use
 
   // Backend-controlled styling configuration
   layoutConfig?: {
@@ -407,15 +423,15 @@ export interface AdMeshLayoutProps {
   className?: string;
   style?: React.CSSProperties;
 
-  // Component-specific props
+  // Component-specific props (deprecated - use response object instead)
   productCardProps?: Partial<AdMeshProductCardProps>;
-  citationUnitProps?: Partial<AdMeshCitationUnitProps>;
   ecommerceCardsProps?: Partial<AdMeshEcommerceCardsProps>;
 
   // Event handlers
   onRecommendationClick?: (adId: string, admeshLink: string) => void;
   onProductClick?: (product: EcommerceProduct) => void;
-  onCitationHover?: (recommendation: AdMeshRecommendation) => void;
+  onCitationHover?: (recommendation: AdMeshRecommendation) => void; // Deprecated
+  onLinkClick?: (recommendation: AdMeshRecommendation) => void; // New: for summary links
 
   // Advanced options
   enableAutoDetection?: boolean;
@@ -455,6 +471,8 @@ export interface AgentRecommendationResponse {
     intent_type?: string;
     intent_group?: string;
     keywords?: string[];
+    layout_type?: string; // New: "citation", "product_cards", "ecommerce"
+    requires_summary?: boolean; // New: Whether a conversational summary is needed
   };
   response: {
     summary?: string;
@@ -466,11 +484,17 @@ export interface AgentRecommendationResponse {
       admesh_links: Record<string, string>;
       session_id: string;
     }[];
+    layout_type?: string; // New: Layout type determined by backend
+    requires_summary?: boolean; // New: Whether summary is required
+    citation_summary?: string; // New: LLM-generated conversational summary with embedded AdMesh links
+    is_fallback?: boolean;
+    recommendation_source?: string; // "admesh", "walmart", etc.
   };
   tokens_used: number;
   model_used: string;
   recommendation_id?: string;
   end_of_session?: boolean;
+  llm_confidence?: number; // LLM confidence score
 }
 
 // Utility types
