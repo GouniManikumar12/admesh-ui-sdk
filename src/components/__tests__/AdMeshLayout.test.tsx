@@ -179,8 +179,8 @@ describe('AdMeshLayout', () => {
       />
     );
 
-    // Should display Partner Recommendation header
-    expect(screen.getByText('Partner Recommendation')).toBeInTheDocument();
+    // Should display Sponsored header
+    expect(screen.getByText('Sponsored')).toBeInTheDocument();
 
     // Should display Sponsored and Powered by AdMesh in footer
     expect(screen.getByText('Sponsored')).toBeInTheDocument();

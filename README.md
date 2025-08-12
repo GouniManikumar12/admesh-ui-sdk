@@ -133,7 +133,7 @@ Choose the right component for your use case:
 - **Single API**: One component handles all recommendation types
 - **Smart Optimization**: Automatically limits items and optimizes for mobile
 - **Customizable**: Full control over layout, spacing, and component behavior
-- **FTC Compliance**: Includes proper "Partner Recommendation", "Sponsored", and "Powered by AdMesh" disclosures
+- **FTC Compliance**: Includes proper "Sponsored", "Sponsored", and "Powered by AdMesh" disclosures
 
 ### Default Configuration
 

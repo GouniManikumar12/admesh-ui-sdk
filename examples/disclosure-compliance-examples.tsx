@@ -252,7 +252,7 @@ export const LayoutDisclosureExample: React.FC = () => {
         fontSize: '14px',
         color: '#0c4a6e'
       }}>
-        <strong>Personalized Partner Recommendations</strong>
+        <strong>Personalized Sponsoreds</strong>
         <br />
         {sectionDisclosure}
       </div>

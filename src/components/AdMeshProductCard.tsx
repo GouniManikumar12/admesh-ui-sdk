@@ -30,7 +30,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
     // Add primary recommendation label based on match score
     const primaryLabel = getRecommendationLabel(recommendation);
-    if (primaryLabel === 'Partner Recommendation') {
+    if (primaryLabel === 'Sponsored') {
       generatedBadges.push('Top Match'); // Map to existing badge type
     }
 

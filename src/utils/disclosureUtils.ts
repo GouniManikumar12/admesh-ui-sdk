@@ -27,7 +27,7 @@ export const getRecommendationLabel = (
 
   // High match score (>0.8)
   if (matchScore >= 0.8) {
-    return customLabels.partnerRecommendation || 'Partner Recommendation';
+    return customLabels.partnerRecommendation || 'Sponsored';
   }
   
   // Medium match score (0.6-0.8)
@@ -83,7 +83,7 @@ export const getSectionDisclosure = (
     return "These curated recommendations are from partners who compensate us for referrals.";
   }
   
-  return "Personalized Partner Recommendations: All results are from vetted partners who compensate us for qualified matches. We've ranked them based on relevance to your specific needs.";
+  return "Personalized Sponsoreds: All results are from vetted partners who compensate us for qualified matches. We've ranked them based on relevance to your specific needs.";
 };
 
 /**
@@ -123,7 +123,7 @@ export const getInlineTooltip = (): string => {
 export const getBadgeText = (badgeType: string): string => {
   const badgeMap: Record<string, string> = {
     'Top Match': 'Top Match',
-    'Partner Recommendation': 'Partner Recommendation',
+    'Sponsored': 'Sponsored',
     'Perfect Fit': 'Perfect Fit',
     'Great Match': 'Great Match',
     'Recommended': 'Recommended',
