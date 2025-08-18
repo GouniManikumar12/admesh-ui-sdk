@@ -177,8 +177,8 @@ export const hasHighQualityMatches = (recommendations: AdMeshRecommendation[]): 
  */
 export const getPoweredByText = (compact: boolean = false): string => {
   if (compact) {
-    return "Powered by AdMesh";
+    return "";
   }
   
-  return "Recommendations powered by AdMesh";
+  return "Recommendations ";
 };

@@ -294,7 +294,7 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
           Sponsored
         </span>
         <span className="text-xs text-gray-400 dark:text-gray-500">
-          Powered by AdMesh
+          
         </span>
       </div>
 

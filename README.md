@@ -133,7 +133,7 @@ Choose the right component for your use case:
 - **Single API**: One component handles all recommendation types
 - **Smart Optimization**: Automatically limits items and optimizes for mobile
 - **Customizable**: Full control over layout, spacing, and component behavior
-- **FTC Compliance**: Includes proper "Sponsored", "Sponsored", and "Powered by AdMesh" disclosures
+- **FTC Compliance**: Includes proper "Sponsored", "Sponsored", and "" disclosures
 
 ### Default Configuration
 
@@ -180,7 +180,7 @@ import { AdMeshLayout } from 'admesh-ui-sdk';
 
 ## 📋 Individual Components
 
-> **Note**: Individual components no longer display disclosure elements (Match Score, "Sponsored", "Powered by AdMesh"). Only AdMeshLayout includes FTC-compliant disclosures. Use AdMeshLayout for platform integration.
+> **Note**: Individual components no longer display disclosure elements (Match Score, "Sponsored", ""). Only AdMeshLayout includes FTC-compliant disclosures. Use AdMeshLayout for platform integration.
 
 ### Core Components
 
@@ -1303,7 +1303,7 @@ const [isDarkMode, setIsDarkMode] = useState(false);
 
 - ✅ **Full Dark Mode Support**: All components automatically adapt to dark theme
 - ✅ **WCAG Accessibility**: Proper contrast ratios meet accessibility guidelines
-- ✅ **Consistent Branding**: "Powered by AdMesh" remains visible in both themes
+- ✅ **Consistent Branding**: "" remains visible in both themes
 - ✅ **Smooth Transitions**: Components transition smoothly between light and dark modes
 - ✅ **CSS Variables**: Uses CSS custom properties for consistent theming
 - ✅ **No Ambiguous Elements**: Clean, focused interface without confusing UI elements

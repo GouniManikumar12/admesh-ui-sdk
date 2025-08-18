@@ -10,6 +10,16 @@ export interface AdMeshSummaryUnitProps {
   onLinkClick?: (recommendation: AdMeshRecommendation) => void;
 }
 
+// Utility function to validate and normalize URLs
+const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 // Process summary text with markdown links [Product Name](admesh_link)
 const processSummaryText = (summaryText: string, recommendations: AdMeshRecommendation[]) => {
   // Create lookup map for recommendations by admesh_link
@@ -79,9 +89,50 @@ const processSummaryText = (summaryText: string, recommendations: AdMeshRecommen
         </a>
       );
     } else {
-      // Keep original text if no recommendation found
-      console.warn(`[AdMesh Summary] No recommendation found for link: [${linkText}](${url})`);
-      parts.push(fullMatch);
+      // Create a regular link even if no recommendation found
+      console.warn(`[AdMesh Summary] No recommendation found for link: [${linkText}](${url}), creating regular link`);
+
+      if (isValidUrl(url)) {
+        linkCounter++;
+        parts.push(
+          <a
+            key={`summary-link-${linkCounter}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline decoration-blue-600 dark:decoration-blue-400 hover:decoration-blue-800 dark:hover:decoration-blue-300 transition-colors duration-200 font-medium"
+            style={{
+              color: '#2563eb', // Force blue color
+              textDecoration: 'underline',
+              textDecorationColor: '#2563eb',
+              textUnderlineOffset: '2px'
+            }}
+            onClick={(e) => {
+              // Log click for unmatched links
+              console.log('AdMesh summary unmatched link clicked:', {
+                linkText,
+                url,
+                source: 'summary'
+              });
+
+              // Call external tracker if available
+              if (typeof window !== 'undefined' && (window as any).admeshTracker) {
+                (window as any).admeshTracker.trackClick({
+                  url,
+                  linkText,
+                  source: 'summary_unmatched'
+                });
+              }
+            }}
+          >
+            {linkText}
+          </a>
+        );
+      } else {
+        // If URL is invalid, just show the link text without markdown
+        console.warn(`[AdMesh Summary] Invalid URL in markdown link: [${linkText}](${url})`);
+        parts.push(linkText);
+      }
     }
 
     lastIndex = match.index + fullMatch.length;
@@ -111,10 +162,14 @@ export const AdMeshSummaryUnit: React.FC<AdMeshSummaryUnitProps> = ({
 
   if (!recommendations || recommendations.length === 0) {
     console.warn('[AdMesh Summary] No recommendations provided');
+    // Still process markdown links even without recommendations
+    const processedContent = processSummaryText(summaryText, []);
     return (
       <div className={`admesh-summary-unit ${className}`} style={style}>
         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-          {summaryText}
+          {processedContent.map((part, index) => (
+            <React.Fragment key={index}>{part}</React.Fragment>
+          ))}
         </p>
       </div>
     );
@@ -143,7 +198,7 @@ export const AdMeshSummaryUnit: React.FC<AdMeshSummaryUnitProps> = ({
       {/* Disclosure */}
       <div className="mt-3 pt-2 border-t border-gray-200 dark:border-gray-700">
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          Sponsored • Powered by AdMesh
+          Sponsored • 
         </p>
       </div>
     </div>

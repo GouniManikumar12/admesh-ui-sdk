@@ -125,7 +125,7 @@ export const AdMeshInlineCard: React.FC<AdMeshInlineCardProps> = ({
         <div className="mt-auto pt-2 border-t border-gray-100 dark:border-slate-700">
           <div className="flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
             <span>Sponsored</span>
-            <span className="text-gray-400 dark:text-gray-500">Powered by AdMesh</span>
+            <span className="text-gray-400 dark:text-gray-500"></span>
           </div>
         </div>
       </div>

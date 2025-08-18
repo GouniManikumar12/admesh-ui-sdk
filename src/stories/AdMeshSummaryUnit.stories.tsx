@@ -167,6 +167,30 @@ export const NoRecommendations: Story = {
   }
 };
 
+export const UnmatchedLinks: Story = {
+  args: {
+    summaryText: 'Check out [AdMesh](https://useadmesh.com/) for more information about ad networks, or visit [Google](https://google.com) for general search.',
+    recommendations: mockRecommendations, // These links won't match the recommendations
+    theme: {
+      mode: 'light',
+      primaryColor: '#3b82f6',
+      fontFamily: 'Inter, sans-serif'
+    }
+  }
+};
+
+export const MixedLinks: Story = {
+  args: {
+    summaryText: 'For payments, try [Stripe](http://127.0.0.1:8000/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true) which matches our recommendations, or check out [AdMesh](https://useadmesh.com/) for ad solutions.',
+    recommendations: mockRecommendations,
+    theme: {
+      mode: 'light',
+      primaryColor: '#3b82f6',
+      fontFamily: 'Inter, sans-serif'
+    }
+  }
+};
+
 export const CustomStyling: Story = {
   args: {
     summaryText: 'For payment processing, I recommend [Stripe](http://127.0.0.1:8000/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true) for its excellent developer tools.',
