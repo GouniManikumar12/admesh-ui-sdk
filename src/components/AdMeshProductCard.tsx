@@ -199,7 +199,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
             marginLeft: '8px'
           }}
         >
-          (Sponsored • )
+          (Sponsored )
         </span>
       </div>
     );

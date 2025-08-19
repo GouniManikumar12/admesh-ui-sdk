@@ -200,7 +200,7 @@ describe('AdMeshSummaryUnit', () => {
       />
     );
 
-    expect(screen.getByText('Sponsored • ')).toBeInTheDocument();
+    expect(screen.getByText('Sponsored ')).toBeInTheDocument();
   });
 
   it('returns null for empty summary text', () => {
