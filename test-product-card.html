@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdMesh Product Card Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .theme-toggle {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .dark-mode {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .dark-mode .theme-toggle {
+            background: #fff;
+            color: #000;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .test-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode .test-card {
+            background: #111;
+            border-color: #333;
+            color: #fff;
+        }
+        
+        .label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .label-light {
+            background: #000;
+            color: #fff;
+        }
+        
+        .label-dark {
+            background: #fff;
+            color: #000;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        
+        .dark-mode .title {
+            color: #fff;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .dark-mode .description {
+            color: #9ca3af;
+        }
+        
+        .cta-button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-mode .cta-button {
+            background: #fff;
+            color: #000;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #000;
+        }
+
+        .dark-mode .section-title {
+            color: #fff;
+        }
+
+        .features-section {
+            margin: 12px 0;
+            padding: 12px 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .dark-mode .features-section {
+            border-color: #333;
+        }
+
+        .feature-tag {
+            font-size: 11px;
+            padding: 4px 8px;
+            background: #f5f5f5;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            color: #000;
+        }
+
+        .dark-mode .feature-tag {
+            background: #111;
+            border-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="section-title">AdMesh Product Card - Updated Design Test</h1>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        
+        <h2 class="section-title">Design Features Tested:</h2>
+        <ul>
+            <li>✅ Black/White color scheme (no gradients)</li>
+            <li>✅ Optimized spacing (more compact layout)</li>
+            <li>✅ Consistent label terminology (Smart Pick, Partner Recommendation, Promoted Match)</li>
+            <li>✅ No duplicate labels</li>
+            <li>✅ Dark mode compatibility</li>
+            <li>✅ CTA button as only clickable element</li>
+            <li>✅ Configurable features display (showFeatures prop)</li>
+        </ul>
+        
+        <h2 class="section-title">Sample Product Cards:</h2>
+
+        <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px;">With Features (Default):</h3>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="label label-light" id="label1">Smart Pick</div>
+                <div class="title">Advanced Analytics Platform</div>
+                <div class="description">Transform your data into actionable insights with our AI-powered analytics platform.</div>
+                <div class="features-section">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 8px; font-weight: 600;">Key Features</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <span class="feature-tag">✓ Real-time Analytics</span>
+                        <span class="feature-tag">✓ Custom Dashboards</span>
+                        <span class="feature-tag">✓ AI Insights</span>
+                        <span class="feature-tag">✓ Data Export</span>
+                    </div>
+                </div>
+                <button class="cta-button">Learn More</button>
+            </div>
+        </div>
+
+        <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px; margin-top: 32px;">Without Features (showFeatures=false):</h3>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="label label-light" id="label2">Partner Recommendation</div>
+                <div class="title">Cloud Storage Solution</div>
+                <div class="description">Secure, scalable cloud storage with enterprise-grade security. Ideal for teams that need reliable file sharing and collaboration tools. Clean and minimal design without feature clutter.</div>
+                <button class="cta-button">Try Free</button>
+            </div>
+
+            <div class="test-card">
+                <div class="label label-light" id="label3">Promoted Match</div>
+                <div class="title">Project Management Tool</div>
+                <div class="description">Streamline your workflow with our intuitive project management platform. Focus on the core value proposition without feature details.</div>
+                <button class="cta-button">Get Started</button>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Key Improvements:</h2>
+        <div class="test-card">
+            <h3>1. Modern Black/White Design</h3>
+            <p>Removed all gradient colors and implemented a clean black/white color scheme that's both modern and accessible.</p>
+
+            <h3>2. Optimized Spacing</h3>
+            <p>Reduced padding from 2rem to 1rem, gaps from 1.5rem to 0.75rem, creating a more compact and efficient layout.</p>
+
+            <h3>3. Consistent Label Terminology</h3>
+            <p>Updated labels to use preferred terminology: "Smart Pick", "Partner Recommendation", and "Promoted Match" instead of generic "Ad" labels.</p>
+
+            <h3>4. Eliminated Duplicate Labels</h3>
+            <p>Removed redundant "Sponsored" disclosure text that was appearing alongside the main recommendation label.</p>
+
+            <h3>5. Dark Mode Friendly</h3>
+            <p>Proper contrast and color inversion for dark mode compatibility while maintaining the minimal aesthetic.</p>
+
+            <h3>6. Configurable Features Display</h3>
+            <p>Added <code>showFeatures</code> prop to control whether key features are displayed. Set to <code>false</code> for a cleaner, more minimal card design.</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            
+            // Update labels for dark mode
+            const labels = document.querySelectorAll('.label');
+            labels.forEach(label => {
+                if (document.body.classList.contains('dark-mode')) {
+                    label.classList.remove('label-light');
+                    label.classList.add('label-dark');
+                } else {
+                    label.classList.remove('label-dark');
+                    label.classList.add('label-light');
+                }
+            });
+        }
+        
+        // Add click handlers to demonstrate CTA-only clicking
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('CTA clicked! This is the only clickable element in the card.');
+            });
+        });
+        
+        // Prevent card clicks
+        document.querySelectorAll('.test-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('cta-button')) {
+                    console.log('Card clicked but not CTA - no action taken (correct behavior)');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

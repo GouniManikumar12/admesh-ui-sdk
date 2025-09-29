@@ -138,7 +138,7 @@ const meta: Meta<typeof AdMeshProductCard> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A product recommendation card component with built-in tracking and theming support.'
+        component: 'A flexible product recommendation card component with built-in tracking and theming support. Supports both feature-rich and minimal layouts to match your design preferences.'
       }
     }
   },
@@ -156,6 +156,10 @@ const meta: Meta<typeof AdMeshProductCard> = {
       control: 'boolean',
       description: 'Whether to show product badges'
     },
+    showFeatures: {
+      control: 'boolean',
+      description: 'Whether to show the key features section'
+    },
 
   }
 };
@@ -163,12 +167,30 @@ const meta: Meta<typeof AdMeshProductCard> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default story
+// Default story - Clean minimal design without key features
 export const Default: Story = {
   args: {
     recommendation: sampleRecommendation,
     showMatchScore: false,
-    showBadges: true
+    showBadges: true,
+    showFeatures: false
+  }
+};
+
+// Product card with key features section
+export const WithFeatures: Story = {
+  args: {
+    recommendation: sampleRecommendation,
+    showMatchScore: false,
+    showBadges: true,
+    showFeatures: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Product card with the key features section displayed. Shows additional product details and capabilities for users who want more comprehensive information.'
+      }
+    }
   }
 };
 
@@ -217,7 +239,7 @@ export const CustomAccentColor: Story = {
     recommendation: sampleRecommendation,
     theme: {
       mode: 'light',
-      accentColor: '#10b981'
+      accentColor: '#000000'
     },
     showMatchScore: true,
     showBadges: true,
@@ -316,13 +338,13 @@ export const SimpleVariation: StoryObj<typeof AdMeshProductCard> = {
     variation: 'simple',
     theme: {
       mode: 'light',
-      accentColor: '#3b82f6'
+      accentColor: '#000000'
     }
   },
   parameters: {
     docs: {
       description: {
-        story: 'Simple inline ad format that replaces the AdMeshSimpleAd component. Perfect for embedding within text content.'
+        story: 'Simple inline ad format with modern black/white design. Perfect for embedding within text content.'
       }
     }
   }
@@ -334,14 +356,14 @@ export const SimpleVariationDark: StoryObj<typeof AdMeshProductCard> = {
     variation: 'simple',
     theme: {
       mode: 'dark',
-      accentColor: '#60a5fa'
+      accentColor: '#ffffff'
     }
   },
   parameters: {
     backgrounds: { default: 'dark' },
     docs: {
       description: {
-        story: 'Simple inline ad format in dark mode.'
+        story: 'Simple inline ad format in dark mode with white accent color.'
       }
     }
   }

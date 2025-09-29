@@ -22,7 +22,10 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
 }) => {
   // Convert legacy callback to new format
   const handleRecommendationClick = onRecommendationClick ?
-    (rec: AdMeshRecommendation) => onRecommendationClick(rec.ad_id || '', rec.admesh_link || '') :
+    (rec: AdMeshRecommendation) => onRecommendationClick(
+      rec.meta?.ad_id || rec.ad_id || '',
+      rec.admesh_link || ''
+    ) :
     undefined;
 
   // If response object is provided, use the new AdMeshSummaryLayout

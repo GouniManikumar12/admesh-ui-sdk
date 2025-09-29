@@ -188,13 +188,27 @@ import { AdMeshLayout } from 'admesh-ui-sdk';
 Individual product recommendation card with rich information display.
 
 ```tsx
+// Default clean minimal design (recommended)
 <AdMeshProductCard
   recommendation={recommendation}
   showMatchScore={false} // Deprecated - Match Score removed from UI
   showBadges={true}
+  showFeatures={false} // Default: clean minimal design
+  onClick={(adId, admeshLink) => window.open(admeshLink)}
+/>
+
+// With features for detailed showcases
+<AdMeshProductCard
+  recommendation={recommendation}
+  showFeatures={true} // Show key features section
   onClick={(adId, admeshLink) => window.open(admeshLink)}
 />
 ```
+
+**Props:**
+- `showFeatures` (boolean, default: false) - Whether to display the key features section. Default is clean minimal design.
+- `showBadges` (boolean, default: true) - Whether to show product badges
+- `showMatchScore` (boolean, default: false) - Deprecated, match score removed from UI
 
 #### AdMeshEcommerceCards
 Horizontal scrolling product cards for ecommerce recommendations, similar to Google product search results.
@@ -533,29 +547,24 @@ interface AdMeshRecommendation {
 interface AgentRecommendationResponse {
   session_id: string;
   intent: {
-    categories?: string[];
-    goal?: string;
-    llm_intent_confidence_score?: number;
-    known_mentions?: string[];
-    intent_type?: string;
-    intent_group?: string;
-    keywords?: string[];
+    goal: string;
+    intent_group: string;
+    purchase_intent: string;
+    intent_type: string;
+    layout_type: string;
+    categories: string[];
   };
   response: {
-    summary?: string;
+    summary: string;
     recommendations: AdMeshRecommendation[];
-    followup_suggestions?: Array<{
+    followup_suggestions: Array<{
       label: string;
       query: string;
-      product_mentions: string[];
-      admesh_links: Record<string, string>;
-      session_id: string;
     }>;
+    layout_type: string;
   };
   tokens_used: number;
   model_used: string;
-  recommendation_id?: string;
-  end_of_session?: boolean;
 }
 ```
 
@@ -1554,54 +1563,32 @@ The AdMesh UI SDK uses a unified JSON schema that works across all recommendatio
 
 ```typescript
 interface AdMeshRecommendation {
-  // Required core fields
-  ad_id: string;
-  admesh_link: string;
-  audience_segment: string;
-  availability: string;
-  brand: string;
-  brand_trust_score: number;
-  categories: string[];
-  description: string;
-  discount_percentage: number;
-  external_id: string;
-  feature_sections: any[];
-  features: string[];
-  image_url: string;
-  integrations: any[];
-  intent_match_score: number; // 0-1 normalized score
-  is_fallback: boolean;
-  keywords: string[];
-  offer_trust_score: number;
-  original_price: number;
-  price: number;
-  pricing: string; // Formatted price string (e.g., "$99.48")
+  // Required core fields (new format)
   product_id: string;
-  rating: number;
-  reason: string; // Match reason/explanation
-  recommendation_description: string; // Marketing-optimized description
-  recommendation_title: string; // Marketing-optimized title
-  redirect_url: string;
-  review_count: number;
+  title: string;
+  recommendation_description: string;
+  admesh_link: string;
+  categories: string[];
+  integrations: string[];
+  trust_score: number;
   reward_note: string;
-  source: string; // Source platform (walmart, admesh, etc.)
-  title: string; // Product title
-  trial_days: number;
-  url: string;
+  meta: {
+    ad_id: string;
+    offer_trust_score: number;
+    brand_trust_score: number;
+    intent_match_score: number;
+    reason: string;
+    description: string;
+    keywords: string[];
+    url: string;
+    redirect_url: string;
+  };
 
-  // Optional fields
-  content_variations?: {
-    statement?: any;
-    question?: any;
-  };
-  shipping_info?: {
-    free_shipping_over_35: boolean;
-    standard_rate: number;
-    two_day_rate: number;
-    ship_to_store: boolean;
-    free_ship_to_store: boolean;
-  };
-  // ... additional optional fields
+  // Legacy fields for backward compatibility
+  ad_id?: string; // Use meta.ad_id instead
+  brand?: string;
+  source?: string;
+  // ... other legacy fields
 }
 ```
 

@@ -262,15 +262,31 @@ function App() {
         {/* Individual Card Demo */}
         <section style={{ marginBottom: '3rem' }}>
           <h2>Individual Product Card</h2>
-          <div style={{ maxWidth: '400px' }}>
-            <AdMeshProductCard
-              recommendation={sampleRecommendations[0]}
-              theme={theme}
-              showMatchScore={true}
-              showBadges={true}
-              maxKeywords={4}
-              onClick={handleProductClick}
-            />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+            <div>
+              <h3>With Features (Default)</h3>
+              <AdMeshProductCard
+                recommendation={sampleRecommendations[0]}
+                theme={theme}
+                showMatchScore={true}
+                showBadges={true}
+                showFeatures={true}
+                maxKeywords={4}
+                onClick={handleProductClick}
+              />
+            </div>
+            <div>
+              <h3>Without Features</h3>
+              <AdMeshProductCard
+                recommendation={sampleRecommendations[0]}
+                theme={theme}
+                showMatchScore={true}
+                showBadges={true}
+                showFeatures={false}
+                maxKeywords={4}
+                onClick={handleProductClick}
+              />
+            </div>
           </div>
         </section>
 

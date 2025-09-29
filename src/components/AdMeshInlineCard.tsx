@@ -95,12 +95,12 @@ export const AdMeshInlineCard: React.FC<AdMeshInlineCardProps> = ({
 
           <div className="flex-shrink-0">
             <AdMeshLinkTracker
-              adId={recommendation.ad_id}
+              adId={recommendation.meta?.ad_id || recommendation.ad_id || ''}
               admeshLink={recommendation.admesh_link}
               productId={recommendation.product_id}
               trackingData={{
                 title: recommendation.title,
-                matchScore: recommendation.intent_match_score,
+                matchScore: recommendation.meta?.intent_match_score || recommendation.intent_match_score,
                 component: 'inline_card_cta',
               }}
             >

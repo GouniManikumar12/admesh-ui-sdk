@@ -7,38 +7,29 @@ import type { AdMeshRecommendation } from '../../types/index';
 
 const mockRecommendations: AdMeshRecommendation[] = [
   {
-    ad_id: 'stripe_payment_001',
     product_id: 'prod_stripe_123',
-    admesh_link: 'https://api.useadmesh.com/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true',
     title: 'Stripe',
-    recommendation_title: 'Stripe Payment Platform',
-    description: 'Complete payment infrastructure for the internet',
-    pricing: '2.9% + 30¢ per transaction',
-    brand: 'Stripe',
-    url: 'https://stripe.com',
-    redirect_url: 'https://stripe.com',
-    features: ['Developer Tools', 'Global Payments', 'Fraud Prevention'],
+    recommendation_description: 'Complete payment infrastructure for the internet',
+    admesh_link: 'https://api.useadmesh.com/click/r/stripe_payment_001?utm_product=prod_stripe_123&utm_redirect=https%3A%2F%2Fstripe.com&test=true',
     categories: ['payments', 'fintech'],
-    keywords: ['payment', 'processing', 'api'],
-    intent_match_score: 0.95,
-    reason: 'Best-in-class payment processing with excellent developer experience',
-    source: 'admesh',
-    audience_segment: 'developers',
-    availability: 'global',
-    brand_trust_score: 0.95,
-    discount_percentage: 0,
-    external_id: 'stripe_001',
-    feature_sections: [],
-    image_url: '',
-    integrations: [],
-    is_fallback: false,
-    offer_trust_score: 0.95,
-    original_price: 0,
-    price: 0,
-    rating: 4.8,
-    review_count: 1250,
-    reward_note: '',
-    trial_days: 0
+    integrations: ['Developer Tools', 'Global Payments', 'Fraud Prevention'],
+    trust_score: 95,
+    reward_note: '$10.00 per signup (Free Promo Credit - 5 max conversions)',
+    meta: {
+      ad_id: 'stripe_payment_001',
+      offer_trust_score: 95,
+      brand_trust_score: 95,
+      intent_match_score: 95,
+      reason: 'Best-in-class payment processing with excellent developer experience',
+      description: 'Complete payment infrastructure for the internet',
+      keywords: ['payment', 'processing', 'api'],
+      url: 'https://stripe.com',
+      redirect_url: 'https://stripe.com'
+    },
+    // Legacy fields for backward compatibility
+    ad_id: 'stripe_payment_001',
+    brand: 'Stripe',
+    source: 'admesh'
   }
 ];
 

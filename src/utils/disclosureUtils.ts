@@ -17,6 +17,7 @@ export interface DisclosureConfig {
 
 /**
  * Generate appropriate label based on match score and recommendation quality
+ * Uses preferred terminology: 'Promoted Match', 'Partner Recommendation', or 'Smart Pick'
  */
 export const getRecommendationLabel = (
   recommendation: AdMeshRecommendation,
@@ -27,19 +28,19 @@ export const getRecommendationLabel = (
 
   // High match score (>0.8)
   if (matchScore >= 0.8) {
-    return customLabels.partnerRecommendation || 'Sponsored';
+    return customLabels.partnerRecommendation || 'Smart Pick';
   }
-  
+
   // Medium match score (0.6-0.8)
   if (matchScore >= 0.6) {
-    return customLabels.partnerMatch || 'Partner Match';
+    return customLabels.partnerMatch || 'Partner Recommendation';
   }
-  
+
   // Lower match score (<0.6)
   if (matchScore >= 0.3) {
-    return customLabels.promotedOption || 'Promoted';
+    return customLabels.promotedOption || 'Promoted Match';
   }
-  
+
   // Very low match - related option
   return customLabels.relatedOption || 'Related';
 };
@@ -88,6 +89,7 @@ export const getSectionDisclosure = (
 
 /**
  * Generate inline disclosure text for product cards
+ * Uses preferred terminology consistently
  */
 export const getInlineDisclosure = (
   recommendation: AdMeshRecommendation,
@@ -96,18 +98,18 @@ export const getInlineDisclosure = (
   const matchScore = recommendation.intent_match_score || 0;
 
   if (compact) {
-    return "Promoted";
+    return "Promoted Match";
   }
 
   if (matchScore >= 0.8) {
-    return "Smart Recommendation";
+    return "Smart Pick";
   }
 
   if (matchScore >= 0.6) {
-    return "Partner Match";
+    return "Partner Recommendation";
   }
 
-  return "Promoted";
+  return "Promoted Match";
 };
 
 /**
@@ -118,17 +120,17 @@ export const getInlineTooltip = (): string => {
 };
 
 /**
- * Generate badge text without emojis
+ * Generate badge text without emojis using preferred terminology
  */
 export const getBadgeText = (badgeType: string): string => {
   const badgeMap: Record<string, string> = {
-    'Top Match': 'Top Match',
-    'Sponsored': 'Sponsored',
-    'Perfect Fit': 'Perfect Fit',
-    'Great Match': 'Great Match',
-    'Recommended': 'Recommended',
-    'Good Fit': 'Good Fit',
-    'Featured': 'Featured',
+    'Top Match': 'Smart Pick',
+    'Sponsored': 'Smart Pick',
+    'Perfect Fit': 'Smart Pick',
+    'Great Match': 'Partner Recommendation',
+    'Recommended': 'Partner Recommendation',
+    'Good Fit': 'Promoted Match',
+    'Featured': 'Promoted Match',
     'Popular Choice': 'Popular Choice',
     'Premium Pick': 'Premium Pick',
     'Free Tier': 'Free Tier',
@@ -140,7 +142,7 @@ export const getBadgeText = (badgeType: string): string => {
     'Alternative Solution': 'Alternative Solution',
     'Expanded Match': 'Expanded Match'
   };
-  
+
   return badgeMap[badgeType] || badgeType;
 };
 

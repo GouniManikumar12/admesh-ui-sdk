@@ -64,42 +64,56 @@ export interface AdMeshEcommerceCardsProps {
   shadow?: 'none' | 'sm' | 'md' | 'lg';
 }
 
-// Core AdMesh recommendation types - Unified JSON Schema for all sources
+// Core AdMesh recommendation types - Updated for new API response format
 export interface AdMeshRecommendation {
   // Required core fields
-  ad_id: string;
-  admesh_link: string;
-  audience_segment: string;
-  availability: string;
-  brand: string;
-  brand_trust_score: number;
-  categories: string[];
-  description: string;
-  discount_percentage: number;
-  external_id: string;
-  feature_sections: any[]; // Array of feature sections
-  features: string[];
-  image_url: string;
-  integrations: any[];
-  intent_match_score: number; // 0-1 normalized score
-  is_fallback: boolean;
-  keywords: string[];
-  offer_trust_score: number;
-  original_price: number;
-  price: number;
-  pricing: string; // Formatted price string (e.g., "$99.48")
   product_id: string;
-  rating: number;
-  reason: string; // Match reason/explanation
-  recommendation_description: string; // Marketing-optimized description
-  recommendation_title: string; // Marketing-optimized title
-  redirect_url: string;
-  review_count: number;
+  title: string;
+  recommendation_description: string;
+  admesh_link: string;
+  categories: string[];
+  integrations: string[];
+  trust_score: number;
   reward_note: string;
-  source: string; // Source platform (walmart, admesh, etc.)
-  title: string; // Product title
-  trial_days: number;
-  url: string;
+  meta: {
+    ad_id: string;
+    offer_trust_score: number;
+    brand_trust_score: number;
+    intent_match_score: number;
+    reason: string;
+    description: string;
+    keywords: string[];
+    url: string;
+    redirect_url: string;
+  };
+
+  // Legacy fields for backward compatibility
+  ad_id?: string; // Use meta.ad_id instead
+  audience_segment?: string;
+  availability?: string;
+  brand?: string;
+  brand_trust_score?: number; // Use meta.brand_trust_score instead
+  description?: string; // Use meta.description instead
+  discount_percentage?: number;
+  external_id?: string;
+  feature_sections?: any[]; // Array of feature sections
+  features?: string[];
+  image_url?: string;
+  intent_match_score?: number; // Use meta.intent_match_score instead
+  is_fallback?: boolean;
+  keywords?: string[]; // Use meta.keywords instead
+  offer_trust_score?: number; // Use meta.offer_trust_score instead
+  original_price?: number;
+  price?: number;
+  pricing?: string; // Formatted price string (e.g., "$99.48")
+  rating?: number;
+  reason?: string; // Use meta.reason instead
+  recommendation_title?: string; // Use title instead
+  redirect_url?: string; // Use meta.redirect_url instead
+  review_count?: number;
+  source?: string; // Source platform (walmart, admesh, etc.)
+  trial_days?: number;
+  url?: string; // Use meta.url instead
 
   // Source information
   recommendation_source?: string; // 'admesh', 'walmart', etc.
@@ -154,7 +168,6 @@ export interface AdMeshRecommendation {
   // Legacy/compatibility fields (deprecated but maintained for backward compatibility)
   company_name?: string; // For software/SaaS products
   logo_url?: string; // For software/SaaS products
-  trust_score?: number; // Generic trust score
 
   // Extended fields for compatibility
   reviews_summary?: string;
@@ -269,6 +282,7 @@ export interface AdMeshProductCardProps {
   theme?: AdMeshTheme;
   showMatchScore?: boolean; // Deprecated - Match Score removed from UI
   showBadges?: boolean;
+  showFeatures?: boolean; // Control whether to display key features section (default: false for clean minimal design)
   variation?: 'default' | 'simple';
   expandable?: boolean; // Deprecated - moved to AdMeshInlineCard
   onTrackView?: (data: TrackingData) => void;
@@ -460,41 +474,28 @@ export interface UseAdMeshTrackerReturn {
   error: string | null;
 }
 
-// API Response types (for reference)
+// API Response types - Updated for new API response format
 export interface AgentRecommendationResponse {
   session_id: string;
   intent: {
-    categories?: string[];
-    goal?: string;
-    llm_intent_confidence_score?: number;
-    known_mentions?: string[];
-    intent_type?: string;
-    intent_group?: string;
-    keywords?: string[];
-    layout_type?: string; // New: "citation", "product_cards", "ecommerce"
-    requires_summary?: boolean; // New: Whether a conversational summary is needed
+    goal: string;
+    intent_group: string;
+    purchase_intent: string;
+    intent_type: string;
+    layout_type: string;
+    categories: string[];
   };
   response: {
-    summary?: string;
+    summary: string;
     recommendations: AdMeshRecommendation[];
-    followup_suggestions?: {
+    followup_suggestions: {
       label: string;
       query: string;
-      product_mentions: string[];
-      admesh_links: Record<string, string>;
-      session_id: string;
     }[];
-    layout_type?: string; // New: Layout type determined by backend
-    requires_summary?: boolean; // New: Whether summary is required
-    citation_summary?: string; // New: LLM-generated conversational summary with embedded AdMesh links
-    is_fallback?: boolean;
-    recommendation_source?: string; // "admesh", "walmart", etc.
+    layout_type: string;
   };
   tokens_used: number;
   model_used: string;
-  recommendation_id?: string;
-  end_of_session?: boolean;
-  llm_confidence?: number; // LLM confidence score
 }
 
 // Utility types

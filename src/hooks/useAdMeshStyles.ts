@@ -9,39 +9,43 @@ const ADMESH_STYLES = `
   box-sizing: border-box;
 }
 
-/* CSS Variables */
+/* CSS Variables - Black/White Color Scheme */
 .admesh-component {
-  --admesh-primary: #6366f1;
-  --admesh-primary-hover: #4f46e5;
-  --admesh-secondary: #8b5cf6;
-  --admesh-accent: #06b6d4;
+  --admesh-primary: #000000;
+  --admesh-primary-hover: #333333;
+  --admesh-secondary: #666666;
+  --admesh-accent: #000000;
   --admesh-background: #ffffff;
   --admesh-surface: #ffffff;
-  --admesh-border: #e2e8f0;
-  --admesh-text: #0f172a;
-  --admesh-text-muted: #64748b;
-  --admesh-text-light: #94a3b8;
+  --admesh-border: #e5e7eb;
+  --admesh-text: #000000;
+  --admesh-text-muted: #666666;
+  --admesh-text-light: #999999;
   --admesh-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --admesh-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --admesh-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --admesh-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --admesh-radius: 0.75rem;
-  --admesh-radius-sm: 0.375rem;
-  --admesh-radius-lg: 1rem;
-  --admesh-radius-xl: 1.5rem;
+  --admesh-radius: 0.5rem;
+  --admesh-radius-sm: 0.25rem;
+  --admesh-radius-lg: 0.75rem;
+  --admesh-radius-xl: 1rem;
 }
 
 .admesh-component[data-admesh-theme="dark"] {
-  --admesh-background: #111827;
-  --admesh-surface: #1f2937;
-  --admesh-border: #374151;
-  --admesh-text: #f9fafb;
+  --admesh-primary: #ffffff;
+  --admesh-primary-hover: #e5e7eb;
+  --admesh-secondary: #9ca3af;
+  --admesh-accent: #ffffff;
+  --admesh-background: #000000;
+  --admesh-surface: #111111;
+  --admesh-border: #333333;
+  --admesh-text: #ffffff;
   --admesh-text-muted: #9ca3af;
-  --admesh-text-light: #6b7280;
-  --admesh-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
-  --admesh-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --admesh-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
-  --admesh-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --admesh-text-light: #666666;
+  --admesh-shadow: 0 1px 3px 0 rgb(255 255 255 / 0.1), 0 1px 2px -1px rgb(255 255 255 / 0.1);
+  --admesh-shadow-md: 0 4px 6px -1px rgb(255 255 255 / 0.1), 0 2px 4px -2px rgb(255 255 255 / 0.1);
+  --admesh-shadow-lg: 0 10px 15px -3px rgb(255 255 255 / 0.1), 0 4px 6px -4px rgb(255 255 255 / 0.1);
+  --admesh-shadow-xl: 0 20px 25px -5px rgb(255 255 255 / 0.1), 0 8px 10px -6px rgb(255 255 255 / 0.1);
 }
 
 /* Layout Styles */
@@ -189,7 +193,7 @@ const ADMESH_STYLES = `
 
 .admesh-product-card__match-score-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--admesh-primary), #8b5cf6);
+  background: var(--admesh-primary);
   border-radius: var(--admesh-radius-sm);
   transition: width 0.3s ease-in-out;
 }
@@ -244,7 +248,7 @@ const ADMESH_STYLES = `
 }
 
 .admesh-component[data-admesh-theme="dark"] .admesh-product-card__button:hover {
-  background: linear-gradient(90deg, var(--admesh-primary-hover), var(--admesh-primary));
+  background: var(--admesh-primary-hover);
 }
 
 .admesh-product-card__footer {
@@ -364,8 +368,8 @@ const ADMESH_STYLES = `
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(90deg, var(--admesh-primary), var(--admesh-primary-hover));
-  color: white;
+  background: var(--admesh-primary);
+  color: var(--admesh-background);
   font-size: 0.875rem;
   font-weight: 500;
   border: none;
@@ -572,15 +576,11 @@ const ADMESH_STYLES = `
 .admesh-component .bg-green-500 { background-color: #22c55e; }
 .admesh-component .bg-blue-500 { background-color: #3b82f6; }
 
-/* Gradients */
-.admesh-component .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
-.admesh-component .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-.admesh-component .from-white { --tw-gradient-from: #ffffff; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0)); }
-.admesh-component .to-gray-50 { --tw-gradient-to: #f9fafb; }
-.admesh-component .from-purple-500 { --tw-gradient-from: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(168, 85, 247, 0)); }
-.admesh-component .to-pink-500 { --tw-gradient-to: #ec4899; }
-.admesh-component .from-green-400 { --tw-gradient-from: #4ade80; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(74, 222, 128, 0)); }
-.admesh-component .to-blue-500 { --tw-gradient-to: #3b82f6; }
+/* Solid backgrounds - no gradients for minimal design */
+.admesh-component .bg-primary { background-color: var(--admesh-primary); }
+.admesh-component .bg-secondary { background-color: var(--admesh-secondary); }
+.admesh-component .bg-surface { background-color: var(--admesh-surface); }
+.admesh-component .bg-background { background-color: var(--admesh-background); }
 
 /* Text utilities */
 .admesh-component .text-xs { font-size: 0.75rem; line-height: 1rem; }

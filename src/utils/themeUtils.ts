@@ -11,14 +11,14 @@ import type { AdMeshTheme } from '../types';
 export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshTheme => {
   const baseTheme: AdMeshTheme = {
     mode: 'light',
-    primaryColor: '#3b82f6',
-    secondaryColor: '#10b981',
-    accentColor: '#3b82f6',
+    primaryColor: '#000000',
+    secondaryColor: '#666666',
+    accentColor: '#000000',
     backgroundColor: '#ffffff',
-    surfaceColor: '#f9fafb',
+    surfaceColor: '#ffffff',
     borderColor: '#e5e7eb',
-    textColor: '#111827',
-    textSecondaryColor: '#6b7280',
+    textColor: '#000000',
+    textSecondaryColor: '#666666',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     fontSize: {
       small: '12px',
@@ -45,9 +45,9 @@ export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMes
       arrowIcon: '→'
     },
     gradients: {
-      primary: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-      secondary: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-      accent: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'
+      primary: '#000000',
+      secondary: '#666666',
+      accent: '#000000'
     },
     // Component-specific defaults with consistent width settings
     components: {
@@ -98,15 +98,23 @@ export const createAdMeshTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMes
 export const createDarkTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshTheme => {
   const darkDefaults: Partial<AdMeshTheme> = {
     mode: 'dark',
-    backgroundColor: '#1f2937',
-    surfaceColor: '#374151',
-    borderColor: '#4b5563',
-    textColor: '#f9fafb',
+    primaryColor: '#ffffff',
+    secondaryColor: '#9ca3af',
+    accentColor: '#ffffff',
+    backgroundColor: '#000000',
+    surfaceColor: '#111111',
+    borderColor: '#333333',
+    textColor: '#ffffff',
     textSecondaryColor: '#9ca3af',
     shadows: {
-      small: '0 1px 3px rgba(0, 0, 0, 0.3)',
-      medium: '0 4px 6px rgba(0, 0, 0, 0.3)',
-      large: '0 10px 15px rgba(0, 0, 0, 0.3)'
+      small: '0 1px 3px rgba(255, 255, 255, 0.1)',
+      medium: '0 4px 6px rgba(255, 255, 255, 0.1)',
+      large: '0 10px 15px rgba(255, 255, 255, 0.1)'
+    },
+    gradients: {
+      primary: '#ffffff',
+      secondary: '#9ca3af',
+      accent: '#ffffff'
     }
   };
 
@@ -121,7 +129,7 @@ export const createDarkTheme = (customTheme: Partial<AdMeshTheme> = {}): AdMeshT
  * All presets ensure consistent width settings and styling
  */
 export const themePresets = {
-  // Clean, minimal theme with consistent width
+  // Clean, minimal theme with consistent width - now the default
   get minimal() {
     return createAdMeshTheme({
       primaryColor: '#000000',
@@ -131,6 +139,11 @@ export const themePresets = {
         small: 'none',
         medium: '0 1px 3px rgba(0, 0, 0, 0.1)',
         large: '0 2px 6px rgba(0, 0, 0, 0.1)'
+      },
+      gradients: {
+        primary: '#000000',
+        secondary: '#666666',
+        accent: '#000000'
       },
       components: {
         productCard: { width: '100%' },
@@ -142,7 +155,7 @@ export const themePresets = {
     });
   },
 
-  // Modern, colorful theme with consistent width
+  // Modern, colorful theme with consistent width (no gradients)
   get vibrant() {
     return createAdMeshTheme({
       primaryColor: '#8b5cf6',
@@ -150,9 +163,9 @@ export const themePresets = {
       accentColor: '#f59e0b',
       borderRadius: '12px',
       gradients: {
-        primary: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
-        secondary: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
-        accent: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)'
+        primary: '#8b5cf6',
+        secondary: '#06b6d4',
+        accent: '#f59e0b'
       },
       components: {
         productCard: { width: '100%' },

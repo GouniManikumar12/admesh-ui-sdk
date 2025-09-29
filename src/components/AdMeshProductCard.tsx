@@ -14,6 +14,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   theme,
   showMatchScore = false, // Deprecated - Match Score removed from UI
   showBadges = true,
+  showFeatures = false, // Default to clean minimal design, can be enabled
   variation = 'default',
   expandable = false,
   className,
@@ -28,10 +29,14 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   const badges = useMemo((): BadgeType[] => {
     const generatedBadges: BadgeType[] = [];
 
-    // Add primary recommendation label based on match score
+    // Add primary recommendation label based on match score - using preferred terminology
     const primaryLabel = getRecommendationLabel(recommendation);
-    if (primaryLabel === 'Sponsored') {
-      generatedBadges.push('Top Match'); // Map to existing badge type
+    if (primaryLabel === 'Smart Pick') {
+      generatedBadges.push('Top Match'); // Map to existing badge type for Smart Pick
+    } else if (primaryLabel === 'Partner Recommendation') {
+      generatedBadges.push('Top Match'); // Use consistent badge for partner recommendations
+    } else if (primaryLabel === 'Promoted Match') {
+      generatedBadges.push('Top Match'); // Use consistent badge for promoted matches
     }
 
     // Add Trial Available badge
@@ -68,7 +73,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   // Disclosure removed - only layout component shows disclosures
 
   // Format match score as percentage
-  const matchScorePercentage = Math.round(recommendation.intent_match_score * 100);
+  const matchScorePercentage = Math.round((recommendation.meta?.intent_match_score || recommendation.intent_match_score || 0) * 100);
 
   // Get content based on variation
   const getVariationContent = () => {
@@ -146,8 +151,8 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
           style={{
             fontSize: '11px',
             fontWeight: '600',
-            color: theme?.accentColor || '#2563eb',
-            backgroundColor: theme?.mode === 'dark' ? '#374151' : '#f3f4f6',
+            color: theme?.mode === 'dark' ? '#000000' : '#ffffff',
+            backgroundColor: theme?.mode === 'dark' ? '#ffffff' : '#000000',
             padding: '2px 6px',
             borderRadius: '4px',
             marginRight: '8px'
@@ -169,7 +174,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
         {/* CTA Link */}
         <AdMeshLinkTracker
-          adId={recommendation.ad_id}
+          adId={recommendation.meta?.ad_id || recommendation.ad_id || ''}
           admeshLink={recommendation.admesh_link}
           productId={recommendation.product_id}
           trackingData={{
@@ -180,7 +185,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         >
           <span
             style={{
-              color: theme?.accentColor || '#2563eb',
+              color: theme?.mode === 'dark' ? '#ffffff' : '#000000',
               textDecoration: 'underline',
               cursor: 'pointer',
               fontSize: 'inherit',
@@ -191,16 +196,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
           </span>
         </AdMeshLinkTracker>
 
-        {/* Disclosure */}
-        <span
-          style={{
-            fontSize: '10px',
-            color: theme?.mode === 'dark' ? '#9ca3af' : '#6b7280',
-            marginLeft: '8px'
-          }}
-        >
-          (Sponsored )
-        </span>
+        {/* Disclosure removed to prevent duplicate labels */}
       </div>
     );
   }
@@ -229,8 +225,8 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
             style={{
               fontSize: '11px',
               fontWeight: '600',
-              color: theme?.accentColor || '#2563eb',
-              backgroundColor: theme?.mode === 'dark' ? '#374151' : '#f3f4f6',
+              color: theme?.mode === 'dark' ? '#000000' : '#ffffff',
+              backgroundColor: theme?.mode === 'dark' ? '#ffffff' : '#000000',
               padding: '2px 6px',
               borderRadius: '4px'
             }}
@@ -261,16 +257,22 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
           <div className="flex-shrink-0">
             <AdMeshLinkTracker
-              adId={recommendation.ad_id}
+              adId={recommendation.meta?.ad_id || recommendation.ad_id || ''}
               admeshLink={recommendation.admesh_link}
               productId={recommendation.product_id}
               trackingData={{
                 title: recommendation.title,
-                matchScore: recommendation.intent_match_score,
+                matchScore: recommendation.meta?.intent_match_score || recommendation.intent_match_score,
                 component: 'product_card_cta'
               }}
             >
-              <button className="text-xs px-2 py-1 sm:px-3 sm:py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 flex items-center transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg whitespace-nowrap">
+              <button
+                className="text-xs px-2 py-1 sm:px-3 sm:py-2 rounded-full flex items-center transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg whitespace-nowrap"
+                style={{
+                  backgroundColor: theme?.accentColor || '#000000',
+                  color: theme?.mode === 'dark' ? '#000000' : '#ffffff'
+                }}
+              >
                 Visit
                 <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -290,26 +292,34 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
        
 
-        {/* Features */}
-        {recommendation.features && recommendation.features.length > 0 && (
+        {/* Features - conditionally rendered based on showFeatures prop */}
+        {showFeatures && recommendation.features && recommendation.features.length > 0 && (
           <div className="mb-3">
-            <div className="text-xs text-gray-600 dark:text-gray-300 mb-2 font-medium">
-              ✨ Key Features
+            <div className="text-xs font-medium mb-2" style={{ color: theme?.mode === 'dark' ? '#9ca3af' : '#666666' }}>
+              Key Features
             </div>
             <div className="flex flex-wrap gap-1.5">
               {recommendation.features.slice(0, 4).map((feature, j) => (
                 <span
                   key={j}
-                  className="text-xs px-2 py-1 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700"
+                  className="text-xs px-2 py-1 rounded-full border"
+                  style={{
+                    backgroundColor: theme?.mode === 'dark' ? '#111111' : '#f5f5f5',
+                    color: theme?.mode === 'dark' ? '#ffffff' : '#000000',
+                    borderColor: theme?.mode === 'dark' ? '#333333' : '#e5e7eb'
+                  }}
                 >
-                  <svg className="h-3 w-3 mr-0.5 inline text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-3 w-3 mr-0.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   {feature}
                 </span>
               ))}
               {recommendation.features.length > 4 && (
-                <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
+                <span
+                  className="text-xs px-2 py-1"
+                  style={{ color: theme?.mode === 'dark' ? '#9ca3af' : '#666666' }}
+                >
                   +{recommendation.features.length - 4} more
                 </span>
               )}
