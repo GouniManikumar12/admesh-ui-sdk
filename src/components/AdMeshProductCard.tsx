@@ -100,7 +100,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   const cardClasses = classNames(
     'admesh-component',
     'admesh-card',
-    'relative p-4 sm:p-5 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border border-gray-200/50 dark:border-slate-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1',
+    'relative p-3 sm:p-4 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border border-gray-200/50 dark:border-slate-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1',
     className
   );
 
@@ -220,7 +220,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         style={cardStyle}
       >
         {/* Recommendation label at top */}
-        <div className="mb-3">
+        <div className="mb-1.5">
           <span
             style={{
               fontSize: '11px',
@@ -237,7 +237,7 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         </div>
 
         {/* Header with title and CTA button in same row */}
-        <div className="flex justify-between items-center gap-3 mb-4">
+        <div className="flex justify-between items-center gap-3 mb-2">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             {recommendation.product_logo && (
               <img
@@ -283,8 +283,8 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
         </div>
 
         {/* Product Description/Reason */}
-        <div className="mb-6">
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+        <div className="mb-3">
+          <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug">
             {content.description}
           </p>
         </div>
@@ -294,8 +294,8 @@ export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
 
         {/* Features - conditionally rendered based on showFeatures prop */}
         {showFeatures && recommendation.features && recommendation.features.length > 0 && (
-          <div className="mb-3">
-            <div className="text-xs font-medium mb-2" style={{ color: theme?.mode === 'dark' ? '#9ca3af' : '#666666' }}>
+          <div className="mb-2">
+            <div className="text-xs font-medium mb-1.5" style={{ color: theme?.mode === 'dark' ? '#9ca3af' : '#666666' }}>
               Key Features
             </div>
             <div className="flex flex-wrap gap-1.5">
