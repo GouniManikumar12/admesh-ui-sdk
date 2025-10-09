@@ -120,9 +120,6 @@ Choose the right component for your use case:
 | **AdMeshLayout** | All use cases | Auto-adaptive | ⭐ Easy | ✅ Yes |
 | **AdMeshProductCard** | Individual products | Single card | ⭐ Easy | ✅ Yes |
 | **AdMeshEcommerceCards** | Product carousels | Horizontal scroll | ⭐ Easy | ✅ Yes |
-| **AdMeshCitationUnit** | AI assistants | Direct links | ⭐⭐ Medium | ✅ Yes |
-| **AdMeshConversationalUnit** | Chat interfaces | Inline/floating | ⭐⭐ Medium | ✅ Yes |
-| **AdMeshExpandableUnit** | Rich showcases | Expandable details | ⭐⭐ Medium | ✅ Yes |
 
 ## 🎯 AdMeshLayout
 
@@ -233,29 +230,47 @@ Horizontal scrolling product cards for ecommerce recommendations, similar to Goo
 - Google-style product carousels
 - Shopping comparison displays
 
-### Conversational Components
+### Summary Components
 
-#### AdMeshConversationalUnit
-Smart conversational ad component that adapts to different chat contexts and display modes.
+#### AdMeshSummaryUnit
+Display recommendations with summary text and follow-up suggestions.
 
 ```tsx
-<AdMeshConversationalUnit
+<AdMeshSummaryUnit
   recommendations={recommendations}
-  config={{
-    displayMode: 'inline', // 'inline' | 'minimal' | 'floating' | 'summary' | 'citation'
-    context: 'chat',
-    maxRecommendations: 3,
-    showPoweredBy: true
-  }}
-  onRecommendationClick={(adId, admeshLink) => window.open(admeshLink)}
+  summary="Here are the best CRM tools for your needs"
+  followupSuggestions={[
+    { label: "Compare pricing", query: "CRM pricing comparison" },
+    { label: "Free trials", query: "CRM free trial options" }
+  ]}
+  onRecommendationClick={(adId, link) => window.open(link)}
+  onFollowupClick={(query) => console.log('Follow-up:', query)}
 />
 ```
 
-#### AdMeshInlineRecommendation
+#### AdMeshSummaryLayout
+Layout component for displaying summary-style recommendations.
+
+```tsx
+<AdMeshSummaryLayout
+  recommendations={recommendations}
+  summary="Based on your requirements, here are the top recommendations"
+  layout="grid" // 'grid' | 'list'
+  showFollowups={true}
+/>
+```
+
+**Perfect for:**
+- AI assistant responses
+- Conversation summaries
+- Follow-up suggestions
+- End-of-conversation recommendations
+
+#### AdMeshInlineCard
 Compact inline recommendation component perfect for chat interfaces.
 
 ```tsx
-<AdMeshInlineRecommendation
+<AdMeshInlineCard
   recommendation={recommendation}
   compact={true}
   showReason={true}
@@ -263,113 +278,14 @@ Compact inline recommendation component perfect for chat interfaces.
 />
 ```
 
-#### AdMeshCitationUnit
-Citation-based conversation ad component that directly injects clickable links with underlines into text. Supports dynamic content and multiple link insertion strategies.
-
-```tsx
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="Based on your requirements, I recommend HubSpot CRM for its features..."
-  citationStyle="numbered" // 'numbered' | 'bracketed' | 'superscript'
-  onCitationHover={(recommendation) => console.log('Hovered:', recommendation.title)}
-/>
-```
-
-**Dynamic Content Examples:**
-
-```tsx
-// Template-based dynamic links
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  dynamicTemplate="I recommend {product1} for startups and {product2} for enterprises"
-  linkInsertionStrategy="template"
-  onTextUpdate={(newText) => console.log('Updated text:', newText)}
-  enableRealTimeUpdates={true}
-/>
-
-// Custom pattern matching
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="For CRM solutions, consider these options for your business"
-  linkInsertionStrategy="keywords"
-  customLinkPatterns={[
-    { pattern: "CRM", recommendationIndex: 0, linkText: "HubSpot CRM" },
-    { pattern: "business", recommendationIndex: 1, linkText: "Salesforce" }
-  ]}
-/>
-
-// Append links at the end
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="Here are some great software solutions for your needs."
-  linkInsertionStrategy="append"
-/>
-```
-
-**Perfect for:**
-- AI assistant responses
-- Dynamic conversation generation
-- Template-based content
-- Real-time text updates
-- Natural text integration
-
-#### AdMeshCitationReference
-Individual citation references for inline use within conversational text.
-
-```tsx
-<AdMeshCitationReference
-  recommendations={[recommendation]}
-  citationStyle="numbered"
-  onRecommendationClick={(adId, link) => window.open(link)}
-/>
-```
-
-### Chat Components
-
-#### AdMeshChatInterface
-Embeddable chat interface for integrating conversational AI into web applications.
-
-```tsx
-<AdMeshChatInterface
-  messages={messages}
-  config={{
-    placeholder: "Ask me about products...",
-    enableTypingIndicator: true,
-    maxMessages: 50
-  }}
-  onSendMessage={handleSendMessage}
-  onRecommendationClick={(adId, link) => window.open(link)}
-/>
-```
-
-#### AdMeshChatMessage
-Individual chat message component with recommendation support.
-
-#### AdMeshChatInput
-Chat input component with suggestions and auto-resize functionality.
-
-### Expandable & Interactive Components
-
-#### AdMeshExpandableUnit
-Expandable product showcase with detailed information and feature sections.
-
-```tsx
-<AdMeshExpandableUnit
-  recommendation={recommendation}
-  theme={theme}
-  showFeatureSections={true}
-  showProductImages={true}
-  onRecommendationClick={(adId, admeshLink) => window.open(admeshLink)}
-/>
-```
+### Additional Components
 
 #### AdMeshProductCard - Simple Variation
-Simple, clean ad format for minimal integration (replaces AdMeshSimpleAd).
+Simple, clean ad format for minimal integration.
 
 ```tsx
 <AdMeshProductCard
   recommendation={recommendation}
-  theme={theme}
   variation="simple" // Creates inline ad format
   onClick={(adId, admeshLink) => window.open(admeshLink)}
 />
@@ -592,50 +508,42 @@ const recommendations: AdMeshRecommendation[] = [
 
 // Use with any ad unit
 {recommendations.map(rec => <AdMeshProductCard key={rec.ad_id} recommendation={rec} />)}
-<AdMeshConversationalUnit recommendations={recommendations} config={chatConfig} />
-<AdMeshCitationUnit recommendations={recommendations} conversationText="..." />
-<AdMeshExpandableUnit recommendation={recommendations[0]} />
+<AdMeshLayout recommendations={recommendations} layout="auto" />
+<AdMeshEcommerceCards recommendations={recommendations} />
 ```
 
-## 💬 Conversational Ad Units
+## 🎯 Layout-Based Integration
 
-Perfect for chat interfaces, AI assistants, and conversational experiences.
+The AdMeshLayout component automatically adapts to different contexts and use cases.
 
-### Quick Start - Conversational Units
+### Quick Start - Layout Component
 
 ```tsx
 import React from 'react';
-import { AdMeshConversationalUnit } from 'admesh-ui-sdk';
+import { AdMeshLayout } from 'admesh-ui-sdk';
 
 const recommendations = [
   {
-    title: "HubSpot CRM",
-    reason: "Perfect for remote teams with excellent collaboration features",
-    intent_match_score: 0.92,
-    admesh_link: "https://useadmesh.com/track?ad_id=hubspot-123",
-    ad_id: "hubspot-123",
     product_id: "hubspot-crm",
-    has_free_tier: true,
-    trial_days: 14,
-    keywords: ["CRM", "Sales", "Marketing"]
+    title: "HubSpot CRM",
+    recommendation_description: "Perfect for remote teams with excellent collaboration features",
+    admesh_link: "https://useadmesh.com/track?ad_id=hubspot-123",
+    categories: ["CRM", "Sales", "Marketing"],
+    trust_score: 95.0,
+    meta: {
+      ad_id: "hubspot-123",
+      intent_match_score: 92.0,
+      reason: "Perfect for remote teams with excellent collaboration features"
+    }
   }
 ];
 
-function ChatInterface() {
+function RecommendationDisplay() {
   return (
-    <div className="chat-container">
-      {/* Your chat messages */}
-      <div className="message">I need a CRM for my team</div>
-
-      {/* AdMesh conversational ad unit */}
-      <AdMeshConversationalUnit
+    <div className="recommendations-container">
+      <AdMeshLayout
         recommendations={recommendations}
-        config={{
-          displayMode: 'inline', // 'inline' | 'minimal' | 'floating' | 'summary'
-          context: 'chat',
-          maxRecommendations: 3,
-          showPoweredBy: true
-        }}
+        layout="auto" // 'auto' | 'grid' | 'list' | 'citation'
         onRecommendationClick={(adId, admeshLink) => {
           window.open(admeshLink, '_blank');
         }}
@@ -645,64 +553,53 @@ function ChatInterface() {
 }
 ```
 
-### Display Modes
+### Layout Types
 
-#### Inline Mode
-Full recommendations displayed inline with the conversation:
+#### Auto Layout
+Automatically selects the best layout based on content and context:
 ```tsx
-<AdMeshConversationalUnit
+<AdMeshLayout
   recommendations={recommendations}
-  config={{ displayMode: 'inline', context: 'chat' }}
+  layout="auto"
 />
 ```
 
-#### Minimal Mode
-Compact display showing match count and top recommendation:
+#### Grid Layout
+Displays recommendations in a responsive grid format:
 ```tsx
-<AdMeshConversationalUnit
+<AdMeshLayout
   recommendations={recommendations}
-  config={{ displayMode: 'minimal', context: 'assistant' }}
+  layout="grid"
 />
 ```
 
-#### Floating Mode
-Floating overlay that doesn't interrupt the conversation flow:
+#### List Layout
+Displays recommendations in a vertical list format:
 ```tsx
-<AdMeshConversationalUnit
+<AdMeshLayout
   recommendations={recommendations}
-  config={{ displayMode: 'floating', context: 'support' }}
+  layout="list"
 />
 ```
 
-#### Summary Mode
-End-of-conversation summary with top recommendations:
+#### Citation Layout
+Displays recommendations as inline citations within text:
 ```tsx
-<AdMeshConversationalUnit
+<AdMeshLayout
   recommendations={recommendations}
-  config={{ displayMode: 'summary', context: 'agent' }}
-  conversationSummary="We discussed your CRM needs..."
+  layout="citation"
 />
 ```
 
-#### Citation Mode
-Display recommendations as inline citations within conversational text:
-```tsx
-<AdMeshConversationalUnit
-  recommendations={recommendations}
-  config={{ displayMode: 'citation', context: 'assistant' }}
-  conversationSummary="Based on your needs, I recommend HubSpot CRM for its excellent features..."
-/>
-```
+### Individual Components
 
-### Individual Conversational Components
-
-#### AdMeshInlineRecommendation
-Compact inline recommendations for chat bubbles:
+#### AdMeshInlineCard
+Compact inline recommendations for chat interfaces:
 
 ```tsx
-import { AdMeshInlineRecommendation } from 'admesh-ui-sdk';
+import { AdMeshInlineCard } from 'admesh-ui-sdk';
 
-<AdMeshInlineRecommendation
+<AdMeshInlineCard
   recommendation={recommendation}
   compact={true}
   showReason={true}
@@ -710,140 +607,95 @@ import { AdMeshInlineRecommendation } from 'admesh-ui-sdk';
 />
 ```
 
-#### AdMeshCitationUnit
-Citation-based conversation ads with direct inline links and dynamic content support:
+#### AdMeshBadge
+Reusable badge component for highlighting features and trust indicators:
 
 ```tsx
-import { AdMeshCitationUnit } from 'admesh-ui-sdk';
+import { AdMeshBadge } from 'admesh-ui-sdk';
 
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="Based on your requirements, I recommend HubSpot CRM for its features..."
-  citationStyle="numbered" // 'numbered' | 'bracketed' | 'superscript'
-  onCitationHover={(recommendation) => console.log('Hovered:', recommendation.title)}
+<AdMeshBadge
+  type="trust" // 'trust' | 'feature' | 'promotion'
+  variant="primary" // 'primary' | 'secondary' | 'success'
+  size="small" // 'small' | 'medium' | 'large'
+  text="Highly Trusted"
 />
 ```
 
-**Dynamic Content Strategies:**
+#### AdMeshLinkTracker
+Wrapper component for tracking clicks on any element:
 
 ```tsx
-// 1. Template-based (AI content generation)
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  dynamicTemplate="I recommend {product1} for startups and {product2} for enterprises"
-  linkInsertionStrategy="template"
-  enableRealTimeUpdates={true}
-  onTextUpdate={(text) => updateConversation(text)}
-/>
+import { AdMeshLinkTracker } from 'admesh-ui-sdk';
 
-// 2. Custom keyword targeting
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="Looking for CRM solutions for your business needs"
-  linkInsertionStrategy="keywords"
-  customLinkPatterns={[
-    { pattern: "CRM", recommendationIndex: 0, linkText: "HubSpot CRM" },
-    { pattern: "business", recommendationIndex: 1, linkText: "Salesforce" }
-  ]}
-/>
-
-// 3. Append recommendations naturally
-<AdMeshCitationUnit
-  recommendations={recommendations}
-  conversationText="Here are some great software options."
-  linkInsertionStrategy="append"
-/>
+<AdMeshLinkTracker
+  adId={recommendation.meta.ad_id}
+  admeshLink={recommendation.admesh_link}
+  productId={recommendation.product_id}
+  onClick={() => handleClick()}
+  trackingData={{ title: recommendation.title }}
+>
+  <YourCustomComponent />
+</AdMeshLinkTracker>
 ```
 
 **Key Features:**
-- **Direct Links**: Product names become clickable underlined links
-- **Dynamic Templates**: Support for {product1}, {product2} placeholders
-- **Smart Insertion**: Multiple strategies for link placement
-- **Real-time Updates**: Live text processing and callbacks
-- **Custom Patterns**: Target specific keywords or phrases
-- **Hover Details**: Shows recommendation details on hover
+- **Automatic Tracking**: Built-in click and view tracking
+- **Custom Elements**: Wrap any component for tracking
+- **Analytics Integration**: Seamless data collection
+- **Performance Optimized**: Minimal overhead
 
-**Use Cases:**
-- **AI Chatbots**: Dynamic conversation generation with template placeholders
-- **Content Management**: Auto-linking existing content with product mentions
-- **E-commerce**: Keyword-based product recommendations in descriptions
-- **Email Marketing**: Append strategy for newsletter recommendations
-- **Documentation**: Academic-style citations in technical content
+## 🎨 Theming and Customization
 
-#### AdMeshCitationReference
-Individual citation references for inline use:
+The AdMesh UI SDK provides comprehensive theming capabilities for all components.
+
+### Theme Configuration
 
 ```tsx
-import { AdMeshCitationReference } from 'admesh-ui-sdk';
+import { createAdMeshTheme } from 'admesh-ui-sdk';
 
-<p>
-  Check out this great CRM solution{' '}
-  <AdMeshCitationReference
-    recommendation={recommendation}
-    citationNumber={1}
-    citationStyle="numbered"
-    onClick={(adId, link) => window.open(link)}
-  />
-  {' '}for your business needs.
-</p>
+const customTheme = createAdMeshTheme({
+  mode: 'light', // 'light' | 'dark'
+  accentColor: '#2563eb',
+  borderRadius: '8px',
+  fontFamily: 'Inter, sans-serif'
+});
+
+<AdMeshLayout
+  recommendations={recommendations}
+  theme={customTheme}
+/>
 ```
 
-### 📝 Citation-Based Conversation Ads
-
-Citation-based ads display recommendations as numbered references within conversational text, similar to academic papers or AI assistant responses. This format is perfect for AI applications, chatbots, and content that needs to reference products naturally within flowing text.
-
-#### Key Features
-
-- **Automatic Citation Insertion**: Automatically finds product mentions in text and adds citations
-- **Multiple Citation Styles**: Support for numbered (1), bracketed [1], and superscript¹ formats
-- **Interactive Tooltips**: Hover over citations to see product details
-- **Reference List**: Optional list of all cited products at the bottom
-- **Smart Matching**: Uses product titles and keywords to find optimal insertion points
-
-#### Basic Usage
+### Dark Mode Support
 
 ```tsx
-import { AdMeshCitationUnit } from 'admesh-ui-sdk';
+import { createDarkTheme } from 'admesh-ui-sdk';
 
-function AIAssistantResponse() {
-  const conversationText = `
-    Based on your requirements for a CRM system, I'd recommend HubSpot CRM
-    for its excellent free tier and collaboration features. For enterprise needs,
-    Salesforce offers the most comprehensive feature set with extensive customization.
-  `;
+const darkTheme = createDarkTheme({
+  accentColor: '#3b82f6'
+});
 
-  return (
-    <AdMeshCitationUnit
-      recommendations={recommendations}
-      conversationText={conversationText}
-      citationStyle="numbered"
-      showCitationList={true}
-      onRecommendationClick={(adId, link) => window.open(link)}
-    />
-  );
-}
+<AdMeshLayout
+  recommendations={recommendations}
+  theme={darkTheme}
+/>
 ```
 
-#### Citation Styles
+### Component Customization
 
-- **Numbered**: `(1)` - Clean numbered circles
-- **Bracketed**: `[1]` - Traditional academic style
-- **Superscript**: `¹` - Minimal superscript numbers
-
-### Configuration Options
-
-#### ConversationalAdConfig
+All components support custom styling through className and style props:
 
 ```tsx
-interface ConversationalAdConfig {
-  displayMode: 'inline' | 'summary' | 'floating' | 'minimal' | 'citation';
-  context: 'chat' | 'assistant' | 'agent' | 'support';
-  maxRecommendations?: number;     // Default: 3
-  showPoweredBy?: boolean;         // Default: true
-  autoShow?: boolean;              // Default: true
-  delayMs?: number;                // Default: 0
-  position?: 'top' | 'bottom' | 'inline'; // Default: 'inline'
-}
+<AdMeshLayout
+  recommendations={recommendations}
+  className="my-custom-recommendations"
+  style={{
+    backgroundColor: '#f8f9fa',
+    borderRadius: '12px',
+    padding: '16px'
+  }}
+/>
+```
 ```
 
 ### Integration Examples
@@ -876,13 +728,10 @@ function ChatApp() {
 
           {/* Show recommendations after assistant messages */}
           {msg.role === 'assistant' && recommendations.length > 0 && (
-            <AdMeshConversationalUnit
+            <AdMeshLayout
               recommendations={recommendations}
-              config={{
-                displayMode: 'inline',
-                context: 'chat',
-                maxRecommendations: 2
-              }}
+              layout="list"
+              maxItems={2}
             />
           )}
         </div>
@@ -1026,7 +875,7 @@ Every component automatically tracks:
 ### Global Tracking Configuration
 
 ```tsx
-import { setAdMeshTrackerConfig } from '@admesh/ui-sdk';
+import { setAdMeshTrackerConfig } from 'admesh-ui-sdk';
 
 setAdMeshTrackerConfig({
   apiBaseUrl: 'https://api.useadmesh.com',
@@ -1088,7 +937,7 @@ function CustomComponent() {
 
 ```tsx
 import { AdMesh } from '@admesh/typescript-sdk';
-import { AdMeshProductCard, AdMeshConversationalUnit } from '@admesh/ui-sdk';
+import { AdMeshProductCard, AdMeshLayout } from 'admesh-ui-sdk';
 
 const client = new AdMesh({ apiKey: 'your-api-key' });
 
@@ -1146,13 +995,10 @@ function ChatApp() {
 
           {/* Show recommendations after assistant messages */}
           {msg.role === 'assistant' && recommendations.length > 0 && (
-            <AdMeshConversationalUnit
+            <AdMeshLayout
               recommendations={recommendations}
-              config={{
-                displayMode: 'inline',
-                context: 'chat',
-                maxRecommendations: 3
-              }}
+              layout="list"
+              maxItems={3}
               onRecommendationClick={(adId, link) => window.open(link)}
             />
           )}
@@ -1177,17 +1023,16 @@ function MultiFormatDemo({ recommendations }: { recommendations: AdMeshRecommend
       />
 
       {/* Citation format */}
-      <AdMeshCitationUnit
+      <AdMeshLayout
         recommendations={recommendations}
-        conversationText="Based on your requirements, I recommend these solutions..."
-        citationStyle="numbered"
+        layout="citation"
       />
 
-      {/* Expandable showcase */}
-      {recommendations[0] && (
-        <AdMeshExpandableUnit
-          recommendation={recommendations[0]}
-          showFeatureSections={true}
+      {/* Ecommerce cards */}
+      {recommendations.length > 0 && (
+        <AdMeshEcommerceCards
+          recommendations={recommendations}
+          showPricing={true}
         />
       )}
     </div>
@@ -1380,9 +1225,9 @@ All AdMesh components are built with mobile-first responsive design:
 
 ```tsx
 // Accessibility is built-in, no additional configuration needed
-<AdMeshConversationalUnit
+<AdMeshLayout
   recommendations={recommendations}
-  config={{ displayMode: 'inline' }}
+  layout="list"
   // Automatically includes:
   // - aria-labels for recommendations
   // - keyboard navigation
@@ -1484,10 +1329,10 @@ const recommendations = [{
 // ✅ Use React.memo for static recommendations
 const MemoizedAdMeshProductCard = React.memo(AdMeshProductCard);
 
-// ✅ Lazy load heavy components
-const AdMeshExpandableUnit = React.lazy(() =>
+// ✅ Lazy load components
+const AdMeshEcommerceCards = React.lazy(() =>
   import('admesh-ui-sdk').then(module => ({
-    default: module.AdMeshExpandableUnit
+    default: module.AdMeshEcommerceCards
   }))
 );
 ```

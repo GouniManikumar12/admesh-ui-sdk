@@ -59,8 +59,7 @@ function App() {
 
 ```jsx
 // pages/recommendations.js
-import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+import { AdMeshLayout } from 'admesh-ui-sdk';
 
 export default function RecommendationsPage({ recommendations }) {
   const handleProductClick = (adId, admeshLink) => {
@@ -104,8 +103,7 @@ export async function getServerSideProps() {
 ```jsx
 // src/App.jsx
 import { useState, useEffect } from 'react';
-import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+import { AdMeshLayout } from 'admesh-ui-sdk';
 
 function App() {
   const [recommendations, setRecommendations] = useState([]);
@@ -163,8 +161,7 @@ export default App;
 <script>
 import { createRoot } from 'react-dom/client';
 import { createElement } from 'react';
-import { AdMeshLayout } from '@admesh/ui-sdk';
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+import { AdMeshLayout } from 'admesh-ui-sdk';
 
 export default {
   name: 'RecommendationsWidget',
@@ -308,7 +305,7 @@ const handleProductClick = (adId, admeshLink) => {
 > **Important**: Individual components no longer show disclosures. Use AdMeshLayout for platform integration to ensure FTC compliance.
 
 ```jsx
-import { AdMeshProductCard, AdMeshCompareTable } from '@admesh/ui-sdk';
+import { AdMeshProductCard, AdMeshEcommerceCards } from 'admesh-ui-sdk';
 
 // Use individual cards (no disclosures - for internal use only)
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -340,7 +337,7 @@ import { AdMeshProductCard, AdMeshCompareTable } from '@admesh/ui-sdk';
 Make sure to import the CSS file:
 
 ```jsx
-import '@admesh/ui-sdk/dist/ui-sdk.css';
+// Styles are automatically injected - no CSS import needed
 ```
 
 ### TypeScript Errors
@@ -356,7 +353,7 @@ npm install --save-dev @types/react @types/react-dom
 Use tree shaking to import only what you need:
 
 ```jsx
-import { AdMeshLayout } from '@admesh/ui-sdk/dist/components/AdMeshLayout';
+import { AdMeshLayout } from 'admesh-ui-sdk';
 ```
 
 ## 📱 Responsive Design
