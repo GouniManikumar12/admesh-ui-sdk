@@ -3,12 +3,7 @@ import type { AdMeshLayoutProps, AdMeshRecommendation } from '../types/index';
 import { AdMeshSummaryLayout } from './AdMeshSummaryLayout';
 
 export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
-  // Legacy props (for backward compatibility)
-  recommendations = [],
-  citationSummary,
-  layout,
-
-  // New response object (preferred)
+  // Backend response object (required)
   response,
 
   // Styling
@@ -20,43 +15,27 @@ export const AdMeshLayout: React.FC<AdMeshLayoutProps> = ({
   onRecommendationClick,
   onLinkClick
 }) => {
-  // Convert legacy callback to new format
-  const handleRecommendationClick = onRecommendationClick ?
-    (rec: AdMeshRecommendation) => onRecommendationClick(
-      rec.meta?.ad_id || rec.ad_id || '',
-      rec.admesh_link || ''
-    ) :
-    undefined;
-
-  // If response object is provided, use the new AdMeshSummaryLayout
-  if (response) {
+  // Validate that response is provided
+  if (!response) {
+    console.error('[AdMeshLayout] response prop is required');
     return (
-      <AdMeshSummaryLayout
-        response={response}
-        theme={theme}
-        className={className}
-        style={style}
-        onRecommendationClick={handleRecommendationClick}
-        onLinkClick={onLinkClick}
-      />
+      <div className={`admesh-layout-error ${className}`} style={style}>
+        <div className="text-center py-6 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
+            No response data provided
+          </p>
+        </div>
+      </div>
     );
   }
 
-  // Legacy support: convert old props to response format
-  const legacyResponse = {
-    layout_type: layout || 'citation',
-    citation_summary: citationSummary,
-    recommendations: recommendations,
-    requires_summary: !!citationSummary
-  };
-
   return (
     <AdMeshSummaryLayout
-      response={legacyResponse}
+      response={response}
       theme={theme}
       className={className}
       style={style}
-      onRecommendationClick={handleRecommendationClick}
+      onRecommendationClick={onRecommendationClick}
       onLinkClick={onLinkClick}
     />
   );

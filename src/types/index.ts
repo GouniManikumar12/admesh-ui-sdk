@@ -280,11 +280,9 @@ export interface TrackingData {
 export interface AdMeshProductCardProps {
   recommendation: AdMeshRecommendation;
   theme?: AdMeshTheme;
-  showMatchScore?: boolean; // Deprecated - Match Score removed from UI
   showBadges?: boolean;
   showFeatures?: boolean; // Control whether to display key features section (default: false for clean minimal design)
   variation?: 'default' | 'simple';
-  expandable?: boolean; // Deprecated - moved to AdMeshInlineCard
   onTrackView?: (data: TrackingData) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -387,21 +385,13 @@ export type AdMeshLayoutType =
   | 'ecommerce';     // Ecommerce cards layout
 
 export interface AdMeshLayoutProps {
-  // New: Backend response object (preferred)
-  response?: {
+  // Backend response object (required)
+  response: {
     layout_type?: string; // "citation", "product_cards", "ecommerce"
     citation_summary?: string; // LLM-generated summary with embedded links
     recommendations?: AdMeshRecommendation[];
     requires_summary?: boolean;
   };
-
-  // Legacy content props (for backward compatibility)
-  recommendations?: AdMeshRecommendation[];
-  conversationTextLinks?: Map<string, string> | Record<string, string>; // Company name -> link mapping (deprecated)
-  citationSummary?: string; // Deprecated: use response.citation_summary instead
-
-  // Legacy layout (optional - use response.layout_type instead)
-  layout?: AdMeshLayoutType; // Backend specifies which layout to use
 
   // Backend-controlled styling configuration
   layoutConfig?: {
@@ -432,25 +422,14 @@ export interface AdMeshLayoutProps {
   showTitle?: boolean;
   title?: string;
 
-  // Styling (legacy support)
+  // Styling
   theme?: AdMeshTheme;
   className?: string;
   style?: React.CSSProperties;
 
-  // Component-specific props (deprecated - use response object instead)
-  productCardProps?: Partial<AdMeshProductCardProps>;
-  ecommerceCardsProps?: Partial<AdMeshEcommerceCardsProps>;
-
   // Event handlers
-  onRecommendationClick?: (adId: string, admeshLink: string) => void;
-  onProductClick?: (product: EcommerceProduct) => void;
-  onCitationHover?: (recommendation: AdMeshRecommendation) => void; // Deprecated
-  onLinkClick?: (recommendation: AdMeshRecommendation) => void; // New: for summary links
-
-  // Advanced options
-  enableAutoDetection?: boolean;
-  preferredComponents?: ('product' | 'inline' | 'citation' | 'ecommerce')[];
-  fallbackLayout?: AdMeshLayoutType;
+  onRecommendationClick?: (recommendation: AdMeshRecommendation) => void;
+  onLinkClick?: (recommendation: AdMeshRecommendation) => void;
 }
 
 export interface AdMeshLinkTrackerProps {

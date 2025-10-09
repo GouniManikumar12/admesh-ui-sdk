@@ -12,7 +12,6 @@ import {
 export const AdMeshProductCard: React.FC<AdMeshProductCardProps> = ({
   recommendation,
   theme,
-  showMatchScore = false, // Deprecated - Match Score removed from UI
   showBadges = true,
   showFeatures = false, // Default to clean minimal design, can be enabled
   variation = 'default',

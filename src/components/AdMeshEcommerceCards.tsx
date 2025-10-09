@@ -3,13 +3,12 @@ import classNames from 'classnames';
 import type { AdMeshRecommendation, EcommerceProduct } from '../types/index';
 
 export interface AdMeshEcommerceCardsProps {
-  products?: EcommerceProduct[]; // Legacy support
-  recommendations?: AdMeshRecommendation[]; // New: unified schema recommendations
+  recommendations: AdMeshRecommendation[]; // Required: unified schema recommendations
   title?: string;
   showTitle?: boolean;
   className?: string;
   cardClassName?: string;
-  onProductClick?: (product: EcommerceProduct | AdMeshRecommendation) => void;
+  onProductClick?: (product: AdMeshRecommendation) => void;
   showPricing?: boolean;
   showRatings?: boolean;
   showBrand?: boolean;
@@ -23,8 +22,7 @@ export interface AdMeshEcommerceCardsProps {
 }
 
 export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
-  products = [],
-  recommendations = [],
+  recommendations,
   title = "Product Recommendations",
   showTitle = true,
   className = "",
@@ -41,8 +39,18 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
   borderRadius = 'md',
   shadow = 'sm'
 }) => {
-  // Use recommendations directly if provided, otherwise use legacy products
-  const displayItems: (AdMeshRecommendation | EcommerceProduct)[] = recommendations.length > 0 ? recommendations.slice(0, maxCards) : products.slice(0, maxCards);
+  // Validate recommendations
+  if (!recommendations || recommendations.length === 0) {
+    return (
+      <div className="text-center py-6 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+        <p className="text-gray-600 dark:text-gray-400 text-sm">
+          No recommendations available
+        </p>
+      </div>
+    );
+  }
+
+  const displayItems: AdMeshRecommendation[] = recommendations.slice(0, maxCards);
 
 
 
