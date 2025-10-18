@@ -39,15 +39,10 @@ export const AdMeshEcommerceCards: React.FC<AdMeshEcommerceCardsProps> = ({
   borderRadius = 'md',
   shadow = 'sm'
 }) => {
-  // Validate recommendations
+  // Validate recommendations - silently return null if empty
   if (!recommendations || recommendations.length === 0) {
-    return (
-      <div className="text-center py-6 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <p className="text-gray-600 dark:text-gray-400 text-sm">
-          No recommendations available
-        </p>
-      </div>
-    );
+    console.log('[AdMesh Ecommerce Cards] Empty recommendations - not rendering anything');
+    return null;
   }
 
   const displayItems: AdMeshRecommendation[] = recommendations.slice(0, maxCards);

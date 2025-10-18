@@ -12,6 +12,8 @@ export {
   AdMeshBadge
 } from './components';
 
+export { AdMeshViewabilityTracker } from './components/AdMeshViewabilityTracker';
+
 // Export hooks
 export {
   useAdMeshTracker,
@@ -23,6 +25,11 @@ export {
 export {
   useAdMeshStyles
 } from './hooks/useAdMeshStyles';
+
+export {
+  useViewabilityTracker,
+  setViewabilityTrackerConfig
+} from './hooks/useViewabilityTracker';
 
 // Export theme utilities
 export {
@@ -72,6 +79,22 @@ export type {
   AgentRecommendationResponse,
   AdMeshConfig
 } from './types/index';
+
+// Export analytics types
+export type {
+  MRCViewabilityStandards,
+  ViewabilityEventType,
+  DeviceType,
+  ViewabilityTimeMetrics,
+  ViewabilityEngagementMetrics,
+  ViewabilityContextMetrics,
+  ViewabilityAnalyticsEvent,
+  ViewabilityAnalyticsBatch,
+  ViewabilityTrackerConfig,
+  ViewabilityTrackerState,
+  ViewabilityAnalyticsResponse,
+  ViewabilityAggregatedMetrics
+} from './types/analytics';
 
 // Version info
 export const VERSION = '0.2.1';

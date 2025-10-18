@@ -26,29 +26,33 @@ export interface AdMeshSummaryLayoutProps {
 // Validate response object
 const validateResponse = (response: any) => {
   const warnings: string[] = [];
-  
+
   if (!response) {
-    return { isValid: false, warnings: ['No response object provided'] };
+    return { isValid: false, isEmpty: true, warnings: ['No response object provided'] };
   }
-  
+
   if (!response.recommendations || !Array.isArray(response.recommendations)) {
     warnings.push('No recommendations array found in response');
   }
-  
+
   if (response.layout_type === 'citation' && !response.citation_summary) {
     warnings.push('Citation layout specified but no citation_summary provided');
   }
-  
-  const validRecommendations = response.recommendations?.filter((rec: any) => 
+
+  const validRecommendations = response.recommendations?.filter((rec: any) =>
     rec && rec.admesh_link && (rec.title || rec.recommendation_title)
   ) || [];
-  
-  if (validRecommendations.length === 0) {
+
+  // Check if this is an intentionally empty response (e.g., geo-restricted)
+  const isEmpty = response.recommendations?.length === 0;
+
+  if (validRecommendations.length === 0 && !isEmpty) {
     warnings.push('No valid recommendations found (missing admesh_link or title)');
   }
-  
+
   return {
     isValid: validRecommendations.length > 0,
+    isEmpty: isEmpty,
     validCount: validRecommendations.length,
     totalCount: response.recommendations?.length || 0,
     warnings
@@ -65,25 +69,21 @@ export const AdMeshSummaryLayout: React.FC<AdMeshSummaryLayoutProps> = ({
 }) => {
   // Validate response
   const validation = validateResponse(response);
-  
+
   if (validation.warnings.length > 0) {
     console.warn('[AdMesh Summary Layout] Validation warnings:', validation.warnings);
   }
-  
+
+  // If recommendations array is empty (e.g., geo-restricted), silently return null
+  if (validation.isEmpty) {
+    console.log('[AdMesh Summary Layout] Empty recommendations array - not rendering anything');
+    return null;
+  }
+
   if (!validation.isValid) {
     console.error('[AdMesh Summary Layout] Invalid response object');
-    return (
-      <div className={`admesh-summary-layout-error ${className}`} style={style}>
-        <div className="text-center py-6 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Unable to display recommendations
-          </p>
-          <p className="text-gray-500 dark:text-gray-500 text-xs mt-1">
-            Check console for details
-          </p>
-        </div>
-      </div>
-    );
+    // Silently return null instead of showing error message
+    return null;
   }
   
   // Extract data from response
